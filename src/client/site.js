@@ -35,7 +35,7 @@ function updateHeader() {
   const delta = y - lastY;
 
   header.classList.toggle('is-fixed', stuck);
-  if (!stuck || isMenuOpen() || header.matches(':focus-within')) {
+  if (!desktopBreakpoint.matches || !stuck || isMenuOpen() || header.matches(':focus-within')) {
     header.classList.remove('is-hidden');
   } else if (Math.abs(delta) > 4) {
     if (delta > 0 && y > stickyPoint + 70) header.classList.add('is-hidden');
