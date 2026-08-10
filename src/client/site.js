@@ -60,7 +60,7 @@ function menuFocusableElements() {
 function setMenu(open, restoreFocus = false) {
   if (!menuToggle || !mobileMenu) return;
   if (open === isMenuOpen()) return;
-  const backgroundRegions = document.querySelectorAll('.skip-link,.hero,.post-hero,.page-main,.site-header,.footer');
+  const backgroundRegions = document.querySelectorAll('.skip-link,.hero,.post-hero,.page-main,.footer');
   if (open) {
     menuScrollY = window.scrollY;
     document.body.style.top = `-${menuScrollY}px`;
@@ -85,6 +85,12 @@ function setMenu(open, restoreFocus = false) {
     document.body.style.top = '';
     window.scrollTo({ top: scrollY, left: 0, behavior: 'instant' });
     lastY = scrollY;
+    header?.classList.add('is-menu-closing');
+    header?.getBoundingClientRect();
+    requestAnimationFrame(() => {
+      updateHeader();
+      header?.classList.remove('is-menu-closing');
+    });
     if (restoreFocus) menuToggle.focus({ preventScroll: true });
   }
 }

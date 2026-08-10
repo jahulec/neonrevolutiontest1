@@ -127,6 +127,8 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 14px)}
   isolation:isolate;transition:transform .3s cubic-bezier(.2,.75,.2,1),background .24s ease,box-shadow .24s ease;
 }
 .site-header.is-fixed{background:#03040a!important;box-shadow:0 10px 28px rgba(0,0,0,.18)}
+.site-header.is-menu-closing{background:linear-gradient(180deg,#0c0d13,#020308)!important}
+.site-header.is-fixed.is-menu-closing{background:#03040a!important}
 .site-header.is-hidden{transform:translateY(calc(-1 * var(--header-h)))}
 .site-header:focus-within{transform:none}
 .nav{height:100%;display:grid;grid-template-columns:175px 1fr;gap:28px;align-items:center}
