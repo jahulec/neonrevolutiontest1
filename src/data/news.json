@@ -1,0 +1,76 @@
+[
+  {
+    "id": "blue-velvet-eyes",
+    "slug": "blue-velvet-eyes",
+    "status": "demo",
+    "relatedRoute": "music",
+    "date": "2026-07-18",
+    "displayDate": "18.07.2026",
+    "image": "/assets/blue-velvet-eyes.webp",
+    "pl": {
+      "title": "Blue Velvet Eyes",
+      "summary": "Nowy sygnał od Neon Revolution — Blue Velvet Eyes.",
+      "body": [
+        "Blue Velvet Eyes łączy gitarową energię Neon Revolution z błyskiem syntezatorów i nocnym pulsem lat 80.",
+        "Posłuchaj utworu i obserwuj profile zespołu, aby nie przegapić kolejnych premier."
+      ]
+    },
+    "en": {
+      "title": "Blue Velvet Eyes",
+      "summary": "A new signal from Neon Revolution — Blue Velvet Eyes.",
+      "body": [
+        "Blue Velvet Eyes combines Neon Revolution's guitar energy with sparkling synths and an after-dark 80s pulse.",
+        "Listen to the track and follow the band to catch the next releases."
+      ]
+    }
+  },
+  {
+    "id": "jesienna-trasa",
+    "slug": "jesienna-trasa",
+    "status": "demo",
+    "relatedRoute": "live",
+    "date": "2026-07-04",
+    "displayDate": "04.07.2026",
+    "image": "/assets/hero-band.webp",
+    "pl": {
+      "title": "Jesienne koncerty",
+      "summary": "Neon Revolution szykuje się na trzy jesienne spotkania z publicznością.",
+      "body": [
+        "Warszawa, Poznań i Kraków znalazły się na przykładowej jesiennej trasie Neon Revolution.",
+        "Szczegóły koncertów i przyszłe linki do biletów znajdziesz na stronie Koncerty."
+      ]
+    },
+    "en": {
+      "title": "Autumn live dates",
+      "summary": "Neon Revolution is preparing for three autumn shows.",
+      "body": [
+        "Warsaw, Poznań and Kraków are included in Neon Revolution's demonstration autumn schedule.",
+        "Show details and future ticket links are available on the Live page."
+      ]
+    }
+  },
+  {
+    "id": "sygnal-z-proby",
+    "slug": "sygnal-z-proby",
+    "status": "demo",
+    "date": "2026-06-12",
+    "displayDate": "12.06.2026",
+    "image": "/assets/nr1.webp",
+    "pl": {
+      "title": "Sygnał z próby",
+      "summary": "Gitary, beat i syntezatory — przygotowania trwają.",
+      "body": [
+        "Neon Revolution pracuje nad koncertowym brzmieniem i kolejnymi materiałami.",
+        "Więcej sygnałów ze świata zespołu pojawi się tutaj już wkrótce."
+      ]
+    },
+    "en": {
+      "title": "Signal from rehearsal",
+      "summary": "Guitars, beats and synths — preparations are underway.",
+      "body": [
+        "Neon Revolution is working on its live sound and upcoming material.",
+        "More signals from the band's world will appear here soon."
+      ]
+    }
+  }
+]

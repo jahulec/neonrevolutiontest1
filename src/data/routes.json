@@ -1,0 +1,10 @@
+[
+  { "id": "home", "enabled": true, "nav": false, "pl": "/", "en": "/en/" },
+  { "id": "music", "enabled": true, "nav": true, "pl": "/muzyka/", "en": "/en/music/" },
+  { "id": "video", "enabled": true, "nav": false, "pl": "/wideo/", "en": "/en/video/" },
+  { "id": "live", "enabled": true, "nav": true, "pl": "/koncerty/", "en": "/en/live/" },
+  { "id": "news", "enabled": true, "nav": true, "pl": "/aktualnosci/", "en": "/en/news/" },
+  { "id": "press", "enabled": true, "nav": true, "pl": "/press/", "en": "/en/press/" },
+  { "id": "contact", "enabled": true, "nav": true, "pl": "/kontakt/", "en": "/en/contact/" },
+  { "id": "privacy", "enabled": true, "nav": false, "pl": "/prywatnosc/", "en": "/en/privacy/" }
+]

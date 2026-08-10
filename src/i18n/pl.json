@@ -1,0 +1,148 @@
+{
+  "code": "pl",
+  "ogLocale": "pl_PL",
+  "skip": "Przejdź do treści",
+  "homeLabel": "Neon Revolution — strona główna",
+  "navLabel": "Główna nawigacja",
+  "mobileNavLabel": "Menu mobilne",
+  "menu": "Menu",
+  "close": "Zamknij",
+  "kicker": "SYGNAŁ Z PRZYSZŁOŚCI // GITARY // BEAT // SYNTH",
+  "listen": "Posłuchaj",
+  "read": "Czytaj",
+  "view": "Zobacz",
+  "tickets": "Bilety",
+  "unavailable": "Wkrótce",
+  "newDatesSoon": "Nowe daty wkrótce",
+  "upcomingShows": "Nadchodzące koncerty",
+  "pastShows": "Poprzednie koncerty",
+  "newsSoon": "Pierwsze aktualności pojawią się wkrótce.",
+  "backToNews": "Wróć do aktualności",
+  "goToMusic": "Przejdź do muzyki",
+  "goToShows": "Zobacz koncerty",
+  "contactSoon": "W sprawie koncertów, mediów i współpracy skontaktuj się bezpośrednio z zespołem.",
+  "pressMaterials": "Materiały prasowe",
+  "contact": "Kontakt",
+  "about": "O nas",
+  "allMusic": "Cała muzyka",
+  "allVideos": "Wszystkie wideo",
+  "allShows": "Wszystkie koncerty",
+  "officialBio": "Oficjalne bio",
+  "noMaterials": "Materiał zostanie udostępniony wkrótce",
+  "socialLabel": "Media społecznościowe",
+  "showSocial": "Pokaż media społecznościowe",
+  "demoContentLabel": "Dane demonstracyjne",
+  "demoNotice": "Skład, osiągnięcia i pliki są przykładowe i wymagają podmiany przed publikacją.",
+  "download": "Pobierz",
+  "copyEmail": "Napisz e-mail",
+  "call": "Zadzwoń",
+  "openMessenger": "Napisz na Messengerze",
+  "privacy": "Prywatność",
+  "privacySettings": "Ustawienia prywatności",
+  "bio": "Neon Revolution - świeży zespół, łączący atmosferę lat 80 z chwytliwymi gitarami, rytmami do tańca i błyskliwymi syntezatorami. Doprawdy to coś czego jeszcze nie słyszałeś! Nadal nie przekonany? Posłuchaj i dołącz do Neon Revolution!",
+  "nav": {
+    "music": "Muzyka",
+    "video": "Wideo",
+    "live": "Koncerty",
+    "news": "Aktualności",
+    "press": "Press",
+    "contact": "Kontakt"
+  },
+  "pages": {
+    "home": {
+      "title": "Neon Revolution",
+      "description": "Neon Revolution — świeży zespół łączący atmosferę lat 80 z chwytliwymi gitarami, rytmami do tańca i błyskliwymi syntezatorami."
+    },
+    "music": {
+      "title": "Neon Revolution — Muzyka",
+      "heading": "Muzyka",
+      "description": "Muzyka i wydawnictwa zespołu Neon Revolution."
+    },
+    "video": {
+      "title": "Neon Revolution — Wideo",
+      "heading": "Wideo",
+      "description": "Teledyski i materiały wideo zespołu Neon Revolution."
+    },
+    "live": {
+      "title": "Neon Revolution — Koncerty",
+      "heading": "Koncerty",
+      "description": "Nadchodzące koncerty zespołu Neon Revolution."
+    },
+    "press": {
+      "title": "Neon Revolution — Press",
+      "heading": "Press",
+      "description": "Oficjalne bio i materiały prasowe zespołu Neon Revolution."
+    },
+    "news": {
+      "title": "Neon Revolution — Aktualności",
+      "heading": "Aktualności",
+      "description": "Najnowsze informacje od zespołu Neon Revolution."
+    },
+    "contact": {
+      "title": "Neon Revolution — Kontakt",
+      "heading": "Kontakt",
+      "description": "Kontakt z zespołem Neon Revolution."
+    },
+    "privacy": {
+      "title": "Neon Revolution — Prywatność",
+      "heading": "Prywatność",
+      "description": "Informacje o prywatności, plikach cookies i analityce na stronie Neon Revolution."
+    },
+    "notFound": {
+      "title": "Neon Revolution — 404",
+      "heading": "404",
+      "message": "Nie znaleziono strony",
+      "back": "Wróć do strony głównej",
+      "description": "Nie znaleziono strony."
+    }
+  },
+  "press": {
+    "bio": "Bio",
+    "members": "Skład",
+    "achievements": "Osiągnięcia",
+    "photos": "Zdjęcia i grafiki",
+    "logos": "Logotypy",
+    "rider": "Rider",
+    "pressKit": "Press kit",
+    "pressPack": "Press pack",
+    "downloads": "Pliki do pobrania",
+    "photoCredit": "Informacje o materiale",
+    "booking": "Booking",
+    "media": "Media",
+    "management": "Management"
+  },
+  "contactDetails": {
+    "email": "E-mail",
+    "phone": "Telefon",
+    "messenger": "Messenger",
+    "socials": "Profile zespołu"
+  },
+  "consent": {
+    "title": "Twoja prywatność",
+    "description": "Opcjonalna analityka pomaga ocenić działanie strony. Jest uruchamiana dopiero po Twojej zgodzie.",
+    "inactive": "W wersji demonstracyjnej opcjonalna analityka jest wyłączona.",
+    "necessary": "Niezbędne",
+    "necessaryDescription": "Zapamiętują wyłącznie ustawienia prywatności i są zawsze aktywne.",
+    "analytics": "Analityka",
+    "analyticsDescription": "Anonimowe pomiary odwiedzin i wydajności strony.",
+    "accept": "Akceptuję analitykę",
+    "reject": "Tylko niezbędne",
+    "save": "Zapisz wybór"
+  },
+  "privacyPage": {
+    "demo": "Dokument demonstracyjny — dane administratora i dostawców trzeba potwierdzić przed publikacją.",
+    "controllerTitle": "Administrator danych",
+    "controllerText": "Administratorem danych jest {controller}. Kontakt w sprawach prywatności: {email}.",
+    "scopeTitle": "Jakie dane przetwarzamy",
+    "scopeText": "Serwer może przetwarzać techniczne dane połączenia potrzebne do bezpiecznego wyświetlenia strony. Jeśli napiszesz e-mail lub wiadomość, przetwarzane będą podane przez Ciebie dane kontaktowe i treść korespondencji.",
+    "purposeTitle": "Cele i okres przechowywania",
+    "purposeText": "Dane techniczne służą bezpieczeństwu i utrzymaniu strony, a dane z korespondencji — udzieleniu odpowiedzi i prowadzeniu dalszego kontaktu. Dane powinny być przechowywane tylko tak długo, jak jest to potrzebne do tych celów lub wymagane przepisami.",
+    "analyticsTitle": "Analityka i pliki cookies",
+    "analyticsText": "Opcjonalna analityka pozostaje wyłączona bez zgody. Strona zapisuje lokalnie jedynie wybór ustawień prywatności. Osadzone odtwarzacze nie są ładowane — linki do serwisów muzycznych prowadzą na zewnętrzne strony.",
+    "recipientsTitle": "Odbiorcy i dostawcy",
+    "recipientsText": "Dane techniczne mogą być obsługiwane przez dostawcę hostingu i zabezpieczeń, a korespondencja przez dostawcę poczty lub komunikatora. Finalna lista dostawców zostanie uzupełniona po konfiguracji domeny i usług.",
+    "rightsTitle": "Twoje prawa",
+    "rightsText": "Możesz poprosić o dostęp, sprostowanie, usunięcie lub ograniczenie przetwarzania danych, wnieść sprzeciw oraz skargę do Prezesa Urzędu Ochrony Danych Osobowych. Zgodę na opcjonalną analitykę możesz zmienić w dowolnym momencie.",
+    "updated": "Ostatnia aktualizacja: 10 sierpnia 2026"
+  }
+}

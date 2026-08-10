@@ -1,0 +1,68 @@
+{
+  "status": "demo",
+  "members": [
+    { "name": "Alex Neon", "role": { "pl": "wokal", "en": "vocals" } },
+    { "name": "Lena Voltage", "role": { "pl": "syntezatory", "en": "synthesizers" } },
+    { "name": "Maks Riff", "role": { "pl": "gitara", "en": "guitar" } },
+    { "name": "Kuba Pulse", "role": { "pl": "gitara", "en": "guitar" } },
+    { "name": "Oskar Wave", "role": { "pl": "gitara basowa", "en": "bass guitar" } },
+    { "name": "Filip Beat", "role": { "pl": "perkusja", "en": "drums" } }
+  ],
+  "achievements": [
+    {
+      "year": "2026",
+      "title": { "pl": "Premiera singla „Blue Velvet Eyes”", "en": "Release of the single “Blue Velvet Eyes”" },
+      "description": { "pl": "Przykładowa pozycja do zastąpienia potwierdzonym osiągnięciem zespołu.", "en": "Sample entry to be replaced with a verified band achievement." }
+    },
+    {
+      "year": "2026",
+      "title": { "pl": "Pierwsza trasa klubowa", "en": "First club tour" },
+      "description": { "pl": "Przykładowa pozycja prezentująca docelowy układ sekcji.", "en": "Sample entry demonstrating the intended section layout." }
+    },
+    {
+      "year": "2025",
+      "title": { "pl": "Wyróżnienie „Nowe Brzmienie”", "en": "“New Sound” distinction" },
+      "description": { "pl": "Nazwa demonstracyjna — przed publikacją potrzebna jest prawdziwa nazwa i źródło.", "en": "Demonstration name — a real title and source are required before publication." }
+    }
+  ],
+  "media": [
+    {
+      "id": "band-photo",
+      "type": "photo",
+      "title": { "pl": "Zdjęcie zespołu", "en": "Band photo" },
+      "image": "/assets/hero-band.webp",
+      "width": 2048,
+      "height": 1365,
+      "download": "/assets/hero-band.webp",
+      "meta": "WEBP · 2048 × 1365",
+      "credit": { "pl": "Autor zdjęcia: do uzupełnienia", "en": "Photo credit: to be confirmed" }
+    },
+    {
+      "id": "blue-velvet-eyes-artwork",
+      "type": "artwork",
+      "title": { "pl": "Blue Velvet Eyes — grafika", "en": "Blue Velvet Eyes — artwork" },
+      "image": "/assets/blue-velvet-eyes.webp",
+      "width": 1600,
+      "height": 1600,
+      "download": "/assets/blue-velvet-eyes.webp",
+      "meta": "WEBP · 1600 × 1600",
+      "credit": { "pl": "Materiały promocyjne — wersja demonstracyjna", "en": "Promotional material — demonstration version" }
+    },
+    {
+      "id": "logo",
+      "type": "logo",
+      "title": { "pl": "Logo Neon Revolution", "en": "Neon Revolution logo" },
+      "image": "/assets/logo-neon.webp",
+      "width": 1200,
+      "height": 412,
+      "download": "/assets/logo-neon.webp",
+      "meta": "WEBP · 1200 × 412",
+      "credit": { "pl": "Oficjalny znak — plik podglądowy", "en": "Official mark — preview file" }
+    }
+  ],
+  "downloads": [
+    { "id": "pressKit", "url": "/downloads/neon-revolution-demo-press-kit.pdf", "format": "PDF", "status": "demo" },
+    { "id": "pressPack", "url": "/downloads/neon-revolution-demo-press-pack.zip", "format": "ZIP", "status": "demo" },
+    { "id": "rider", "url": "/downloads/neon-revolution-demo-rider-techniczny.pdf", "format": "PDF", "status": "demo" }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "brand": "Neon Revolution",
+  "siteUrl": null,
+  "themeColor": "#050611",
+  "ogImage": "/og.png",
+  "profiles": {
+    "instagram": "https://www.instagram.com/neon_revolution_band/",
+    "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
+    "youtube": "https://www.youtube.com/@N3ONR3VOLUTION",
+    "facebook": "https://www.facebook.com/NeonRevolutionBand/"
+  },
+  "contact": {
+    "status": "real",
+    "email": "neon.revolution2022@gmail.com",
+    "phone": "+48 518 437 008",
+    "phoneHref": "+48518437008",
+    "messenger": "https://m.me/NeonRevolutionBand"
+  },
+  "legal": {
+    "status": "demo",
+    "controller": "Neon Revolution — dane przykładowe",
+    "privacyEmail": "neon.revolution2022@gmail.com"
+  },
+  "analytics": {
+    "provider": "cloudflare",
+    "token": null,
+    "consentRequired": true
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "code": "en",
+  "ogLocale": "en_US",
+  "skip": "Skip to content",
+  "homeLabel": "Neon Revolution — home",
+  "navLabel": "Main navigation",
+  "mobileNavLabel": "Mobile navigation",
+  "menu": "Menu",
+  "close": "Close",
+  "kicker": "SIGNAL FROM THE FUTURE // GUITARS // BEATS // SYNTH",
+  "listen": "Listen",
+  "read": "Read",
+  "view": "View",
+  "tickets": "Tickets",
+  "unavailable": "Coming soon",
+  "newDatesSoon": "New dates coming soon",
+  "upcomingShows": "Upcoming live dates",
+  "pastShows": "Previous live dates",
+  "newsSoon": "The first news updates will appear soon.",
+  "backToNews": "Back to news",
+  "goToMusic": "Go to music",
+  "goToShows": "View live dates",
+  "contactSoon": "For live bookings, media and collaboration, contact the band directly.",
+  "pressMaterials": "Press materials",
+  "contact": "Contact",
+  "about": "About",
+  "allMusic": "All music",
+  "allVideos": "All videos",
+  "allShows": "All live dates",
+  "officialBio": "Official biography",
+  "noMaterials": "This material will be available soon",
+  "socialLabel": "Social media",
+  "showSocial": "Show social media",
+  "demoContentLabel": "Demonstration data",
+  "demoNotice": "The line-up, achievements and files are examples and must be replaced before publication.",
+  "download": "Download",
+  "copyEmail": "Send an email",
+  "call": "Call",
+  "openMessenger": "Open Messenger",
+  "privacy": "Privacy",
+  "privacySettings": "Privacy settings",
+  "bio": "Neon Revolution - a fresh band combining the atmosphere of the 80s with catchy guitars, danceable rhythms and sparkling synthesizers. Truly something you haven't heard before! Still not convinced? Listen and join Neon Revolution!",
+  "nav": {
+    "music": "Music",
+    "video": "Video",
+    "live": "Live",
+    "news": "News",
+    "press": "Press",
+    "contact": "Contact"
+  },
+  "pages": {
+    "home": {
+      "title": "Neon Revolution",
+      "description": "Neon Revolution — a fresh band combining an 80s atmosphere with catchy guitars, danceable rhythms and sparkling synthesizers."
+    },
+    "music": {
+      "title": "Neon Revolution — Music",
+      "heading": "Music",
+      "description": "Music and releases by Neon Revolution."
+    },
+    "video": {
+      "title": "Neon Revolution — Video",
+      "heading": "Video",
+      "description": "Music videos and video releases by Neon Revolution."
+    },
+    "live": {
+      "title": "Neon Revolution — Live",
+      "heading": "Live",
+      "description": "Upcoming Neon Revolution live dates."
+    },
+    "press": {
+      "title": "Neon Revolution — Press",
+      "heading": "Press",
+      "description": "Official Neon Revolution biography and press materials."
+    },
+    "news": {
+      "title": "Neon Revolution — News",
+      "heading": "News",
+      "description": "The latest news from Neon Revolution."
+    },
+    "contact": {
+      "title": "Neon Revolution — Contact",
+      "heading": "Contact",
+      "description": "Contact Neon Revolution."
+    },
+    "privacy": {
+      "title": "Neon Revolution — Privacy",
+      "heading": "Privacy",
+      "description": "Privacy, cookie and analytics information for the Neon Revolution website."
+    },
+    "notFound": {
+      "title": "Neon Revolution — 404",
+      "heading": "404",
+      "message": "Page not found",
+      "back": "Return home",
+      "description": "Page not found."
+    }
+  },
+  "press": {
+    "bio": "Bio",
+    "members": "Line-up",
+    "achievements": "Achievements",
+    "photos": "Photos and artwork",
+    "logos": "Logos",
+    "rider": "Rider",
+    "pressKit": "Press kit",
+    "pressPack": "Press pack",
+    "downloads": "Downloads",
+    "photoCredit": "Asset information",
+    "booking": "Booking",
+    "media": "Media",
+    "management": "Management"
+  },
+  "contactDetails": {
+    "email": "Email",
+    "phone": "Phone",
+    "messenger": "Messenger",
+    "socials": "Band profiles"
+  },
+  "consent": {
+    "title": "Your privacy",
+    "description": "Optional analytics helps us assess how the website performs. It starts only after you consent.",
+    "inactive": "Optional analytics is disabled in this demonstration version.",
+    "necessary": "Necessary",
+    "necessaryDescription": "Stores only your privacy choice and is always active.",
+    "analytics": "Analytics",
+    "analyticsDescription": "Anonymous website traffic and performance measurements.",
+    "accept": "Accept analytics",
+    "reject": "Necessary only",
+    "save": "Save choice"
+  },
+  "privacyPage": {
+    "demo": "Demonstration document — controller and service-provider details must be confirmed before publication.",
+    "controllerTitle": "Data controller",
+    "controllerText": "The data controller is {controller}. Privacy enquiries: {email}.",
+    "scopeTitle": "Data we process",
+    "scopeText": "The server may process technical connection data required to display the website securely. If you send an email or message, we process the contact information and correspondence you provide.",
+    "purposeTitle": "Purposes and retention",
+    "purposeText": "Technical data is used for website security and maintenance, while correspondence data is used to answer and continue the enquiry. Data should be kept only for as long as necessary for these purposes or required by law.",
+    "analyticsTitle": "Analytics and cookies",
+    "analyticsText": "Optional analytics remains disabled without consent. The website stores only your privacy choice locally. Embedded media players are not loaded — links to music services lead to external websites.",
+    "recipientsTitle": "Recipients and providers",
+    "recipientsText": "Technical data may be handled by hosting and security providers, while correspondence may be handled by email or messaging providers. The final provider list will be completed after domain and service configuration.",
+    "rightsTitle": "Your rights",
+    "rightsText": "You may request access, rectification, erasure or restriction of your data, object to processing and lodge a complaint with the competent supervisory authority. You can change optional analytics consent at any time.",
+    "updated": "Last updated: 10 August 2026"
+  }
+}
