@@ -167,11 +167,6 @@ if (heroBg && finePointer.matches && !reducedMotion.matches) {
 
 function configureBackgroundParallax() {
   if (!slowBgCanvas) return;
-  if (!desktopBreakpoint.matches) {
-    slowBgCanvas.style.removeProperty('transform');
-    document.documentElement.style.removeProperty('--bg-scroll-distance');
-    return;
-  }
   const scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
   const desiredTravel = scrollRange * 0.28;
   const safeTravel = Math.max(120, slowBgCanvas.offsetHeight - window.innerHeight - 220);
@@ -181,11 +176,6 @@ function configureBackgroundParallax() {
 if (slowBgCanvas && !CSS.supports('animation-timeline: scroll()') && !reducedMotion.matches) {
   let fallbackTicking = false;
   function directFallbackParallax() {
-    if (!desktopBreakpoint.matches) {
-      slowBgCanvas.style.removeProperty('transform');
-      fallbackTicking = false;
-      return;
-    }
     const scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const progress = Math.min(1, Math.max(0, window.scrollY / scrollRange));
     const maxTravel = Math.abs(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bg-scroll-distance')) || 0);
