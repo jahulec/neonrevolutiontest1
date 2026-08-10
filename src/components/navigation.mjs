@@ -34,7 +34,7 @@ export function renderHeader(context) {
   const homeHref = homepage ? '#top' : routeById(routes, 'home')[lang];
   const navItems = navigationItems(context);
 
-  return `<header class="site-header${homepage ? '' : ' site-header--interior'}">
+  return `<header class="site-header${homepage ? '' : ' site-header--interior'}" style="background:#03040a!important">
     <div class="wide nav">
       <a class="brand" href="${escapeHtml(homeHref)}" aria-label="${escapeHtml(locale.homeLabel)}">
         <img src="/assets/logo-neon.webp" width="1200" height="412" alt="" decoding="async">

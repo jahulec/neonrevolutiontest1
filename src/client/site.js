@@ -85,12 +85,7 @@ function setMenu(open, restoreFocus = false) {
     document.body.style.top = '';
     window.scrollTo({ top: scrollY, left: 0, behavior: 'instant' });
     lastY = scrollY;
-    header?.classList.add('is-menu-closing');
-    header?.getBoundingClientRect();
-    requestAnimationFrame(() => {
-      updateHeader();
-      header?.classList.remove('is-menu-closing');
-    });
+    requestHeaderUpdate();
     if (restoreFocus) menuToggle.focus({ preventScroll: true });
   }
 }
