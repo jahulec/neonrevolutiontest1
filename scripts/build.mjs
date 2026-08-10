@@ -1,4 +1,5 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderDocument } from '../src/layouts/document.mjs';
@@ -33,11 +34,13 @@ if (dist !== expectedDist || path.dirname(dist) !== root || path.basename(dist) 
 }
 
 const readJson = async (relativePath) => JSON.parse(await readFile(path.join(root, relativePath), 'utf8'));
-const [site, routes, shows, releases, videos, news, press, pl, en] = await Promise.all([
+const [site, routes, shows, releases, videos, news, press, pl, en, stylesheetSource, clientSource] = await Promise.all([
   readJson('src/data/site.json'), readJson('src/data/routes.json'), readJson('src/data/shows.json'),
   readJson('src/data/releases.json'), readJson('src/data/videos.json'), readJson('src/data/news.json'), readJson('src/data/press.json'),
-  readJson('src/i18n/pl.json'), readJson('src/i18n/en.json')
+  readJson('src/i18n/pl.json'), readJson('src/i18n/en.json'),
+  readFile(path.join(root, 'src/styles/site.css')), readFile(path.join(root, 'src/client/site.js'))
 ]);
+const assetVersion = createHash('sha256').update(stylesheetSource).update(clientSource).digest('hex').slice(0, 12);
 const locales = { pl, en };
 const renderers = { music: renderMusic, video: renderVideo, live: renderLive, news: renderNews, press: renderPress, contact: renderContact, privacy: renderPrivacy };
 
@@ -69,7 +72,7 @@ for (const route of routes.filter((item) => item.enabled)) {
     const homepage = route.id === 'home';
     const pageContext = { ...shared, locale, lang };
     const main = homepage ? renderHome(pageContext) : renderers[route.id](pageContext);
-    const html = applyBasePath(renderDocument({ site, routes, locale, lang, routeId: route.id, homepage, main }));
+    const html = applyBasePath(renderDocument({ site, routes, locale, lang, routeId: route.id, homepage, main, assetVersion }));
     const output = path.join(dist, routeOutputPath(route[lang]));
     await mkdir(path.dirname(output), { recursive: true });
     await writeFile(output, html, 'utf8');
@@ -84,7 +87,7 @@ for (const entry of news) {
     const copy = entry[lang];
     const main = renderNewsArticle({ locale, lang, entry, routes });
     const pageData = { title: `${site.brand} — ${copy.title}`, description: copy.summary };
-    const html = applyBasePath(renderDocument({ site, routes, locale, lang, routeId: 'news', main, bodyClass: 'news-article-page', pageData, alternatePaths }));
+    const html = applyBasePath(renderDocument({ site, routes, locale, lang, routeId: 'news', main, bodyClass: 'news-article-page', pageData, alternatePaths, assetVersion }));
     const output = path.join(dist, routeOutputPath(alternatePaths[lang]));
     await mkdir(path.dirname(output), { recursive: true });
     await writeFile(output, html, 'utf8');
@@ -95,7 +98,7 @@ for (const entry of news) {
 for (const lang of ['pl', 'en']) {
   const locale = locales[lang];
   const main = renderNotFound({ site, locale, homeHref: lang === 'pl' ? '/' : '/en/' });
-  const html = applyBasePath(renderDocument({ site, routes, locale, lang, routeId: 'notFound', homepage: false, main, bodyClass: 'error-page' }));
+  const html = applyBasePath(renderDocument({ site, routes, locale, lang, routeId: 'notFound', homepage: false, main, bodyClass: 'error-page', assetVersion }));
   const output = path.join(dist, lang === 'pl' ? '404.html' : 'en/404.html');
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, html, 'utf8');

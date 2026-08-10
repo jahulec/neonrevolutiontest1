@@ -9,13 +9,13 @@ function background() {
   return `<div class="slow-bg-stage" aria-hidden="true"><div class="slow-bg-canvas"></div></div>`;
 }
 
-export function renderDocument({ site, routes, locale, lang, routeId, homepage = false, main, bodyClass = '', pageData = null, alternatePaths = null }) {
+export function renderDocument({ site, routes, locale, lang, routeId, homepage = false, main, bodyClass = '', pageData = null, alternatePaths = null, assetVersion = '' }) {
   const context = { site, routes, locale, lang, routeId, homepage };
   const header = renderHeader(context);
   const footer = renderFooter(context);
   const dock = renderSocialDock(context);
   const privacyControls = renderPrivacyControls(context);
-  const head = renderHead({ ...context, preloadHero: homepage, pageData, alternatePaths });
+  const head = renderHead({ ...context, preloadHero: homepage, pageData, alternatePaths, assetVersion });
 
   return `<!doctype html>
 <html lang="${lang}">
@@ -28,7 +28,7 @@ export function renderDocument({ site, routes, locale, lang, routeId, homepage =
   ${dock}
   ${footer}
   ${privacyControls}
-  <script src="/site.js" defer></script>
+  <script src="/site.js${assetVersion ? `?v=${escapeHtml(assetVersion)}` : ''}" defer></script>
 </body>
 </html>`;
 }

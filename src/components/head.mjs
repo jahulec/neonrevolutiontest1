@@ -1,6 +1,6 @@
 import { absoluteUrl, escapeHtml, jsonLd } from '../lib/html.mjs';
 
-export function renderHead({ site, routes, locale, lang, routeId, preloadHero = false, pageData = null, alternatePaths = null }) {
+export function renderHead({ site, routes, locale, lang, routeId, preloadHero = false, pageData = null, alternatePaths = null, assetVersion = '' }) {
   const route = routes.find((item) => item.id === routeId);
   const page = pageData ?? locale.pages[routeId];
   const currentPath = alternatePaths?.[lang] ?? route?.[lang] ?? '/';
@@ -45,6 +45,6 @@ export function renderHead({ site, routes, locale, lang, routeId, preloadHero = 
   <link rel="icon" href="/assets/sygnet-neon.webp" type="image/webp">
   <link rel="apple-touch-icon" href="/assets/sygnet-neon.webp">
   ${preloadHero ? '<link rel="preload" href="/assets/hero-band.webp" as="image" type="image/webp" fetchpriority="high">' : ''}
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css${assetVersion ? `?v=${escapeHtml(assetVersion)}` : ''}">
   <script type="application/ld+json">${jsonLd(musicGroup)}</script>`;
 }
