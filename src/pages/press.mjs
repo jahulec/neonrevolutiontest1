@@ -31,7 +31,6 @@ export function renderPress({ site, locale, lang, press }) {
   const messenger = site.contact.messenger;
   return `<header class="page-masthead content"><h1>${escapeHtml(locale.pages.press.heading)}</h1></header>
   <section class="page-section content press-page" data-content-status="${escapeHtml(press.status)}">
-    <p class="demo-notice">${escapeHtml(locale.demoNotice)}</p>
     <div class="press-overview">
       <div class="press-bio"><h2>${escapeHtml(locale.officialBio)}</h2><p>${escapeHtml(locale.bio)}</p></div>
     </div>

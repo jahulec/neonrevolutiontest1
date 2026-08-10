@@ -27,7 +27,7 @@
   "allMusic": "All music",
   "allVideos": "All videos",
   "allShows": "All live dates",
-  "officialBio": "Official biography",
+  "officialBio": "Band description",
   "noMaterials": "This material will be available soon",
   "socialLabel": "Social media",
   "showSocial": "Show social media",
@@ -71,7 +71,7 @@
     "press": {
       "title": "Neon Revolution — Press",
       "heading": "Press",
-      "description": "Official Neon Revolution biography and press materials."
+      "description": "Band description and press materials for Neon Revolution."
     },
     "news": {
       "title": "Neon Revolution — News",

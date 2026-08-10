@@ -27,7 +27,7 @@
   "allMusic": "Cała muzyka",
   "allVideos": "Wszystkie wideo",
   "allShows": "Wszystkie koncerty",
-  "officialBio": "Oficjalne bio",
+  "officialBio": "Opis zespołu",
   "noMaterials": "Materiał zostanie udostępniony wkrótce",
   "socialLabel": "Media społecznościowe",
   "showSocial": "Pokaż media społecznościowe",
@@ -71,7 +71,7 @@
     "press": {
       "title": "Neon Revolution — Press",
       "heading": "Press",
-      "description": "Oficjalne bio i materiały prasowe zespołu Neon Revolution."
+      "description": "Opis zespołu i materiały prasowe Neon Revolution."
     },
     "news": {
       "title": "Neon Revolution — Aktualności",
