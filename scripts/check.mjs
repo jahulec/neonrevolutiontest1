@@ -5,6 +5,11 @@ import { escapeHtml } from '../src/lib/html.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
+const basePath = (() => {
+  const value = (process.env.BASE_PATH ?? '').trim();
+  if (!value || value === '/') return '';
+  return `/${value.replace(/^\/+|\/+$/g, '')}`;
+})();
 const routes = JSON.parse(await readFile(path.join(root, 'src/data/routes.json'), 'utf8'));
 const site = JSON.parse(await readFile(path.join(root, 'src/data/site.json'), 'utf8'));
 const news = JSON.parse(await readFile(path.join(root, 'src/data/news.json'), 'utf8'));
@@ -65,17 +70,23 @@ for (const page of pages) {
   if (page.route.id === 'privacy' && !/class="[^"]*\bprivacy-page\b/.test(html)) errors.push(`${page.file}: privacy content missing`);
   if (/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html)) errors.push(`${page.file}: external font request found`);
 
+  for (const match of html.matchAll(/\b(?:href|src)="(\/(?!\/)[^"#?]*)/g)) {
+    if (basePath && match[1] !== basePath && !match[1].startsWith(`${basePath}/`)) {
+      errors.push(`${page.file}: root-relative URL missing base path: ${match[1]}`);
+    }
+  }
+
   for (const match of html.matchAll(/<(?:a|link)[^>]+href="(https?:\/\/[^"]+)"[^>]*>/g)) {
     const tag = match[0];
     if (tag.startsWith('<a') && /target="_blank"/.test(tag) && !/rel="[^"]*noopener[^"]*noreferrer[^"]*"/.test(tag)) {
       errors.push(`${page.file}: unsafe external link ${match[1]}`);
     }
   }
-  for (const match of html.matchAll(/(?:src|href)="(\/assets\/[^"#?]+)"/g)) {
-    if (!await exists(path.join(dist, match[1].slice(1)))) errors.push(`${page.file}: missing asset ${match[1]}`);
-  }
-  for (const match of html.matchAll(/href="(\/downloads\/[^"#?]+)"/g)) {
-    if (!await exists(path.join(dist, match[1].slice(1)))) errors.push(`${page.file}: missing download ${match[1]}`);
+  const localPrefix = basePath || '';
+  for (const match of html.matchAll(/(?:src|href)="(\/[^"#?]+)"/g)) {
+    const localPath = localPrefix && match[1].startsWith(`${localPrefix}/`) ? match[1].slice(localPrefix.length) : match[1];
+    if (localPath.startsWith('/assets/') && !await exists(path.join(dist, localPath.slice(1)))) errors.push(`${page.file}: missing asset ${match[1]}`);
+    if (localPath.startsWith('/downloads/') && !await exists(path.join(dist, localPath.slice(1)))) errors.push(`${page.file}: missing download ${match[1]}`);
   }
 }
 

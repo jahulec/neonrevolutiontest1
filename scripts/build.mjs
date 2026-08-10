@@ -17,6 +17,16 @@ import { renderVideo } from '../src/pages/video.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.resolve(root, 'dist');
 const expectedDist = path.join(root, 'dist');
+const basePath = (() => {
+  const value = (process.env.BASE_PATH ?? '').trim();
+  if (!value || value === '/') return '';
+  return `/${value.replace(/^\/+|\/+$/g, '')}`;
+})();
+
+function applyBasePath(html) {
+  if (!basePath) return html;
+  return html.replace(/\b(href|src)="\/(?!\/)/g, `$1="${basePath}/`);
+}
 
 if (dist !== expectedDist || path.dirname(dist) !== root || path.basename(dist) !== 'dist') {
   throw new Error(`Refusing to clean unexpected output path: ${dist}`);
@@ -59,7 +69,7 @@ for (const route of routes.filter((item) => item.enabled)) {
     const homepage = route.id === 'home';
     const pageContext = { ...shared, locale, lang };
     const main = homepage ? renderHome(pageContext) : renderers[route.id](pageContext);
-    const html = renderDocument({ site, routes, locale, lang, routeId: route.id, homepage, main });
+    const html = applyBasePath(renderDocument({ site, routes, locale, lang, routeId: route.id, homepage, main }));
     const output = path.join(dist, routeOutputPath(route[lang]));
     await mkdir(path.dirname(output), { recursive: true });
     await writeFile(output, html, 'utf8');
@@ -74,7 +84,7 @@ for (const entry of news) {
     const copy = entry[lang];
     const main = renderNewsArticle({ locale, lang, entry, routes });
     const pageData = { title: `${site.brand} — ${copy.title}`, description: copy.summary };
-    const html = renderDocument({ site, routes, locale, lang, routeId: 'news', main, bodyClass: 'news-article-page', pageData, alternatePaths });
+    const html = applyBasePath(renderDocument({ site, routes, locale, lang, routeId: 'news', main, bodyClass: 'news-article-page', pageData, alternatePaths }));
     const output = path.join(dist, routeOutputPath(alternatePaths[lang]));
     await mkdir(path.dirname(output), { recursive: true });
     await writeFile(output, html, 'utf8');
@@ -85,7 +95,7 @@ for (const entry of news) {
 for (const lang of ['pl', 'en']) {
   const locale = locales[lang];
   const main = renderNotFound({ site, locale, homeHref: lang === 'pl' ? '/' : '/en/' });
-  const html = renderDocument({ site, routes, locale, lang, routeId: 'notFound', homepage: false, main, bodyClass: 'error-page' });
+  const html = applyBasePath(renderDocument({ site, routes, locale, lang, routeId: 'notFound', homepage: false, main, bodyClass: 'error-page' }));
   const output = path.join(dist, lang === 'pl' ? '404.html' : 'en/404.html');
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, html, 'utf8');
