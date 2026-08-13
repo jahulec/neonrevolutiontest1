@@ -12,6 +12,7 @@ const basePath = (() => {
 })();
 const routes = JSON.parse(await readFile(path.join(root, 'src/data/routes.json'), 'utf8'));
 const site = JSON.parse(await readFile(path.join(root, 'src/data/site.json'), 'utf8'));
+const shows = JSON.parse(await readFile(path.join(root, 'src/data/shows.json'), 'utf8'));
 const news = JSON.parse(await readFile(path.join(root, 'src/data/news.json'), 'utf8'));
 const releases = JSON.parse(await readFile(path.join(root, 'src/data/releases.json'), 'utf8'));
 const press = JSON.parse(await readFile(path.join(root, 'src/data/press.json'), 'utf8'));
@@ -54,13 +55,21 @@ for (const page of pages) {
     ['default alternate', /rel="alternate" hreflang="x-default"/]
   ];
   required.push(['privacy controls', /data-privacy-consent/]);
+  required.push(['canonical URL', /<link rel="canonical" href="https:\/\/[^\"]+">/]);
+  required.push(['content security policy', /<meta http-equiv="Content-Security-Policy"/]);
+  if (page.route.id !== 'notFound') required.push(['structured data', /<script type="application\/ld\+json">/]);
   for (const [label, pattern] of required) if (!pattern.test(html)) errors.push(`${page.file}: missing ${label}`);
+
+  for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    try { JSON.parse(match[1]); } catch { errors.push(`${page.file}: invalid JSON-LD`); }
+  }
 
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
   const duplicates = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
   if (duplicates.length) errors.push(`${page.file}: duplicate ids: ${duplicates.join(', ')}`);
   if (/\bdata-demo\b/.test(html)) errors.push(`${page.file}: legacy data-demo found`);
   if (/href="#"/.test(html)) errors.push(`${page.file}: placeholder href found`);
+  if (/\sstyle="/.test(html)) errors.push(`${page.file}: inline style bypasses strict CSP`);
   if (page.route.id !== 'home' && /page-eyebrow/.test(html)) errors.push(`${page.file}: eyebrow must not appear on subpages`);
   if (page.route.id === 'live' && !/class="shows-divider"/.test(html)) errors.push(`${page.file}: previous shows separator missing`);
   if (page.route.id === 'live' && (html.match(/class="show-weekday"/g) ?? []).length < 6) errors.push(`${page.file}: automatic weekdays missing`);
@@ -69,6 +78,7 @@ for (const page of pages) {
   if (page.route.id === 'press' && /class="press-media-card\b/.test(html)) errors.push(`${page.file}: press media gallery must not appear`);
   if (page.route.id === 'gallery' && (html.match(/data-gallery-open/g) ?? []).length < 3) errors.push(`${page.file}: gallery photos missing`);
   if (page.route.id === 'gallery' && !/data-gallery-modal/.test(html)) errors.push(`${page.file}: gallery modal missing`);
+  if (page.route.id === 'gallery' && /gallery-item__overlay|<figcaption|data-gallery-description|data-gallery-title/.test(html)) errors.push(`${page.file}: visible gallery descriptions found`);
   if (page.route.id === 'press' && (html.match(/class="press-resource"/g) ?? []).length !== press.downloads.length) errors.push(`${page.file}: press download count mismatch`);
   if (page.route.id === 'contact' && (html.match(/class="contact-method"/g) ?? []).length !== 3) errors.push(`${page.file}: contact method count mismatch`);
   if (page.route.id === 'privacy' && !/class="[^"]*\bprivacy-page\b/.test(html)) errors.push(`${page.file}: privacy content missing`);
@@ -96,6 +106,35 @@ for (const page of pages) {
     if (localPath.startsWith('/downloads/') && !await exists(path.join(dist, localPath.slice(1)))) errors.push(`${page.file}: missing download ${match[1]}`);
   }
 }
+
+for (const entry of news.filter((item) => item.status !== 'real')) {
+  for (const file of [`aktualnosci/${entry.slug}/index.html`, `en/news/${entry.slug}/index.html`]) {
+    const html = await readFile(path.join(dist, file), 'utf8');
+    if (!/<meta name="robots" content="noindex,follow">/.test(html)) errors.push(`${file}: demo article must be noindex`);
+    if (/"@type":"NewsArticle"/.test(html)) errors.push(`${file}: demo article must not emit NewsArticle schema`);
+  }
+}
+
+if (site.legal.status !== 'real') {
+  for (const file of ['prywatnosc/index.html', 'en/privacy/index.html']) {
+    const html = await readFile(path.join(dist, file), 'utf8');
+    if (!/<meta name="robots" content="noindex,follow">/.test(html)) errors.push(`${file}: draft privacy page must be noindex`);
+  }
+}
+
+const sitemap = await readFile(path.join(dist, 'sitemap.xml'), 'utf8');
+const robots = await readFile(path.join(dist, 'robots.txt'), 'utf8');
+if (!sitemap.includes('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"')) errors.push('dist/sitemap.xml: image namespace missing');
+if (!robots.includes(`Sitemap: ${site.siteUrl}sitemap.xml`)) errors.push('dist/robots.txt: sitemap URL mismatch');
+if (site.legal.status !== 'real' && /\/prywatnosc\/|\/en\/privacy\//.test(sitemap)) errors.push('dist/sitemap.xml: draft privacy page must be excluded');
+if (news.some((item) => item.status !== 'real') && news.filter((item) => item.status !== 'real').some((item) => sitemap.includes(`/aktualnosci/${item.slug}/`))) errors.push('dist/sitemap.xml: demo news must be excluded');
+
+const idsByFile = [shows, releases, news, press.achievements, press.members].map((items) => items.map((item) => item.id ?? item.name ?? `${item.year}:${item.title?.pl}`));
+for (const ids of idsByFile) {
+  const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
+  if (duplicates.length) errors.push(`content data: duplicate identifiers: ${[...new Set(duplicates)].join(', ')}`);
+}
+if (releases.filter((item) => item.featured).length !== 1) errors.push('src/data/releases.json: exactly one release must be featured');
 
 for (const requiredFile of ['styles.css', 'site.js', '_headers', 'robots.txt', 'og.png', 'assets/fonts/audiowide-regular.woff2', 'assets/fonts/space-mono-regular.woff2', 'downloads/neon-revolution-rider-techniczny.pdf', 'downloads/neon-revolution-press-pack.zip']) {
   if (!await exists(path.join(dist, requiredFile))) errors.push(`dist/${requiredFile}: file missing`);

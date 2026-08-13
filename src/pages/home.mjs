@@ -14,7 +14,7 @@ export function renderHome({ site, routes, locale, lang, releases, videos, shows
 
   return {
     beforeHeader: `<section class="hero" id="top" aria-labelledby="page-title">
-      <div class="hero-media"><div class="hero-bg" aria-hidden="true"></div><div class="crt-frame" aria-hidden="true"></div></div>
+      <div class="hero-media"><div class="hero-bg" aria-hidden="true"><img class="hero-bg__image" src="/assets/hero-band.webp" width="2048" height="1365" alt="" fetchpriority="high" decoding="async"></div><div class="crt-frame" aria-hidden="true"></div></div>
       <div class="hero-content">
         <h1 class="visually-hidden" id="page-title">${escapeHtml(site.brand)}</h1>
         <img class="hero-logo" src="/assets/logo-neon.webp" width="1200" height="412" alt="${escapeHtml(site.brand)}" fetchpriority="high" decoding="async">
@@ -48,8 +48,8 @@ export function renderHome({ site, routes, locale, lang, releases, videos, shows
 
       <section class="section press-section" id="press" aria-labelledby="press-title"><div class="content">
         <h2 class="section-title" id="press-title">${escapeHtml(locale.nav.press)}</h2>
-        <div class="press-layout"><div class="press-assets" aria-label="${escapeHtml(locale.pressMaterials)}"><span>${escapeHtml(locale.press.bio)}</span><span>${escapeHtml(locale.press.members)}</span><span>${escapeHtml(locale.press.achievements)}</span><span>${escapeHtml(locale.press.photos)}</span><span>${escapeHtml(locale.press.pressPack)}</span><span>${escapeHtml(locale.press.rider)}</span></div><a class="action-link" href="${escapeHtml(route('press'))}">${escapeHtml(locale.pressMaterials)}</a></div>
+        <div class="press-layout"><ul class="press-assets" aria-label="${escapeHtml(locale.pressMaterials)}"><li>${escapeHtml(locale.press.bio)}</li><li>${escapeHtml(locale.press.members)}</li><li>${escapeHtml(locale.press.achievements)}</li><li>${escapeHtml(locale.press.photos)}</li><li>${escapeHtml(locale.press.pressPack)}</li><li>${escapeHtml(locale.press.rider)}</li></ul><a class="action-link" href="${escapeHtml(route('press'))}">${escapeHtml(locale.pressMaterials)}</a></div>
       </div></section>
-    </div>${renderMusicModal(locale)}`
+    </div>${renderMusicModal(locale, release)}`
   };
 }

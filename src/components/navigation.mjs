@@ -26,18 +26,18 @@ function mobileSocialLinks(site) {
 }
 
 export function renderHeader(context) {
-  const { site, routes, locale, lang, routeId, homepage } = context;
+  const { site, routes, locale, lang, routeId, homepage, alternatePaths } = context;
   const currentRoute = routeById(routes, routeId);
   const otherLang = lang === 'pl' ? 'en' : 'pl';
   const otherLabel = otherLang.toUpperCase();
-  const otherHref = currentRoute?.[otherLang] ?? (otherLang === 'pl' ? '/' : '/en/');
+  const otherHref = alternatePaths?.[otherLang] ?? currentRoute?.[otherLang] ?? (otherLang === 'pl' ? '/' : '/en/');
   const homeHref = homepage ? '#top' : routeById(routes, 'home')[lang];
   const navItems = navigationItems(context);
 
-  return `<header class="site-header${homepage ? '' : ' site-header--interior'}" style="background:#03040a!important">
+  return `<header class="site-header${homepage ? '' : ' site-header--interior'}">
     <div class="wide nav">
-      <a class="brand" href="${escapeHtml(homeHref)}" aria-label="${escapeHtml(locale.homeLabel)}">
-        <img src="/assets/logo-neon.webp" width="1200" height="412" alt="" decoding="async">
+      <a class="brand" href="${escapeHtml(homeHref)}">
+        <img src="/assets/logo-neon.webp" width="1200" height="412" alt="${escapeHtml(locale.homeLabel)}" decoding="async">
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">${escapeHtml(locale.menu)}</button>
       <nav class="nav-links" aria-label="${escapeHtml(locale.navLabel)}">
@@ -48,8 +48,8 @@ export function renderHeader(context) {
   </header>
   <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="${escapeHtml(locale.mobileNavLabel)}" aria-hidden="true" inert>
     <div class="mobile-menu__top wide">
-      <a class="mobile-menu__brand" href="${escapeHtml(homeHref)}" aria-label="${escapeHtml(locale.homeLabel)}">
-        <img src="/assets/logo-neon.webp" width="1200" height="412" alt="" decoding="async">
+      <a class="mobile-menu__brand" href="${escapeHtml(homeHref)}">
+        <img src="/assets/logo-neon.webp" width="1200" height="412" alt="${escapeHtml(locale.homeLabel)}" decoding="async">
       </a>
       <button class="mobile-menu__close" type="button">${escapeHtml(locale.close)}</button>
     </div>
@@ -58,9 +58,9 @@ export function renderHeader(context) {
         ${navItems}
       </nav>
       <a class="mobile-menu__language" href="${escapeHtml(otherHref)}" hreflang="${otherLang}" lang="${otherLang}">${otherLabel}</a>
-      <div class="mobile-menu__socials" aria-label="${escapeHtml(locale.socialLabel)}">
+      <nav class="mobile-menu__socials" aria-label="${escapeHtml(locale.socialLabel)}">
         ${mobileSocialLinks(site)}
-      </div>
+      </nav>
     </div>
   </div>`;
 }

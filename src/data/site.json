@@ -1,6 +1,6 @@
 {
   "brand": "Neon Revolution",
-  "siteUrl": null,
+  "siteUrl": "https://jahulec.github.io/neonrevolutiontest1/",
   "themeColor": "#050611",
   "ogImage": "/og.png",
   "profiles": {
@@ -18,7 +18,9 @@
   "legal": {
     "status": "demo",
     "controller": "Neon Revolution — dane przykładowe",
-    "privacyEmail": "neon.revolution2022@gmail.com"
+    "address": "",
+    "privacyEmail": "neon.revolution2022@gmail.com",
+    "lastUpdated": "2026-08-13"
   },
   "analytics": {
     "provider": "cloudflare",

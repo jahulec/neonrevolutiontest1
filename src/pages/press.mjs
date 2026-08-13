@@ -25,6 +25,7 @@ export function renderPress({ site, locale, lang, press }) {
   const email = site.contact.email;
   const phone = site.contact.phone;
   const phoneHref = phoneLink(phone);
+  const phoneDisplay = escapeHtml(phone).replaceAll(' ', '&#160;');
   const messenger = site.contact.messenger;
   return `<header class="page-masthead content"><h1>${escapeHtml(locale.pages.press.heading)}</h1></header>
   <section class="page-section content press-page" data-content-status="${escapeHtml(press.status)}">
@@ -34,6 +35,6 @@ export function renderPress({ site, locale, lang, press }) {
     <section class="press-block" aria-labelledby="press-members"><h2 id="press-members">${escapeHtml(locale.press.members)}</h2><ul class="press-members">${press.members.map((item) => renderMember(item, lang)).join('')}</ul></section>
     <section class="press-block" aria-labelledby="press-achievements"><h2 id="press-achievements">${escapeHtml(locale.press.achievements)}</h2><div class="press-achievements">${press.achievements.map((item) => renderAchievement(item, lang)).join('')}</div></section>
     <section class="press-block" aria-labelledby="press-downloads"><h2 id="press-downloads">${escapeHtml(locale.press.downloads)}</h2><div class="press-resources">${press.downloads.map((item) => renderDownload(item, locale)).join('')}</div></section>
-    <section class="press-contact" id="contact" aria-labelledby="press-contact-title"><h2 id="press-contact-title">${escapeHtml(locale.contact)}</h2><div class="contact-row"><strong>${escapeHtml(locale.contactDetails.email)}</strong><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div><div class="contact-row"><strong>${escapeHtml(locale.contactDetails.phone)}</strong><a href="tel:${escapeHtml(phoneHref)}">${escapeHtml(phone)}</a></div><div class="contact-row"><strong>${escapeHtml(locale.contactDetails.messenger)}</strong><a ${externalLinkAttributes(messenger)}>Messenger <span aria-hidden="true">↗</span></a></div></section>
+    <section class="press-contact" id="contact" aria-labelledby="press-contact-title"><h2 id="press-contact-title">${escapeHtml(locale.contact)}</h2><div class="contact-row"><strong>${escapeHtml(locale.contactDetails.email)}</strong><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div><div class="contact-row"><strong>${escapeHtml(locale.contactDetails.phone)}</strong><a href="tel:${escapeHtml(phoneHref)}">${phoneDisplay}</a></div><div class="contact-row"><strong>${escapeHtml(locale.contactDetails.messenger)}</strong><a ${externalLinkAttributes(messenger)}>Messenger <span aria-hidden="true">↗</span></a></div></section>
   </section>`;
 }

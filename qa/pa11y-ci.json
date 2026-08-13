@@ -1,0 +1,18 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "wait": 300
+  },
+  "urls": [
+    "http://localhost:4173/",
+    "http://localhost:4173/muzyka/",
+    "http://localhost:4173/koncerty/",
+    "http://localhost:4173/aktualnosci/",
+    "http://localhost:4173/galeria/",
+    "http://localhost:4173/press/",
+    "http://localhost:4173/kontakt/",
+    "http://localhost:4173/prywatnosc/",
+    "http://localhost:4173/en/"
+  ]
+}

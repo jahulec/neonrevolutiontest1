@@ -34,7 +34,7 @@ export function renderShows({ shows, locale, lang, limit = null, period = 'all',
 
     const dateTime = show.start ? `${show.date}T${show.start}` : show.date;
 
-    return `<article class="show-row" data-content-status="${escapeHtml(show.status)}">
+    return `<article class="show-row" id="${escapeHtml(show.id)}" data-content-status="${escapeHtml(show.status)}">
       <div class="show-date-block"><time class="show-date" datetime="${escapeHtml(show.date)}">${escapeHtml(displayDate(show.date))}</time><span class="show-weekday">${escapeHtml(localizedWeekday(show.date, lang))}</span></div>
       <div class="show-city">${escapeHtml(copy.city)}</div>
       <div class="show-venue">${escapeHtml(copy.venue)}</div>

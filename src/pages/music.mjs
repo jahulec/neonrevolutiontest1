@@ -9,5 +9,5 @@ export function renderMusic({ site, locale, releases }) {
     return `<article class="square-card">${tile}<div class="square-card__caption"><h2>${escapeHtml(release.title)}</h2>${year}</div></article>`;
   }).join('\n');
 
-  return `<header class="page-masthead page-masthead--plain content"><h1>${escapeHtml(locale.pages.music.heading)}</h1></header><section class="page-section content" aria-label="${escapeHtml(locale.pages.music.heading)}"><div class="square-grid">${cards}</div></section>${renderMusicModal(locale)}`;
+  return `<header class="page-masthead page-masthead--plain content"><h1>${escapeHtml(locale.pages.music.heading)}</h1></header><section class="page-section content" aria-label="${escapeHtml(locale.pages.music.heading)}"><div class="square-grid">${cards}</div></section>${renderMusicModal(locale, releases[0])}`;
 }

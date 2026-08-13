@@ -23,7 +23,10 @@ export function routeOutputPath(routePath) {
 
 export function absoluteUrl(baseUrl, routePath) {
   if (!baseUrl) return null;
-  return new URL(routePath, baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`).toString();
+  const base = new URL(baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`);
+  const prefix = base.pathname === '/' ? '' : base.pathname.replace(/\/$/, '');
+  const normalizedPath = routePath === '/' ? '/' : `/${String(routePath).replace(/^\/+/, '')}`;
+  return new URL(`${prefix}${normalizedPath}`, base.origin).toString();
 }
 
 export function jsonLd(data) {

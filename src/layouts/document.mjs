@@ -9,15 +9,15 @@ function background() {
   return `<div class="slow-bg-stage" aria-hidden="true"><div class="slow-bg-canvas"></div></div>`;
 }
 
-export function renderDocument({ site, routes, locale, lang, routeId, homepage = false, main, bodyClass = '', pageData = null, alternatePaths = null, assetVersion = '' }) {
-  const context = { site, routes, locale, lang, routeId, homepage };
+export function renderDocument({ site, routes, locale, lang, routeId, homepage = false, main, bodyClass = '', pageData = null, alternatePaths = null, assetVersion = '', structuredData = null }) {
+  const context = { site, routes, locale, lang, routeId, homepage, alternatePaths };
   const header = renderHeader(context);
   const footer = renderFooter(context);
   const dock = renderSocialDock(context);
   const privacyControls = renderPrivacyControls(context);
-  const head = renderHead({ ...context, preloadHero: homepage, pageData, alternatePaths, assetVersion });
+  const head = renderHead({ ...context, preloadHero: homepage, pageData, alternatePaths, assetVersion, structuredData });
 
-  return `<!doctype html>
+  return `<!DOCTYPE html>
 <html lang="${lang}">
 <head>${head}
 </head>
@@ -30,5 +30,5 @@ export function renderDocument({ site, routes, locale, lang, routeId, homepage =
   ${privacyControls}
   <script src="/site.js${assetVersion ? `?v=${escapeHtml(assetVersion)}` : ''}" defer></script>
 </body>
-</html>`;
+</html>`.replace(/[ \t]+$/gm, '');
 }

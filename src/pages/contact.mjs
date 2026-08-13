@@ -18,6 +18,6 @@ export function renderContact({ site, locale }) {
       <article class="contact-method"><h2>${escapeHtml(locale.contactDetails.phone)}</h2><p>${escapeHtml(phone)}</p><a class="action-link" data-track="contact_click" data-track-label="phone" href="tel:${escapeHtml(phoneHref)}">${escapeHtml(locale.call)}</a></article>
       <article class="contact-method"><h2>${escapeHtml(locale.contactDetails.messenger)}</h2><p>Neon Revolution</p><a class="action-link" data-track="contact_click" data-track-label="messenger" ${externalLinkAttributes(messenger)}>${escapeHtml(locale.openMessenger)}</a></article>
     </div>
-    <section class="contact-profiles" aria-labelledby="contact-profiles-title"><h2 id="contact-profiles-title">${escapeHtml(locale.contactDetails.socials)}</h2><div class="contact-socials" aria-label="${escapeHtml(locale.socialLabel)}">${profiles}</div></section>
+    <section class="contact-profiles" aria-labelledby="contact-profiles-title"><h2 id="contact-profiles-title">${escapeHtml(locale.contactDetails.socials)}</h2><div class="contact-socials" role="group" aria-label="${escapeHtml(locale.socialLabel)}">${profiles}</div></section>
   </section>`;
 }

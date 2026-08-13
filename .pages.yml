@@ -342,12 +342,10 @@ content:
         options:
           extensions: [jpg, jpeg, png, webp]
           rename: safe
-      - name: title
-        label: Tytuł zdjęcia
+      - name: alt
+        label: Tekst alternatywny zdjęcia
         component: localized_text
-      - name: description
-        label: Opis zdjęcia
-        component: localized_text
+        description: "Niewidoczny na stronie. Krótko opisz, co jest na zdjęciu, dla dostępności i wyszukiwarek."
 
   - name: press
     label: Press
@@ -526,3 +524,36 @@ content:
             type: string
             required: true
             pattern: '^https://.+'
+      - name: legal
+        label: Informacja o prywatności
+        type: object
+        required: true
+        fields:
+          - name: status
+            label: Status dokumentu
+            type: select
+            required: true
+            options:
+              values:
+                - name: demo
+                  label: Wersja robocza — bez indeksowania
+                - name: real
+                  label: Wersja zatwierdzona
+          - name: controller
+            label: Pełna nazwa administratora danych
+            type: string
+            required: true
+          - name: address
+            label: Adres administratora
+            type: text
+            description: "Uzupełnij przed zmianą statusu dokumentu na zatwierdzony."
+          - name: privacyEmail
+            label: E-mail do spraw prywatności
+            type: string
+            required: true
+          - name: lastUpdated
+            label: Data aktualizacji
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd

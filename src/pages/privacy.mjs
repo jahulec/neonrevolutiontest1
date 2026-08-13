@@ -14,9 +14,17 @@ export function renderPrivacy({ site, locale }) {
     [copy.controllerTitle, controllerText],
     [copy.scopeTitle, copy.scopeText],
     [copy.purposeTitle, copy.purposeText],
+    [copy.legalBasisTitle, copy.legalBasisText],
+    [copy.retentionTitle, copy.retentionText],
     [copy.analyticsTitle, copy.analyticsText],
     [copy.recipientsTitle, copy.recipientsText],
-    [copy.rightsTitle, copy.rightsText]
+    [copy.transfersTitle, copy.transfersText],
+    [copy.externalLinksTitle, copy.externalLinksText],
+    [copy.rightsTitle, copy.rightsText],
+    [copy.voluntaryTitle, copy.voluntaryText]
   ];
-  return `<header class="page-masthead content"><h1>${escapeHtml(locale.pages.privacy.heading)}</h1></header><section class="page-section content privacy-page" data-content-status="${escapeHtml(site.legal.status)}"><p class="demo-notice">${escapeHtml(copy.demo)}</p>${sections.map(([title, body]) => `<section><h2>${escapeHtml(title)}</h2><p>${escapeHtml(body)}</p></section>`).join('')}<p class="privacy-updated">${escapeHtml(copy.updated)}</p></section>`;
+  const address = site.legal.address ? `<br>${escapeHtml(site.legal.address)}` : '';
+  const demoNotice = site.legal.status === 'real' ? '' : `<p class="demo-notice">${escapeHtml(copy.demo)}</p>`;
+  const updated = site.legal.lastUpdated ? `${copy.updated}: ${escapeHtml(site.legal.lastUpdated)}` : copy.updated;
+  return `<header class="page-masthead content"><h1>${escapeHtml(locale.pages.privacy.heading)}</h1></header><section class="page-section content privacy-page" data-content-status="${escapeHtml(site.legal.status)}">${demoNotice}${sections.map(([title, body], index) => `<section><h2>${escapeHtml(title)}</h2><p>${escapeHtml(body)}${index === 0 ? address : ''}</p></section>`).join('')}<p class="privacy-updated">${escapeHtml(updated)}</p></section>`;
 }

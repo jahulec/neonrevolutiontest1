@@ -1,6 +1,6 @@
 # Neon Revolution
 
-Dwujęzyczna, statycznie generowana strona zespołu. Nie wymaga frameworka ani zależności produkcyjnych. Build tworzy gotowy katalog `dist/` przeznaczony do publikacji przez Cloudflare Pages.
+Dwujęzyczna, statycznie generowana strona zespołu. Nie wymaga frameworka ani zależności produkcyjnych. Build tworzy gotowy katalog `dist/`, obecnie publikowany automatycznie przez GitHub Pages.
 
 ## Praca lokalna
 
@@ -34,7 +34,11 @@ Główna nawigacja prowadzi do osobnych stron: `/muzyka/`, `/koncerty/`, `/aktua
 
 Przykładowe pliki Press są generowane przez `scripts/generate_press_files.py` do `output/pdf/`; zbiorczy ZIP znajduje się w `output/press/`. Zwykły build tylko kopiuje gotowe pliki, dzięki czemu publikacja nie wymaga Pythona.
 
-## Cloudflare Pages
+## Publikacja
+
+Aktualny adres testowo-produkcyjny to `https://jahulec.github.io/neonrevolutiontest1/`. Push do `main` uruchamia workflow `.github/workflows/deploy-pages.yml`, który buduje, sprawdza i publikuje stronę na GitHub Pages.
+
+## Opcjonalny Cloudflare Pages
 
 - Build command: `npm run build`
 - Build output directory: `dist`
@@ -42,10 +46,10 @@ Przykładowe pliki Press są generowane przez `scripts/generate_press_files.py` 
 
 Plik `wrangler.jsonc` wskazuje ten sam katalog wyjściowy. Nagłówki bezpieczeństwa i cache znajdują się w `public/_headers` i są kopiowane do buildu.
 
-Przed podpięciem domeny uzupełnij `siteUrl` w `src/data/site.json`. Grafika Open Graph jest już przygotowana. Po wpisaniu domeny generator doda canonicale, absolutne `hreflang`, mapę witryny i pełną kartę social.
+Przy podpinaniu domeny zmień `siteUrl` w `src/data/site.json` z obecnego adresu GitHub Pages na adres docelowy. Generator zaktualizuje canonicale, absolutne `hreflang`, mapy witryny, robots, dane strukturalne i karty social.
 
 Opcjonalna analityka jest bezpiecznie wyłączona, dopóki w `site.analytics.token` nie zostanie podany prawdziwy token Cloudflare Web Analytics. Po jego uzupełnieniu skrypt uruchomi analitykę dopiero po zgodzie użytkownika. Ustawienia prywatności są zawsze dostępne w footerze.
 
-## Dalsza rozbudowa
+## Dokumentacja
 
-Założenia i zakres panelu opisuje `docs/CONTENT-EDITOR-PLAN.md`. Plan analityki znajduje się w `docs/ANALYTICS-PLAN.md`, a końcowa lista publikacyjna w `docs/GO-LIVE-CHECKLIST.md`. Strona pozostaje statyczna i lekka; logowanie oraz formularze redakcyjne obsługuje zewnętrzny Pages CMS.
+Instrukcja CMS znajduje się w `docs/CMS-INSTRUKCJA.md`. Plan analityki opisuje `docs/ANALYTICS-PLAN.md`, checklista końcowa jest w `docs/GO-LIVE-CHECKLIST.md`, a pełny stan gotowości w `docs/PRODUCTION-READINESS.md`. Strona pozostaje statyczna i lekka; logowanie oraz formularze redakcyjne obsługuje zewnętrzny Pages CMS.

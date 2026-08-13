@@ -30,7 +30,7 @@ function isMenuOpen() {
 function updateHeader() {
   if (!header) return;
   const y = window.scrollY;
-  const stickyPoint = hero?.offsetHeight ?? 0;
+  const stickyPoint = hero ? Math.max(0, window.innerHeight - 64) : 0;
   const stuck = y >= Math.max(0, stickyPoint - 2);
   const delta = y - lastY;
 
@@ -167,7 +167,7 @@ if (heroBg && finePointer.matches && !reducedMotion.matches) {
 }
 
 function configureBackgroundParallax() {
-  if (!slowBgCanvas) return;
+  if (!slowBgCanvas || !desktopBreakpoint.matches) return;
   const scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
   const desiredTravel = scrollRange * 0.28;
   const safeTravel = Math.max(120, slowBgCanvas.offsetHeight - window.innerHeight - 220);
@@ -274,11 +274,7 @@ function showGalleryItem(index, opener = null) {
   galleryIndex = (index + galleryOpeners.length) % galleryOpeners.length;
   const item = galleryOpeners[galleryIndex];
   const image = galleryModal.querySelector('[data-gallery-image]');
-  const titleNode = galleryModal.querySelector('[data-gallery-title]');
-  const descriptionNode = galleryModal.querySelector('[data-gallery-description]');
-  if (image) { image.src = item.dataset.galleryImage ?? ''; image.alt = item.dataset.galleryTitle ?? ''; }
-  if (titleNode) titleNode.textContent = item.dataset.galleryTitle ?? '';
-  if (descriptionNode) descriptionNode.textContent = item.dataset.galleryDescription ?? '';
+  if (image) { image.src = item.dataset.galleryImage ?? ''; image.alt = item.dataset.galleryAlt ?? ''; }
   if (!galleryModal.open) openDialog(galleryModal, opener ?? item);
 }
 
@@ -329,9 +325,11 @@ function setPrivacyPanel(open, opener = null) {
 
 if (privacyConsent) {
   const storedConsent = readConsent();
-  if (storedConsent === 'analytics') enableAnalytics();
+  const globalPrivacyControl = navigator.globalPrivacyControl === true;
+  if (globalPrivacyControl && storedConsent === 'analytics') writeConsent('necessary');
+  if (storedConsent === 'analytics' && !globalPrivacyControl) enableAnalytics();
   if (privacyConsent.dataset.analyticsEnabled === 'true' && !storedConsent) {
-    if (navigator.globalPrivacyControl === true) writeConsent('necessary');
+    if (globalPrivacyControl) writeConsent('necessary');
     else setPrivacyPanel(true);
   }
 
@@ -339,9 +337,11 @@ if (privacyConsent) {
   privacyConsent.addEventListener('click', (event) => {
     const choice = event.target.closest('[data-consent]')?.dataset.consent;
     if (choice) {
+      const mustReload = choice === 'necessary' && privacyConsent.dataset.analyticsLoaded === 'true';
       writeConsent(choice);
       if (choice === 'analytics') enableAnalytics();
       setPrivacyPanel(false);
+      if (mustReload) window.location.reload();
       return;
     }
     if (event.target.closest('[data-privacy-close]')) setPrivacyPanel(false);
