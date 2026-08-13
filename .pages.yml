@@ -3,6 +3,27 @@ media:
   output: /assets/uploads
   rename: safe
   categories: [image]
+  extensions: [jpg, jpeg, png, webp]
+  actions:
+    - name: optimize-media
+      label: Sprawdź i zoptymalizuj obrazy
+      workflow: content-maintenance.yml
+      ref: current
+      confirm:
+        title: Sprawdzić media?
+        message: Wymiary galerii zostaną uzupełnione, a cały serwis ponownie sprawdzony. Kompresja i warianty responsywne powstają automatycznie przy publikacji.
+        button: Uruchom
+
+actions:
+  - name: maintain-content
+    label: Sprawdź i uporządkuj treści
+    workflow: content-maintenance.yml
+    ref: current
+    cancelable: false
+    confirm:
+      title: Uporządkować treści?
+      message: Daty i kolejność zostaną sprawdzone, wymiary zdjęć uzupełnione, a strona przejdzie pełny build testowy.
+      button: Uruchom
 
 settings:
   hide: true
@@ -26,10 +47,10 @@ components:
         type: string
         required: true
       - name: timeLabel
-        label: Informacja o godzinie
+        label: Dodatkowa informacja zamiast godzin
         type: string
-        required: true
-        description: "Np. Start 20:00 albo Bramki 19:00 · Start 20:00."
+        default: ""
+        description: "Godziny i dzień tygodnia powstają automatycznie z pól wyżej. Użyj tylko dla wpisów bez godzin, np. Finał konkursu · 1. miejsce."
 
   news_locale:
     type: object
@@ -232,6 +253,12 @@ content:
         pattern:
           regex: '^$|^[0-9]{4}$'
           message: "Wpisz czterocyfrowy rok albo zostaw puste."
+      - name: date
+        label: Pełna data premiery
+        type: date
+        description: "Jeżeli jest znana, podaj ją. Rok w danych strukturalnych uzupełni się automatycznie."
+        options:
+          format: yyyy-MM-dd
       - name: cover
         label: Okładka
         type: image
@@ -259,6 +286,11 @@ content:
             type: string
             required: true
             pattern: '^https://.+'
+          - name: appleMusic
+            label: Apple Music
+            type: string
+            default: ""
+            pattern: '^$|^https://.+'
           - name: smartlink
             label: Smartlink
             type: string
@@ -420,6 +452,34 @@ content:
                 label: Angielski
                 type: text
                 required: true
+      - name: coverage
+        label: Niezależne publikacje o zespole
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{publisher} — {date}"
+        description: "Dodawaj wyłącznie prawdziwe materiały w niezależnych mediach. Wzmacniają wiarygodność i rozpoznawanie zespołu przez wyszukiwarki."
+        fields:
+          - name: publisher
+            label: Nazwa medium
+            type: string
+            required: true
+          - name: date
+            label: Data publikacji
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: url
+            label: Link do publikacji
+            type: string
+            required: true
+            pattern: '^https://.+'
+          - name: title
+            label: Opis publikacji
+            component: localized_text
+            required: true
       - name: media
         type: object
         list: true
@@ -502,6 +562,44 @@ content:
             type: string
             required: true
             pattern: '^https://.+'
+      - name: entity
+        label: Dane zespołu dla wyszukiwarek
+        type: object
+        required: true
+        fields:
+          - name: alternateNames
+            label: Alternatywne nazwy
+            type: string
+            list: true
+            description: "Tylko rzeczywiście używane warianty nazwy zespołu."
+          - name: genres
+            label: Gatunki i określenia stylu
+            type: string
+            list:
+              min: 1
+          - name: origin
+            label: Pochodzenie
+            type: object
+            required: true
+            fields:
+              - name: city
+                label: Miasto
+                type: string
+                required: true
+              - name: region
+                label: Region / województwo
+                type: string
+                required: true
+              - name: countryCode
+                label: Kod kraju
+                type: string
+                required: true
+                pattern: '^[A-Z]{2}$'
+          - name: additionalProfiles
+            label: Dodatkowe oficjalne profile
+            type: string
+            list: true
+            pattern: '^https://.+'
       - name: contact
         label: Dane kontaktowe
         type: object
@@ -557,3 +655,17 @@ content:
             required: true
             options:
               format: yyyy-MM-dd
+      - name: verification
+        label: Weryfikacja wyszukiwarek
+        type: object
+        fields:
+          - name: google
+            label: Token Google Search Console
+            type: string
+            default: ""
+            description: "Wklej wyłącznie wartość content z meta tagu Google."
+          - name: bing
+            label: Token Bing Webmaster Tools
+            type: string
+            default: ""
+            description: "Wklej wyłącznie wartość content z meta tagu Bing."

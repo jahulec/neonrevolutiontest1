@@ -28,6 +28,8 @@
   "allVideos": "Wszystkie wideo",
   "allShows": "Wszystkie koncerty",
   "officialBio": "Opis zespołu",
+  "coverage": "Media o zespole",
+  "coverageOpen": "Czytaj publikację",
   "noMaterials": "Materiał zostanie udostępniony wkrótce",
   "socialLabel": "Media społecznościowe",
   "showSocial": "Pokaż media społecznościowe",
@@ -52,28 +54,28 @@
   },
   "pages": {
     "home": {
-      "title": "Neon Revolution",
-      "description": "Neon Revolution — świeży zespół łączący atmosferę lat 80 z chwytliwymi gitarami, rytmami do tańca i błyskliwymi syntezatorami."
+      "title": "Neon Revolution — polski zespół rockowy i synth-popowy",
+      "description": "Oficjalna strona Neon Revolution — zespołu z Knurowa łączącego rock, synth-pop, gitarową energię, taneczne rytmy i klimat lat 80."
     },
     "music": {
       "title": "Neon Revolution — Muzyka",
       "heading": "Muzyka",
-      "description": "Muzyka i wydawnictwa zespołu Neon Revolution."
+      "description": "Single, teledyski i oficjalne linki streamingowe polskiego zespołu rockowego i synth-popowego Neon Revolution."
     },
     "video": {
       "title": "Neon Revolution — Wideo",
       "heading": "Wideo",
-      "description": "Teledyski i materiały wideo zespołu Neon Revolution."
+      "description": "Oficjalne teledyski i materiały wideo zespołu Neon Revolution z Knurowa."
     },
     "live": {
       "title": "Neon Revolution — Koncerty",
       "heading": "Koncerty",
-      "description": "Nadchodzące koncerty zespołu Neon Revolution."
+      "description": "Nadchodzące i archiwalne koncerty zespołu Neon Revolution — daty, miasta, miejsca oraz bilety."
     },
     "press": {
       "title": "Neon Revolution — Press",
       "heading": "Press",
-      "description": "Opis zespołu i materiały prasowe Neon Revolution."
+      "description": "Opis, aktualny skład, osiągnięcia, publikacje medialne i oficjalne materiały prasowe Neon Revolution."
     },
     "news": {
       "title": "Neon Revolution — Aktualności",

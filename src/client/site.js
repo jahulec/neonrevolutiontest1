@@ -257,10 +257,12 @@ document.querySelectorAll('[data-music-open]').forEach((button) => {
     const titleNode = musicModal.querySelector('[data-music-title]');
     const spotify = musicModal.querySelector('[data-music-spotify]');
     const youtube = musicModal.querySelector('[data-music-youtube]');
+    const apple = musicModal.querySelector('[data-music-apple]');
     if (cover) { cover.src = button.dataset.releaseCover ?? ''; cover.alt = title; }
     if (titleNode) titleNode.textContent = title;
     if (spotify) { spotify.href = button.dataset.releaseSpotify ?? ''; spotify.hidden = !button.dataset.releaseSpotify; }
     if (youtube) { youtube.href = button.dataset.releaseYoutube ?? ''; youtube.hidden = !button.dataset.releaseYoutube; }
+    if (apple) { apple.href = button.dataset.releaseApple ?? ''; apple.hidden = !button.dataset.releaseApple; }
     openDialog(musicModal, button);
   });
 });

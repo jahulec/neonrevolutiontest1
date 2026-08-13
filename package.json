@@ -3,9 +3,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.mjs && node scripts/check.mjs",
+    "build": "node scripts/check-config.mjs && node scripts/content-tools.mjs && node scripts/build.mjs && node scripts/check.mjs",
     "check": "node scripts/check.mjs",
+    "content:check": "node scripts/content-tools.mjs",
+    "content:fix": "node scripts/content-tools.mjs --fix",
+    "config:check": "node scripts/check-config.mjs",
+    "links:check": "node scripts/check-links.mjs",
     "dev": "node scripts/build.mjs && node scripts/serve.mjs",
     "verify": "npm run build && node --check src/client/site.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.3",
+    "yaml": "^2.9.0"
   }
 }

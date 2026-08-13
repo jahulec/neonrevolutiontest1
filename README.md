@@ -13,6 +13,17 @@ npm.cmd run dev
 
 Podgląd uruchamia się pod `http://localhost:4173`. `npm run verify` wykonuje build, kontrolę wszystkich tras i kontrolę składni JavaScript.
 
+Dodatkowe polecenia:
+
+- `npm run content:check` — sprawdza dane redakcyjne,
+- `npm run content:fix` — sortuje dane i uzupełnia możliwe metadane,
+- `npm run config:check` — sprawdza konfigurację Pages CMS i workflow GitHub Actions,
+- `npm run links:check` — na żądanie sprawdza zewnętrzne linki zapisane w danych strony.
+
+Build automatycznie kompresuje obrazy w katalogu wynikowym i generuje responsywne warianty WebP. Źródła w `assets/` nie są nadpisywane.
+
+Kontrola linków nie jest częścią buildu, aby chwilowa blokada po stronie serwisu społecznościowego lub streamingowego nie zatrzymywała publikacji.
+
 ## Panel CMS i edycja treści
 
 Zespół może zarządzać treściami przez [Pages CMS](https://app.pagescms.org). Konfiguracja panelu znajduje się w `.pages.yml`, a krótka instrukcja uruchomienia i obsługi w `docs/CMS-INSTRUKCJA.md`. Zapisane zmiany trafiają do `main` i automatycznie uruchamiają kontrolę oraz publikację GitHub Pages.
@@ -52,4 +63,4 @@ Opcjonalna analityka jest bezpiecznie wyłączona, dopóki w `site.analytics.tok
 
 ## Dokumentacja
 
-Instrukcja CMS znajduje się w `docs/CMS-INSTRUKCJA.md`. Plan analityki opisuje `docs/ANALYTICS-PLAN.md`, checklista końcowa jest w `docs/GO-LIVE-CHECKLIST.md`, a pełny stan gotowości w `docs/PRODUCTION-READINESS.md`. Strona pozostaje statyczna i lekka; logowanie oraz formularze redakcyjne obsługuje zewnętrzny Pages CMS.
+Instrukcja CMS znajduje się w `docs/CMS-INSTRUKCJA.md`. Strategię widoczności opisuje `docs/SEO-AI-VISIBILITY.md`, plan analityki `docs/ANALYTICS-PLAN.md`, checklista końcowa jest w `docs/GO-LIVE-CHECKLIST.md`, a pełny stan gotowości w `docs/PRODUCTION-READINESS.md`. Strona pozostaje statyczna i lekka; logowanie oraz formularze redakcyjne obsługuje zewnętrzny Pages CMS.

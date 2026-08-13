@@ -1,17 +1,21 @@
 # Gotowość produkcyjna
 
-Stan na 13 sierpnia 2026 r.
+Stan na 14 sierpnia 2026 r.
 
 ## Zrobione
 
 - osobne, dwujęzyczne podstrony oraz działający Pages CMS,
 - responsywny interfejs, menu mobilne, modale galerii i muzyki,
 - canonicale, `hreflang`, kompletne metadane Open Graph i Twitter,
-- `sitemap.xml`, sitemap obrazów oraz `robots.txt`,
+- `sitemap.xml` z obrazami i wideo, kanały Atom PL/EN oraz `robots.txt` z jawnymi regułami dla wyszukiwarek i botów AI,
 - dane strukturalne Schema.org dla zespołu, witryny, muzyki, koncertów, galerii, wideo i artykułów,
+- pliki pomocnicze `llms.txt`, `llms-full.txt`, `band.json`, manifest aplikacji, `humans.txt` i `security.txt`,
+- spójna encja zespołu: gatunki, pochodzenie, profile oficjalne, skład, osiągnięcia i niezależne źródła prasowe,
 - przykładowe koncerty i aktualności oznaczone jako demonstracyjne, wyłączone z indeksowania i danych rozszerzonych,
 - semantyczny HTML, obsługa klawiatury, focus trap, reduced motion i alternatywne opisy zdjęć,
-- automatyczne testy wszystkich tras, linków, metadanych, map witryny, JSON-LD i duplikatów,
+- automatyczne testy wszystkich tras, linków wewnętrznych, metadanych, map witryny, JSON-LD, konfiguracji CMS i duplikatów oraz osobna kontrola linków zewnętrznych,
+- automatyczna kompresja obrazów i warianty responsywne 480/960/1440 px; build zmniejsza odpowiedniki źródeł z około 3271 KiB do 2235 KiB,
+- automatyczne sortowanie treści, tworzenie identyfikatorów, walidacja dat i wersji językowych, wymiary galerii oraz dzień tygodnia i etykieta godzin koncertu wyliczane z danych,
 - automatyczny audyt WCAG 2.2 AA podstawowych tras bez wykrytych błędów,
 - rygorystyczna Content Security Policy w HTML, bezpieczne odnośniki zewnętrzne i nagłówki przygotowane dla hostingu, który je obsługuje,
 - mechanizm zgody na analitykę, wycofanie zgody i respektowanie Global Privacy Control; analityka pozostaje wyłączona bez tokenu,
@@ -34,4 +38,4 @@ Do czasu uzupełnienia danych prawnych `legal.status` pozostaje ustawione na `de
 
 ## SEO i wyniki generowane przez AI
 
-Strona ma czytelną strukturę, opisowe tytuły, treść dostępną w HTML, spójne dane encji i wskazania źródeł zewnętrznych. To są właściwe podstawy zarówno dla klasycznego wyszukiwania, jak i funkcji AI w Google. Nie ma specjalnego znacznika gwarantującego obecność w podsumowaniu AI; ostateczna widoczność zależy od indeksacji, jakości treści, rozpoznawalności encji i zewnętrznych źródeł. Nie dodano `llms.txt`, ponieważ Google nie wskazuje go jako wymagania dla AI Overviews lub AI Mode.
+Strona ma czytelną strukturę, opisowe tytuły, naturalne klastry tematyczne, treść dostępną w HTML, spójne dane encji i wskazania niezależnych źródeł. To są właściwe podstawy zarówno dla klasycznego wyszukiwania, jak i funkcji AI w Google. Dodane `llms.txt`, `llms-full.txt` i `band.json` są pomocniczym, maszynowo czytelnym opisem, ale nie stanowią sygnału rankingowego deklarowanego przez Google. Nie istnieje specjalny znacznik gwarantujący obecność w podsumowaniu AI; ostateczna widoczność zależy od indeksacji, aktualnych treści, rozpoznawalności encji i zgodnych zewnętrznych źródeł.

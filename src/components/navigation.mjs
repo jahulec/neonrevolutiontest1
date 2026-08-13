@@ -21,7 +21,7 @@ function navigationItems({ routes, locale, lang, routeId, homepage }) {
 function mobileSocialLinks(site) {
   return Object.entries(site.profiles).map(([name, url]) => {
     const label = name === 'youtube' ? 'YouTube' : name[0].toUpperCase() + name.slice(1);
-    return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`;
+    return `<a href="${escapeHtml(url)}" target="_blank" rel="me noopener noreferrer">${escapeHtml(label)}</a>`;
   }).join('\n          ');
 }
 

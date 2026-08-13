@@ -16,6 +16,7 @@ const shows = JSON.parse(await readFile(path.join(root, 'src/data/shows.json'), 
 const news = JSON.parse(await readFile(path.join(root, 'src/data/news.json'), 'utf8'));
 const releases = JSON.parse(await readFile(path.join(root, 'src/data/releases.json'), 'utf8'));
 const press = JSON.parse(await readFile(path.join(root, 'src/data/press.json'), 'utf8'));
+const videos = JSON.parse(await readFile(path.join(root, 'src/data/videos.json'), 'utf8'));
 const locales = {
   pl: JSON.parse(await readFile(path.join(root, 'src/i18n/pl.json'), 'utf8')),
   en: JSON.parse(await readFile(path.join(root, 'src/i18n/en.json'), 'utf8'))
@@ -125,7 +126,10 @@ if (site.legal.status !== 'real') {
 const sitemap = await readFile(path.join(dist, 'sitemap.xml'), 'utf8');
 const robots = await readFile(path.join(dist, 'robots.txt'), 'utf8');
 if (!sitemap.includes('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"')) errors.push('dist/sitemap.xml: image namespace missing');
+if (!sitemap.includes('xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"')) errors.push('dist/sitemap.xml: video namespace missing');
+if (!sitemap.includes('<video:video>')) errors.push('dist/sitemap.xml: video entries missing');
 if (!robots.includes(`Sitemap: ${site.siteUrl}sitemap.xml`)) errors.push('dist/robots.txt: sitemap URL mismatch');
+for (const crawler of ['Google-Extended', 'GPTBot', 'ChatGPT-User', 'ClaudeBot', 'PerplexityBot']) if (!robots.includes(`User-agent: ${crawler}`)) errors.push(`dist/robots.txt: ${crawler} policy missing`);
 if (site.legal.status !== 'real' && /\/prywatnosc\/|\/en\/privacy\//.test(sitemap)) errors.push('dist/sitemap.xml: draft privacy page must be excluded');
 if (news.some((item) => item.status !== 'real') && news.filter((item) => item.status !== 'real').some((item) => sitemap.includes(`/aktualnosci/${item.slug}/`))) errors.push('dist/sitemap.xml: demo news must be excluded');
 
@@ -135,9 +139,25 @@ for (const ids of idsByFile) {
   if (duplicates.length) errors.push(`content data: duplicate identifiers: ${[...new Set(duplicates)].join(', ')}`);
 }
 if (releases.filter((item) => item.featured).length !== 1) errors.push('src/data/releases.json: exactly one release must be featured');
+if (videos.filter((item) => item.featured).length !== 1) errors.push('src/data/videos.json: exactly one video must be featured');
+if (!site.entity?.origin?.city || !site.entity?.genres?.length) errors.push('src/data/site.json: entity origin or genres missing');
+if (!press.coverage?.length) errors.push('src/data/press.json: independent media coverage missing');
 
-for (const requiredFile of ['styles.css', 'site.js', '_headers', 'robots.txt', 'og.png', 'assets/fonts/audiowide-regular.woff2', 'assets/fonts/space-mono-regular.woff2', 'downloads/neon-revolution-rider-techniczny.pdf', 'downloads/neon-revolution-press-pack.zip']) {
+for (const requiredFile of ['styles.css', 'site.js', '_headers', 'robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt', 'band.json', 'feed.xml', 'en/feed.xml', 'site.webmanifest', 'humans.txt', '.well-known/security.txt', 'og.jpg', 'assets/favicon-48.webp', 'assets/apple-touch-icon-180.png', 'assets/icon-192.webp', 'assets/icon-512.webp', 'assets/hero-band-480w.webp', 'assets/hero-band-960w.webp', 'assets/fonts/audiowide-regular.woff2', 'assets/fonts/space-mono-regular.woff2', 'downloads/neon-revolution-rider-techniczny.pdf', 'downloads/neon-revolution-press-pack.zip']) {
   if (!await exists(path.join(dist, requiredFile))) errors.push(`dist/${requiredFile}: file missing`);
+}
+
+try {
+  const band = JSON.parse(await readFile(path.join(dist, 'band.json'), 'utf8'));
+  if (band.name !== site.brand || !band.mediaCoverage?.length || !band.profiles?.appleMusic) errors.push('dist/band.json: entity data incomplete');
+} catch { errors.push('dist/band.json: invalid JSON'); }
+const llms = await readFile(path.join(dist, 'llms.txt'), 'utf8');
+if (!llms.includes(site.siteUrl) || /demo-warszawa|dane demonstracyjne/i.test(llms)) errors.push('dist/llms.txt: canonical source missing or demo content leaked');
+for (const homepage of ['index.html', 'en/index.html']) {
+  const html = await readFile(path.join(dist, homepage), 'utf8');
+  if (!/\bsrcset="[^"]+480w/.test(html)) errors.push(`${homepage}: responsive images missing`);
+  if (!/rel="alternate" type="application\/atom\+xml"/.test(html)) errors.push(`${homepage}: feed discovery missing`);
+  if (/<meta name="keywords"/.test(html)) errors.push(`${homepage}: obsolete meta keywords must not be used`);
 }
 
 for (const [lang, homepage] of [['pl', 'index.html'], ['en', 'en/index.html']]) {

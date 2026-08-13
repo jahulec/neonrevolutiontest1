@@ -28,6 +28,8 @@
   "allVideos": "All videos",
   "allShows": "All live dates",
   "officialBio": "Band description",
+  "coverage": "Media coverage",
+  "coverageOpen": "Read publication",
   "noMaterials": "This material will be available soon",
   "socialLabel": "Social media",
   "showSocial": "Show social media",
@@ -52,28 +54,28 @@
   },
   "pages": {
     "home": {
-      "title": "Neon Revolution",
-      "description": "Neon Revolution — a fresh band combining an 80s atmosphere with catchy guitars, danceable rhythms and sparkling synthesizers."
+      "title": "Neon Revolution — Polish rock and synth-pop band",
+      "description": "Official website of Neon Revolution, a Polish band from Knurów combining rock, synth-pop, guitar energy, dance rhythms and an 80s atmosphere."
     },
     "music": {
       "title": "Neon Revolution — Music",
       "heading": "Music",
-      "description": "Music and releases by Neon Revolution."
+      "description": "Singles, music videos and official streaming links from Polish rock and synth-pop band Neon Revolution."
     },
     "video": {
       "title": "Neon Revolution — Video",
       "heading": "Video",
-      "description": "Music videos and video releases by Neon Revolution."
+      "description": "Official music videos and video materials by Neon Revolution from Knurów, Poland."
     },
     "live": {
       "title": "Neon Revolution — Live",
       "heading": "Live",
-      "description": "Upcoming Neon Revolution live dates."
+      "description": "Upcoming and past Neon Revolution concerts with dates, cities, venues and ticket links."
     },
     "press": {
       "title": "Neon Revolution — Press",
       "heading": "Press",
-      "description": "Band description and press materials for Neon Revolution."
+      "description": "Biography, current members, achievements, independent media coverage and official press materials for Neon Revolution."
     },
     "news": {
       "title": "Neon Revolution — News",

@@ -14,7 +14,7 @@ export function renderHome({ site, routes, locale, lang, releases, videos, shows
 
   return {
     beforeHeader: `<section class="hero" id="top" aria-labelledby="page-title">
-      <div class="hero-media"><div class="hero-bg" aria-hidden="true"><img class="hero-bg__image" src="/assets/hero-band.webp" width="2048" height="1365" alt="" fetchpriority="high" decoding="async"></div><div class="crt-frame" aria-hidden="true"></div></div>
+      <div class="hero-media"><div class="hero-bg" aria-hidden="true"><img class="hero-bg__image" src="/assets/hero-band.webp" width="2048" height="1365" alt="" fetchpriority="high"></div><div class="crt-frame" aria-hidden="true"></div></div>
       <div class="hero-content">
         <h1 class="visually-hidden" id="page-title">${escapeHtml(site.brand)}</h1>
         <img class="hero-logo" src="/assets/logo-neon.webp" width="1200" height="412" alt="${escapeHtml(site.brand)}" fetchpriority="high" decoding="async">

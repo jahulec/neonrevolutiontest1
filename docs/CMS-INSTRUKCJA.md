@@ -15,10 +15,10 @@ Można też zaprosić redaktorów e-mailem z poziomu Pages CMS. Wtedy nie muszą
 
 - dodawać, edytować, usuwać i zmieniać kolejność koncertów,
 - dodawać, edytować i usuwać aktualności wraz z wersją polską i angielską,
-- zarządzać wydaniami, okładkami oraz linkami Spotify i YouTube,
+- zarządzać wydaniami, datami premier, okładkami oraz linkami Spotify, YouTube i Apple Music,
 - zarządzać filmami i wybierać materiał wyróżniony na stronie głównej,
 - dodawać i usuwać zdjęcia galerii,
-- edytować opis zespołu, skład, osiągnięcia i linki do materiałów prasowych,
+- edytować opis zespołu, skład, osiągnięcia, niezależne publikacje i linki do materiałów prasowych,
 - zmieniać dane kontaktowe oraz profile społecznościowe.
 
 Wygląd, menu, kod, tłumaczenia interfejsu i ustawienia techniczne nie są dostępne w panelu. Chroni to stronę przed przypadkowym uszkodzeniem.
@@ -27,8 +27,12 @@ Wygląd, menu, kod, tłumaczenia interfejsu i ustawienia techniczne nie są dost
 
 Zapis w panelu tworzy commit na `main`. GitHub Actions automatycznie sprawdza kompletność strony i publikuje nową wersję w GitHub Pages. Zwykle trwa to około 1–3 minut. Jeśli kontrola wykryje błąd, dotychczasowa opublikowana wersja pozostaje dostępna.
 
-Przy koncercie podaje się tylko datę `RRRR-MM-DD`; dzień tygodnia, format `DD.MM.RRRR` oraz podział na nadchodzące i poprzednie koncerty powstają automatycznie. Przy telefonie wystarczy czytelny zapis ze spacjami — poprawny link `tel:` również powstaje automatycznie.
+Przy koncercie podaje się datę `RRRR-MM-DD` oraz osobno godzinę bram i startu. Dzień tygodnia, format `DD.MM.RRRR`, etykieta godzin oraz podział na nadchodzące i poprzednie koncerty powstają automatycznie. Przy telefonie wystarczy czytelny zapis ze spacjami — poprawny link `tel:` również powstaje automatycznie.
+
+W bocznym menu panelu znajduje się akcja „Sprawdź i uporządkuj treści”. Uruchamia ona bezpieczny workflow, który sortuje koncerty i aktualności, uzupełnia wymiary galerii, sprawdza identyfikatory, daty, linki, kompletność wersji PL/EN oraz wykonuje pełny build. Jeżeli dane nie wymagają korekty, nie powstaje pusty commit.
 
 ## Zasady dla zdjęć
 
-Nowe obrazy trafiają do `assets/uploads/`. Zalecany format to WebP albo JPG, a rozsądny rozmiar pojedynczego pliku to maksymalnie około 2 MB. Pełne materiały prasowe nadal należy przechowywać w Google Drive i podawać w Press jako link do folderu.
+Nowe obrazy trafiają do `assets/uploads/`; panel akceptuje JPG, PNG i WebP oraz bezpiecznie normalizuje nazwy. Przy każdym buildzie oryginały pozostają nienaruszone, natomiast wersja publikowana jest automatycznie kompresowana i otrzymuje warianty 480, 960 i 1440 px. Przeglądarka pobiera rozmiar dopasowany do ekranu. Nadal warto unikać źródeł większych niż około 8 MB. Pełne materiały prasowe należy przechowywać w Google Drive i podawać w Press jako link do folderu.
+
+Po większej aktualizacji można lokalnie uruchomić `npm run links:check`, aby sprawdzić odnośniki do serwisów streamingowych, profili, biletów i źródeł zewnętrznych.

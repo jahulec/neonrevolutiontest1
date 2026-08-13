@@ -2,7 +2,19 @@
   "brand": "Neon Revolution",
   "siteUrl": "https://jahulec.github.io/neonrevolutiontest1/",
   "themeColor": "#050611",
-  "ogImage": "/og.png",
+  "ogImage": "/og.jpg",
+  "entity": {
+    "alternateNames": ["Neon Revolution Band"],
+    "genres": ["rock", "synth-pop", "alternative rock", "rock inspirowany latami 80."],
+    "origin": {
+      "city": "Knurów",
+      "region": "śląskie",
+      "countryCode": "PL"
+    },
+    "additionalProfiles": [
+      "https://music.apple.com/us/artist/neon-revolution/1752570682"
+    ]
+  },
   "profiles": {
     "instagram": "https://www.instagram.com/neon_revolution_band/",
     "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
@@ -26,5 +38,9 @@
     "provider": "cloudflare",
     "token": null,
     "consentRequired": true
+  },
+  "verification": {
+    "google": "",
+    "bing": ""
   }
 }

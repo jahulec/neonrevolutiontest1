@@ -34,20 +34,44 @@ function youtubeEmbedUrl(url) {
 function bandEntity({ site, press }) {
   const id = absoluteUrl(site.siteUrl, '/#band');
   const url = absoluteUrl(site.siteUrl, '/');
-  const logo = imageUrl(site, '/assets/logo-neon.webp');
+  const logo = imageUrl(site, '/assets/sygnet-neon.webp');
   const image = imageUrl(site, '/assets/hero-band.webp');
+  const profiles = [...Object.values(site.profiles), ...(site.entity?.additionalProfiles ?? [])];
   return {
     '@type': 'MusicGroup',
     ...(id ? { '@id': id } : {}),
     name: site.brand,
+    alternateName: site.entity?.alternateNames,
     description: press.bio.pl,
-    genre: ['rock', 'synth-pop', 'alternative rock'],
+    genre: site.entity?.genres ?? ['rock', 'synth-pop', 'alternative rock'],
     ...(url ? { url } : {}),
     ...(logo ? { logo } : {}),
     ...(image ? { image } : {}),
     email: site.contact.email,
     telephone: site.contact.phone,
-    sameAs: Object.values(site.profiles),
+    sameAs: profiles,
+    award: press.achievements.map((item) => `${item.year} — ${item.title.pl}`),
+    ...(site.entity?.origin ? {
+      foundingLocation: {
+        '@type': 'Place',
+        name: `${site.entity.origin.city}, Polska`,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: site.entity.origin.city,
+          addressRegion: site.entity.origin.region,
+          addressCountry: site.entity.origin.countryCode
+        }
+      }
+    } : {}),
+    ...(press.coverage?.length ? {
+      subjectOf: press.coverage.map((item) => ({
+        '@type': 'Article',
+        headline: item.title.pl,
+        datePublished: item.date,
+        url: item.url,
+        publisher: { '@type': 'Organization', name: item.publisher }
+      }))
+    } : {}),
     member: press.members.map((member) => ({
       '@type': 'Person',
       name: member.name,
@@ -93,9 +117,9 @@ function musicEntities({ site, releases }) {
     '@type': 'MusicRecording',
     name: release.title,
     byArtist: entityRef(site),
-    ...(release.year ? { datePublished: release.year } : {}),
+    ...(release.date ? { datePublished: release.date } : release.year ? { datePublished: release.year } : {}),
     ...(imageUrl(site, release.cover) ? { image: imageUrl(site, release.cover) } : {}),
-    sameAs: [release.links.spotify, release.links.youtube, release.links.smartlink].filter(Boolean)
+    sameAs: [release.links.spotify, release.links.youtube, release.links.appleMusic, release.links.smartlink].filter(Boolean)
   }));
 }
 
@@ -167,6 +191,7 @@ export function structuredDataForPage({ site, press, shows, releases, videos, ga
       '@type': 'WebSite',
       ...(websiteId ? { '@id': websiteId } : {}),
       name: site.brand,
+      alternateName: site.entity?.alternateNames,
       url: absoluteUrl(site.siteUrl, '/'),
       inLanguage: ['pl', 'en'],
       publisher: entityRef(site)

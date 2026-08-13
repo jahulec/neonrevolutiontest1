@@ -5,7 +5,10 @@
     "image": "/assets/nr1.webp",
     "width": 2048,
     "height": 1365,
-    "alt": { "pl": "Neon Revolution podczas koncertu klubowego", "en": "Neon Revolution performing at a club show" }
+    "alt": {
+      "pl": "Neon Revolution podczas koncertu klubowego",
+      "en": "Neon Revolution performing at a club show"
+    }
   },
   {
     "id": "live-outdoor",
@@ -13,7 +16,10 @@
     "image": "/assets/neon-revolution-live.webp",
     "width": 1800,
     "height": 1200,
-    "alt": { "pl": "Neon Revolution podczas koncertu plenerowego", "en": "Neon Revolution performing at an outdoor show" }
+    "alt": {
+      "pl": "Neon Revolution podczas koncertu plenerowego",
+      "en": "Neon Revolution performing at an outdoor show"
+    }
   },
   {
     "id": "band-neon",
@@ -21,9 +27,21 @@
     "image": "/assets/hero-band.webp",
     "width": 2048,
     "height": 1365,
-    "alt": { "pl": "Neon Revolution — zdjęcie zespołu", "en": "Neon Revolution band photo" }
+    "alt": {
+      "pl": "Neon Revolution — zdjęcie zespołu",
+      "en": "Neon Revolution band photo"
+    }
   },
-  { "id": "placeholder-1", "status": "placeholder" },
-  { "id": "placeholder-2", "status": "placeholder" },
-  { "id": "placeholder-3", "status": "placeholder" }
+  {
+    "id": "placeholder-1",
+    "status": "placeholder"
+  },
+  {
+    "id": "placeholder-2",
+    "status": "placeholder"
+  },
+  {
+    "id": "placeholder-3",
+    "status": "placeholder"
+  }
 ]

@@ -13,6 +13,13 @@ function localizedWeekday(date, lang) {
   return weekday.charAt(0).toUpperCase() + weekday.slice(1);
 }
 
+function automaticTimeLabel(show, copy, lang) {
+  const parts = [];
+  if (show.doors) parts.push(`${lang === 'pl' ? 'Bramki' : 'Doors'} ${show.doors}`);
+  if (show.start) parts.push(`Start ${show.start}`);
+  return parts.length ? parts.join(' · ') : copy.timeLabel;
+}
+
 export function renderShows({ shows, locale, lang, limit = null, period = 'all', showTickets = true }) {
   const today = new Date().toISOString().slice(0, 10);
   let selected = sortedShows(shows).filter((show) => {
@@ -38,7 +45,7 @@ export function renderShows({ shows, locale, lang, limit = null, period = 'all',
       <div class="show-date-block"><time class="show-date" datetime="${escapeHtml(show.date)}">${escapeHtml(displayDate(show.date))}</time><span class="show-weekday">${escapeHtml(localizedWeekday(show.date, lang))}</span></div>
       <div class="show-city">${escapeHtml(copy.city)}</div>
       <div class="show-venue">${escapeHtml(copy.venue)}</div>
-      <time class="show-time" datetime="${escapeHtml(dateTime)}">${escapeHtml(copy.timeLabel)}</time>
+      <time class="show-time" datetime="${escapeHtml(dateTime)}">${escapeHtml(automaticTimeLabel(show, copy, lang))}</time>
       <div class="show-actions${showTickets ? '' : ' show-actions--empty'}">${action}</div>
     </article>`;
   }).join('\n');

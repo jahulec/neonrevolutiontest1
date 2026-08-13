@@ -21,6 +21,10 @@ function renderDownload(item, locale) {
   return `<div class="press-resource" data-content-status="${escapeHtml(item.status)}"><div><h3>${escapeHtml(label)}</h3><span>${escapeHtml(`${item.format}${statusLabel}`)}</span></div>${action}</div>`;
 }
 
+function renderCoverage(item, locale, lang) {
+  return `<li><div><time datetime="${escapeHtml(item.date)}">${escapeHtml(item.date)}</time><strong>${escapeHtml(localized(item.title, lang))}</strong><span>${escapeHtml(item.publisher)}</span></div><a ${externalLinkAttributes(item.url)} aria-label="${escapeHtml(`${locale.coverageOpen}: ${localized(item.title, lang)}`)}">${escapeHtml(locale.coverageOpen)} <span aria-hidden="true">↗</span></a></li>`;
+}
+
 export function renderPress({ site, locale, lang, press }) {
   const email = site.contact.email;
   const phone = site.contact.phone;
@@ -34,6 +38,7 @@ export function renderPress({ site, locale, lang, press }) {
     </div>
     <section class="press-block" aria-labelledby="press-members"><h2 id="press-members">${escapeHtml(locale.press.members)}</h2><ul class="press-members">${press.members.map((item) => renderMember(item, lang)).join('')}</ul></section>
     <section class="press-block" aria-labelledby="press-achievements"><h2 id="press-achievements">${escapeHtml(locale.press.achievements)}</h2><div class="press-achievements">${press.achievements.map((item) => renderAchievement(item, lang)).join('')}</div></section>
+    ${press.coverage?.length ? `<section class="press-block" aria-labelledby="press-coverage"><h2 id="press-coverage">${escapeHtml(locale.coverage)}</h2><ul class="press-coverage">${press.coverage.map((item) => renderCoverage(item, locale, lang)).join('')}</ul></section>` : ''}
     <section class="press-block" aria-labelledby="press-downloads"><h2 id="press-downloads">${escapeHtml(locale.press.downloads)}</h2><div class="press-resources">${press.downloads.map((item) => renderDownload(item, locale)).join('')}</div></section>
     <section class="press-contact" id="contact" aria-labelledby="press-contact-title"><h2 id="press-contact-title">${escapeHtml(locale.contact)}</h2><div class="contact-row"><strong>${escapeHtml(locale.contactDetails.email)}</strong><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div><div class="contact-row"><strong>${escapeHtml(locale.contactDetails.phone)}</strong><a href="tel:${escapeHtml(phoneHref)}">${phoneDisplay}</a></div><div class="contact-row"><strong>${escapeHtml(locale.contactDetails.messenger)}</strong><a ${externalLinkAttributes(messenger)}>Messenger <span aria-hidden="true">↗</span></a></div></section>
   </section>`;

@@ -26,6 +26,9 @@ export function renderHead({ site, routes, locale, lang, routeId, preloadHero = 
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="description" content="${escapeHtml(page.description)}">
   <meta name="author" content="${escapeHtml(site.brand)}">
+  <meta name="format-detection" content="telephone=no">
+  ${site.verification?.google ? `<meta name="google-site-verification" content="${escapeHtml(site.verification.google)}">` : ''}
+  ${site.verification?.bing ? `<meta name="msvalidate.01" content="${escapeHtml(site.verification.bing)}">` : ''}
   <meta name="robots" content="${escapeHtml(page.robots ?? (routeId === 'notFound' ? 'noindex,follow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'))}">
   <meta property="og:title" content="${escapeHtml(page.title)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
@@ -45,11 +48,14 @@ export function renderHead({ site, routes, locale, lang, routeId, preloadHero = 
   <link rel="alternate" hreflang="x-default" href="${escapeHtml(plUrl)}">
   ${canonical ? `<link rel="canonical" href="${escapeHtml(canonical)}">` : ''}
   <title>${escapeHtml(page.title)}</title>
-  <link rel="icon" href="/assets/sygnet-neon.webp" type="image/webp">
-  <link rel="apple-touch-icon" href="/assets/sygnet-neon.webp">
+  <link rel="icon" href="/assets/favicon-48.webp" type="image/webp" sizes="48x48">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon-180.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="application/atom+xml" title="${escapeHtml(site.brand)} — ${escapeHtml(locale.nav.news)}" href="${lang === 'pl' ? '/feed.xml' : '/en/feed.xml'}">
+  <link rel="alternate" type="application/json" title="${escapeHtml(site.brand)} — entity data" href="/band.json">
   <link rel="preload" href="/assets/fonts/audiowide-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/space-mono-regular.woff2" as="font" type="font/woff2" crossorigin>
-  ${preloadHero ? '<link rel="preload" href="/assets/hero-band.webp" as="image" type="image/webp" fetchpriority="high">' : ''}
+  ${preloadHero ? '<link rel="preload" href="/assets/hero-band-960w.webp" as="image" type="image/webp" imagesrcset="/assets/hero-band-480w.webp 480w, /assets/hero-band-960w.webp 960w, /assets/hero-band-1440w.webp 1440w, /assets/hero-band.webp 2048w" imagesizes="100vw" fetchpriority="high">' : ''}
   <link rel="stylesheet" href="/styles.css${assetVersion ? `?v=${escapeHtml(assetVersion)}` : ''}">
   ${schemaJson ? `<script type="application/ld+json">${schemaJson}</script>` : ''}`;
 }

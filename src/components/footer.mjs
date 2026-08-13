@@ -7,7 +7,7 @@ export function renderFooter({ site, locale, lang, routes, homepage }) {
   const privacyHref = privacyRoute[lang];
   const profileLinks = Object.entries(site.profiles).map(([name, url]) => {
     const label = name === 'youtube' ? 'YouTube' : name[0].toUpperCase() + name.slice(1);
-    return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)} <span aria-hidden="true">↗</span></a>`;
+    return `<a href="${escapeHtml(url)}" target="_blank" rel="me noopener noreferrer">${escapeHtml(label)} <span aria-hidden="true">↗</span></a>`;
   }).join('\n          ');
 
   return `<footer class="footer">

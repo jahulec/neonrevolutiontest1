@@ -3,11 +3,13 @@
     "id": "blue-velvet-eyes",
     "title": "Blue Velvet Eyes",
     "year": "",
+    "date": "",
     "cover": "/assets/blue-velvet-eyes.webp",
     "featured": true,
     "links": {
       "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
       "youtube": "https://www.youtube.com/@N3ONR3VOLUTION",
+      "appleMusic": "https://music.apple.com/us/artist/neon-revolution/1752570682",
       "smartlink": ""
     }
   },
@@ -15,11 +17,13 @@
     "id": "blade",
     "title": "Blade",
     "year": "2025",
+    "date": "2025-01-17",
     "cover": "/assets/blade.webp",
     "featured": false,
     "links": {
       "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
       "youtube": "https://www.youtube.com/watch?v=FkYuEfOvS2s",
+      "appleMusic": "https://music.apple.com/gb/album/blade-single/1788442192",
       "smartlink": ""
     }
   },
@@ -27,11 +31,13 @@
     "id": "vacuum",
     "title": "Vacuum",
     "year": "2025",
+    "date": "",
     "cover": "/assets/vacuum.webp",
     "featured": false,
     "links": {
       "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
       "youtube": "https://www.youtube.com/watch?v=UE05T7m8ymQ",
+      "appleMusic": "https://music.apple.com/us/artist/neon-revolution/1752570682",
       "smartlink": ""
     }
   },
@@ -39,11 +45,13 @@
     "id": "let-them-go",
     "title": "Let Them Go",
     "year": "2024",
+    "date": "2024-06-18",
     "cover": "/assets/let-them-go.webp",
     "featured": false,
     "links": {
       "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
       "youtube": "https://www.youtube.com/watch?v=kxyhe2M6yGc",
+      "appleMusic": "https://music.apple.com/pl/song/1752824864",
       "smartlink": ""
     }
   }

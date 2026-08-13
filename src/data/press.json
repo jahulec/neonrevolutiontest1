@@ -32,6 +32,35 @@
       "description": { "pl": "Pierwsze miejsce w finale konkursu w Warszawie 5 grudnia 2024 roku.", "en": "First place in the competition final in Warsaw on 5 December 2024." }
     }
   ],
+  "coverage": [
+    {
+      "publisher": "Przegląd Lokalny",
+      "date": "2025-08-07",
+      "url": "https://sbc.org.pl/Content/987548/PDF/32.pdf",
+      "title": {
+        "pl": "Lato z Hard Rockiem — relacja z koncertu Neon Revolution",
+        "en": "Summer with Hard Rock — Neon Revolution concert coverage"
+      }
+    },
+    {
+      "publisher": "ILN24",
+      "date": "2025-04-07",
+      "url": "https://www.iln24.pl/przeglad-kapel-rockowych-uek-znamy-finalistow-gosc-specjalny-strachy-na-lachy/",
+      "title": {
+        "pl": "Neon Revolution w finale Przeglądu Kapel Rockowych UEK",
+        "en": "Neon Revolution in the UEK Rock Band Review final"
+      }
+    },
+    {
+      "publisher": "iKnurów",
+      "date": "2025-01-14",
+      "url": "https://iknurow.pl/knurow-dwa-zespoly-jedna-scena-to-bedzie-rockowa-petarda/",
+      "title": {
+        "pl": "Neon Revolution na scenie Art CK w Knurowie",
+        "en": "Neon Revolution live at Art CK in Knurów"
+      }
+    }
+  ],
   "media": [],
   "downloads": [
     { "id": "photos", "url": "https://drive.google.com/drive/folders/1zqfd0F3Ba9hQNZX0lEQ6fB_O3D7iOD8C", "format": "Google Drive", "status": "real", "external": true },
