@@ -1,10 +1,26 @@
 [
   {
-    "id": "blue-velvet-eyes",
-    "title": "Blue Velvet Eyes",
-    "date": null,
-    "thumbnail": "/assets/nr1.webp",
-    "youtube": null,
+    "id": "change-of-plans",
+    "title": "Change of Plans",
+    "date": "2025-10-03",
+    "thumbnail": "/assets/change-of-plans.webp",
+    "youtube": "https://www.youtube.com/watch?v=213PcMAKCdw",
     "featured": true
+  },
+  {
+    "id": "climax",
+    "title": "Climax",
+    "date": "2025-03-14",
+    "thumbnail": "/assets/nr1.webp",
+    "youtube": "https://www.youtube.com/watch?v=pwATBo5MyfQ",
+    "featured": false
+  },
+  {
+    "id": "let-them-go",
+    "title": "Let Them Go",
+    "date": "2024-06-18",
+    "thumbnail": "/assets/let-them-go.webp",
+    "youtube": "https://www.youtube.com/watch?v=kxyhe2M6yGc",
+    "featured": false
   }
 ]

@@ -216,6 +216,80 @@ updateHeader();
 updateSocialDock();
 configureBackgroundParallax();
 
+const modalDialogs = [...document.querySelectorAll('dialog')];
+let modalReturnFocus = null;
+
+function openDialog(dialog, opener) {
+  if (!dialog) return;
+  modalReturnFocus = opener;
+  document.body.classList.add('modal-open');
+  socialDock?.classList.add('is-suppressed');
+  if (typeof dialog.showModal === 'function') dialog.showModal();
+  else dialog.setAttribute('open', '');
+  dialog.querySelector('[data-modal-close]')?.focus({ preventScroll: true });
+}
+
+function closeDialog(dialog) {
+  if (!dialog) return;
+  if (typeof dialog.close === 'function' && dialog.open) dialog.close();
+  else dialog.removeAttribute('open');
+}
+
+modalDialogs.forEach((dialog) => {
+  dialog.querySelectorAll('[data-modal-close]').forEach((button) => button.addEventListener('click', () => closeDialog(dialog)));
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) closeDialog(dialog);
+  });
+  dialog.addEventListener('close', () => {
+    document.body.classList.remove('modal-open');
+    if (!isMenuOpen()) socialDock?.classList.remove('is-suppressed');
+    if (modalReturnFocus instanceof HTMLElement) modalReturnFocus.focus({ preventScroll: true });
+    modalReturnFocus = null;
+  });
+});
+
+const musicModal = document.querySelector('[data-music-modal]');
+document.querySelectorAll('[data-music-open]').forEach((button) => {
+  button.addEventListener('click', () => {
+    if (!musicModal) return;
+    const title = button.dataset.releaseTitle ?? '';
+    const cover = musicModal.querySelector('[data-music-cover]');
+    const titleNode = musicModal.querySelector('[data-music-title]');
+    const spotify = musicModal.querySelector('[data-music-spotify]');
+    const youtube = musicModal.querySelector('[data-music-youtube]');
+    if (cover) { cover.src = button.dataset.releaseCover ?? ''; cover.alt = title; }
+    if (titleNode) titleNode.textContent = title;
+    if (spotify) { spotify.href = button.dataset.releaseSpotify ?? ''; spotify.hidden = !button.dataset.releaseSpotify; }
+    if (youtube) { youtube.href = button.dataset.releaseYoutube ?? ''; youtube.hidden = !button.dataset.releaseYoutube; }
+    openDialog(musicModal, button);
+  });
+});
+
+const galleryModal = document.querySelector('[data-gallery-modal]');
+const galleryOpeners = [...document.querySelectorAll('[data-gallery-open]')];
+let galleryIndex = 0;
+
+function showGalleryItem(index, opener = null) {
+  if (!galleryModal || !galleryOpeners.length) return;
+  galleryIndex = (index + galleryOpeners.length) % galleryOpeners.length;
+  const item = galleryOpeners[galleryIndex];
+  const image = galleryModal.querySelector('[data-gallery-image]');
+  const titleNode = galleryModal.querySelector('[data-gallery-title]');
+  const descriptionNode = galleryModal.querySelector('[data-gallery-description]');
+  if (image) { image.src = item.dataset.galleryImage ?? ''; image.alt = item.dataset.galleryTitle ?? ''; }
+  if (titleNode) titleNode.textContent = item.dataset.galleryTitle ?? '';
+  if (descriptionNode) descriptionNode.textContent = item.dataset.galleryDescription ?? '';
+  if (!galleryModal.open) openDialog(galleryModal, opener ?? item);
+}
+
+galleryOpeners.forEach((button, index) => button.addEventListener('click', () => showGalleryItem(index, button)));
+galleryModal?.querySelector('[data-gallery-prev]')?.addEventListener('click', () => showGalleryItem(galleryIndex - 1));
+galleryModal?.querySelector('[data-gallery-next]')?.addEventListener('click', () => showGalleryItem(galleryIndex + 1));
+galleryModal?.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft') { event.preventDefault(); showGalleryItem(galleryIndex - 1); }
+  if (event.key === 'ArrowRight') { event.preventDefault(); showGalleryItem(galleryIndex + 1); }
+});
+
 const consentStorageKey = 'neon-revolution-privacy-v1';
 let privacyReturnFocus = null;
 

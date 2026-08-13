@@ -13,6 +13,7 @@ const basePath = (() => {
 const routes = JSON.parse(await readFile(path.join(root, 'src/data/routes.json'), 'utf8'));
 const site = JSON.parse(await readFile(path.join(root, 'src/data/site.json'), 'utf8'));
 const news = JSON.parse(await readFile(path.join(root, 'src/data/news.json'), 'utf8'));
+const releases = JSON.parse(await readFile(path.join(root, 'src/data/releases.json'), 'utf8'));
 const press = JSON.parse(await readFile(path.join(root, 'src/data/press.json'), 'utf8'));
 const locales = {
   pl: JSON.parse(await readFile(path.join(root, 'src/i18n/pl.json'), 'utf8')),
@@ -64,7 +65,10 @@ for (const page of pages) {
   if (page.route.id === 'live' && !/class="shows-divider"/.test(html)) errors.push(`${page.file}: previous shows separator missing`);
   if (page.route.id === 'live' && (html.match(/class="show-weekday"/g) ?? []).length < 6) errors.push(`${page.file}: automatic weekdays missing`);
   if (page.route.id === 'news' && (html.match(/class="square-card"/g) ?? []).length !== news.length) errors.push(`${page.file}: news card count mismatch`);
-  if (page.route.id === 'press' && (html.match(/class="press-media-card\b/g) ?? []).length !== press.media.length) errors.push(`${page.file}: press media count mismatch`);
+  if (page.route.id === 'music' && (html.match(/data-music-open/g) ?? []).length !== releases.length) errors.push(`${page.file}: music modal trigger count mismatch`);
+  if (page.route.id === 'press' && /class="press-media-card\b/.test(html)) errors.push(`${page.file}: press media gallery must not appear`);
+  if (page.route.id === 'gallery' && (html.match(/data-gallery-open/g) ?? []).length < 3) errors.push(`${page.file}: gallery photos missing`);
+  if (page.route.id === 'gallery' && !/data-gallery-modal/.test(html)) errors.push(`${page.file}: gallery modal missing`);
   if (page.route.id === 'press' && (html.match(/class="press-resource"/g) ?? []).length !== press.downloads.length) errors.push(`${page.file}: press download count mismatch`);
   if (page.route.id === 'contact' && (html.match(/class="contact-method"/g) ?? []).length !== 3) errors.push(`${page.file}: contact method count mismatch`);
   if (page.route.id === 'privacy' && !/class="[^"]*\bprivacy-page\b/.test(html)) errors.push(`${page.file}: privacy content missing`);
@@ -74,6 +78,9 @@ for (const page of pages) {
     if (basePath && match[1] !== basePath && !match[1].startsWith(`${basePath}/`)) {
       errors.push(`${page.file}: root-relative URL missing base path: ${match[1]}`);
     }
+  }
+  for (const match of html.matchAll(/\b(?:data-release-cover|data-gallery-image)="(\/(?!\/)[^"]*)/g)) {
+    if (basePath && !match[1].startsWith(`${basePath}/`)) errors.push(`${page.file}: modal asset URL missing base path: ${match[1]}`);
   }
 
   for (const match of html.matchAll(/<(?:a|link)[^>]+href="(https?:\/\/[^"]+)"[^>]*>/g)) {
@@ -90,13 +97,13 @@ for (const page of pages) {
   }
 }
 
-for (const requiredFile of ['styles.css', 'site.js', '_headers', 'robots.txt', 'og.png', 'assets/fonts/audiowide-regular.woff2', 'assets/fonts/space-mono-regular.woff2', 'downloads/neon-revolution-press-kit.pdf', 'downloads/neon-revolution-rider-techniczny.pdf', 'downloads/neon-revolution-press-pack.zip']) {
+for (const requiredFile of ['styles.css', 'site.js', '_headers', 'robots.txt', 'og.png', 'assets/fonts/audiowide-regular.woff2', 'assets/fonts/space-mono-regular.woff2', 'downloads/neon-revolution-rider-techniczny.pdf', 'downloads/neon-revolution-press-pack.zip']) {
   if (!await exists(path.join(dist, requiredFile))) errors.push(`dist/${requiredFile}: file missing`);
 }
 
 for (const [lang, homepage] of [['pl', 'index.html'], ['en', 'en/index.html']]) {
   const html = await readFile(path.join(dist, homepage), 'utf8');
-  if (!html.includes(escapeHtml(locales[lang].bio))) errors.push(`${homepage}: approved biography changed or missing`);
+  if (!html.includes(escapeHtml(press.bio[lang]))) errors.push(`${homepage}: biography changed or missing`);
 }
 
 if (!site.siteUrl) console.warn('Warning: siteUrl is not configured; canonical URLs and sitemap are intentionally omitted.');

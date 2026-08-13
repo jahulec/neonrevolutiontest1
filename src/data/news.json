@@ -5,7 +5,6 @@
     "status": "demo",
     "relatedRoute": "music",
     "date": "2026-07-18",
-    "displayDate": "18.07.2026",
     "image": "/assets/blue-velvet-eyes.webp",
     "pl": {
       "title": "Blue Velvet Eyes",
@@ -30,7 +29,6 @@
     "status": "demo",
     "relatedRoute": "live",
     "date": "2026-07-04",
-    "displayDate": "04.07.2026",
     "image": "/assets/hero-band.webp",
     "pl": {
       "title": "Jesienne koncerty",
@@ -54,7 +52,6 @@
     "slug": "sygnal-z-proby",
     "status": "demo",
     "date": "2026-06-12",
-    "displayDate": "12.06.2026",
     "image": "/assets/nr1.webp",
     "pl": {
       "title": "Sygnał z próby",

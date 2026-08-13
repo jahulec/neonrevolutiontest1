@@ -6,6 +6,7 @@ import { renderDocument } from '../src/layouts/document.mjs';
 import { routeOutputPath } from '../src/lib/html.mjs';
 import { renderContact } from '../src/pages/contact.mjs';
 import { renderHome } from '../src/pages/home.mjs';
+import { renderGallery } from '../src/pages/gallery.mjs';
 import { renderLive } from '../src/pages/live.mjs';
 import { renderMusic } from '../src/pages/music.mjs';
 import { renderNews } from '../src/pages/news.mjs';
@@ -26,7 +27,7 @@ const basePath = (() => {
 
 function applyBasePath(html) {
   if (!basePath) return html;
-  return html.replace(/\b(href|src)="\/(?!\/)/g, `$1="${basePath}/`);
+  return html.replace(/\b(href|src|data-release-cover|data-gallery-image)="\/(?!\/)/g, `$1="${basePath}/`);
 }
 
 if (dist !== expectedDist || path.dirname(dist) !== root || path.basename(dist) !== 'dist') {
@@ -34,15 +35,15 @@ if (dist !== expectedDist || path.dirname(dist) !== root || path.basename(dist) 
 }
 
 const readJson = async (relativePath) => JSON.parse(await readFile(path.join(root, relativePath), 'utf8'));
-const [site, routes, shows, releases, videos, news, press, pl, en, stylesheetSource, clientSource] = await Promise.all([
+const [site, routes, shows, releases, videos, news, gallery, press, pl, en, stylesheetSource, clientSource] = await Promise.all([
   readJson('src/data/site.json'), readJson('src/data/routes.json'), readJson('src/data/shows.json'),
-  readJson('src/data/releases.json'), readJson('src/data/videos.json'), readJson('src/data/news.json'), readJson('src/data/press.json'),
+  readJson('src/data/releases.json'), readJson('src/data/videos.json'), readJson('src/data/news.json'), readJson('src/data/gallery.json'), readJson('src/data/press.json'),
   readJson('src/i18n/pl.json'), readJson('src/i18n/en.json'),
   readFile(path.join(root, 'src/styles/site.css')), readFile(path.join(root, 'src/client/site.js'))
 ]);
 const assetVersion = createHash('sha256').update(stylesheetSource).update(clientSource).digest('hex').slice(0, 12);
 const locales = { pl, en };
-const renderers = { music: renderMusic, video: renderVideo, live: renderLive, news: renderNews, press: renderPress, contact: renderContact, privacy: renderPrivacy };
+const renderers = { music: renderMusic, video: renderVideo, live: renderLive, news: renderNews, gallery: renderGallery, press: renderPress, contact: renderContact, privacy: renderPrivacy };
 
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
@@ -54,7 +55,6 @@ await Promise.all([
 
 await mkdir(path.join(dist, 'downloads'), { recursive: true });
 await Promise.all([
-  cp(path.join(root, 'output/pdf/neon-revolution-press-kit.pdf'), path.join(dist, 'downloads/neon-revolution-press-kit.pdf')),
   cp(path.join(root, 'output/pdf/neon-revolution-rider-techniczny.pdf'), path.join(dist, 'downloads/neon-revolution-rider-techniczny.pdf')),
   cp(path.join(root, 'output/press/neon-revolution-press-pack.zip'), path.join(dist, 'downloads/neon-revolution-press-pack.zip'))
 ]);
@@ -65,7 +65,7 @@ try {
   if (error.code !== 'ENOENT') throw error;
 }
 
-const shared = { site, routes, shows, releases, videos, news, press, locales };
+const shared = { site, routes, shows, releases, videos, news, gallery, press, locales };
 for (const route of routes.filter((item) => item.enabled)) {
   for (const lang of ['pl', 'en']) {
     const locale = locales[lang];

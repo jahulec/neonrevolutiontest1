@@ -2,13 +2,13 @@
   {
     "id": "blue-velvet-eyes",
     "title": "Blue Velvet Eyes",
-    "year": null,
+    "year": "",
     "cover": "/assets/blue-velvet-eyes.webp",
     "featured": true,
     "links": {
       "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
-      "youtube": null,
-      "smartlink": null
+      "youtube": "https://www.youtube.com/@N3ONR3VOLUTION",
+      "smartlink": ""
     }
   },
   {
@@ -19,8 +19,8 @@
     "featured": false,
     "links": {
       "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
-      "youtube": null,
-      "smartlink": null
+      "youtube": "https://www.youtube.com/watch?v=FkYuEfOvS2s",
+      "smartlink": ""
     }
   },
   {
@@ -31,8 +31,8 @@
     "featured": false,
     "links": {
       "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
-      "youtube": null,
-      "smartlink": null
+      "youtube": "https://www.youtube.com/watch?v=UE05T7m8ymQ",
+      "smartlink": ""
     }
   },
   {
@@ -43,8 +43,8 @@
     "featured": false,
     "links": {
       "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
-      "youtube": null,
-      "smartlink": null
+      "youtube": "https://www.youtube.com/watch?v=kxyhe2M6yGc",
+      "smartlink": ""
     }
   }
 ]

@@ -1,12 +1,12 @@
 # Plan przyszłego systemu edycji treści
 
-Status: koncepcja, bez wdrożenia.
+Status: pierwszy etap wdrożony.
 
-## Rekomendacja
+## Rekomendacja: Pages CMS
 
-Po uruchomieniu strony warto dodać lekki panel Git-based CMS, a nie bazę danych i własny backend. Najlepiej pasuje Pages CMS: edytuje pliki bezpośrednio w repozytorium GitHub, nie tworzy osobnej bazy i wymaga konfiguracji w jednym pliku `.pages.yml`. To odpowiada obecnej architekturze strony i utrzymuje historię zmian w Git. Źródło: [oficjalna dokumentacja Pages CMS](https://pagescms.org/docs/).
+Najlepiej pasuje lekki panel Git-based CMS, bez bazy danych i własnego backendu. Rekomendowany Pages CMS edytuje pliki bezpośrednio w repozytorium GitHub, przechowuje konfigurację w jednym pliku `.pages.yml` i zachowuje pełną historię zmian. Zespół dostaje zwykłe formularze, a obecny generator i GitHub Pages pozostają bez zmian. Źródło: [oficjalna dokumentacja Pages CMS](https://pagescms.org/docs/configuration/).
 
-Nie wdrażamy go teraz. Najpierw zespół powinien używać strony i potwierdzić, kto będzie edytorem, jak często pojawiają się zmiany oraz czy publikacja ma następować od razu, czy po akceptacji.
+Pierwszy etap jest skonfigurowany w `.pages.yml`. Panel działa pod `https://app.pagescms.org`, a zapis publikuje zmianę przez istniejący workflow GitHub Pages. Instrukcja dla zespołu znajduje się w `docs/CMS-INSTRUKCJA.md`.
 
 ## Docelowy zakres panelu
 
@@ -14,8 +14,11 @@ Pierwszy etap powinien udostępniać wyłącznie:
 
 - koncerty: data, miasto PL/EN, miejsce PL/EN, godzina, link do biletów i status publikacji,
 - aktualności: tytuł PL/EN, skrót, treść, data, grafika, slug i status publikacji,
-- wydania i wideo: tytuł, okładka lub miniatura oraz linki,
-- materiały press i adresy kontaktowe.
+- wydania: tytuł, rok, okładka oraz linki Spotify i YouTube,
+- wideo: tytuł, data, miniatura, link YouTube i przełącznik „wyróżnione na stronie głównej”,
+- galeria: zdjęcie, opis PL/EN, kolejność i status publikacji,
+- press: skład, osiągnięcia, link do folderu Google Drive i rider,
+- dane kontaktowe i profile społecznościowe.
 
 Teksty interfejsu, układ strony i style powinny pozostać poza panelem, żeby przypadkowa edycja nie mogła uszkodzić projektu.
 
@@ -32,17 +35,25 @@ Teksty interfejsu, układ strony i style powinny pozostać poza panelem, żeby p
 1. Edytor loguje się kontem dopuszczonym do repozytorium.
 2. Dodaje lub zmienia wpis w formularzu.
 3. Zapis tworzy zmianę w Git.
-4. Przy treściach koncertowych można publikować bezpośrednio; przy aktualnościach lepiej użyć pull requestu i akceptacji.
-5. Cloudflare Pages uruchamia `npm run build`; niespójna treść zatrzymuje publikację.
+4. Na początek wszystkie zmiany trafiają bezpośrednio do `main`; Git zawsze pozwala cofnąć pomyłkę.
+5. GitHub Actions uruchamia `npm run build` i publikuje GitHub Pages; niespójna treść zatrzymuje publikację.
 
-Pages CMS przechowuje konfigurację treści w `.pages.yml` i zapisuje zmiany do GitHub, więc nie zastępuje generatora ani hostingu. Szczegóły konfiguracji: [Pages CMS — configuration](https://pagescms.org/docs/configuration/).
+Pages CMS przechowuje konfigurację treści w `.pages.yml` i zapisuje zmiany do GitHub, więc nie zastępuje generatora ani hostingu. Każdy redaktor powinien mieć osobne konto GitHub i dostęp do repozytorium; nie należy udostępniać wspólnego hasła.
+
+## Wdrożony pierwszy etap
+
+1. Dodano `.pages.yml` z formularzami dla koncertów, aktualności, muzyki, wideo, galerii, Press i kontaktu.
+2. Pola techniczne oraz kod są poza panelem; dzień tygodnia, format daty i link telefonu są generowane automatycznie.
+3. Nowe obrazy trafiają do `assets/uploads/`; pliki prasowe w pełnej rozdzielczości pozostają w Google Drive.
+4. Formularze sprawdzają wymagane pola, format slugów, dat, godzin i linków.
+5. Do wykonania organizacyjnie pozostaje pierwsze logowanie właściciela, zaproszenie redaktorów i krótkie szkolenie.
 
 ## Alternatywy
 
 - Decap CMS jest open source i daje panel pod `/admin/`, lecz z backendem GitHub wymaga konfiguracji OAuth lub pośrednika uwierzytelniającego. Na Cloudflare oznacza to dodatkowy Worker i sekret, czyli więcej utrzymania. Źródło: [Decap CMS — backends](https://decapcms.org/docs/backends-overview/).
 - CloudCannon oferuje dopracowaną edycję wizualną i synchronizację Git, ale jest usługą płatną; ma sens, jeśli zespół będzie potrzebował bogatszego workflow i wsparcia. Źródła: [CloudCannon Git-based CMS](https://cloudcannon.com/git-cms/) i [aktualny cennik](https://cloudcannon.com/pricing/).
 
-## Decyzje przed wdrożeniem
+## Decyzje przed dalszą rozbudową
 
 - prywatne czy publiczne repozytorium,
 - jedna osoba publikująca czy workflow z akceptacją,
@@ -51,4 +62,4 @@ Pages CMS przechowuje konfigurację treści w `.pages.yml` i zapisuje zmiany do 
 - limity i obróbka przesyłanych zdjęć,
 - kto ma uprawnienia do usuwania treści.
 
-Po tych decyzjach integracja powinna być małym, oddzielnym etapem: konfiguracja kolekcji, walidacja pól, test na branchu preview i krótkie szkolenie zespołu.
+Obecna wersja zapisuje bezpośrednio do `main`, zgodnie z prostym procesem publikacji. Workflow z akceptacją można dołożyć później, jeśli zespół będzie go rzeczywiście potrzebował.

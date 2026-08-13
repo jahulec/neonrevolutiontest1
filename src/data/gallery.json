@@ -1,0 +1,32 @@
+[
+  {
+    "id": "live-club",
+    "status": "real",
+    "image": "/assets/nr1.webp",
+    "width": 2048,
+    "height": 1365,
+    "title": { "pl": "Neon Revolution na żywo", "en": "Neon Revolution live" },
+    "description": { "pl": "Koncert klubowy", "en": "Club show" }
+  },
+  {
+    "id": "live-outdoor",
+    "status": "real",
+    "image": "/assets/neon-revolution-live.webp",
+    "width": 1800,
+    "height": 1200,
+    "title": { "pl": "Scena plenerowa", "en": "Outdoor stage" },
+    "description": { "pl": "Neon Revolution podczas koncertu", "en": "Neon Revolution performing live" }
+  },
+  {
+    "id": "band-neon",
+    "status": "real",
+    "image": "/assets/hero-band.webp",
+    "width": 2048,
+    "height": 1365,
+    "title": { "pl": "Neon Revolution", "en": "Neon Revolution" },
+    "description": { "pl": "Archiwalne zdjęcie zespołu", "en": "Archive band photo" }
+  },
+  { "id": "placeholder-1", "status": "placeholder" },
+  { "id": "placeholder-2", "status": "placeholder" },
+  { "id": "placeholder-3", "status": "placeholder" }
+]

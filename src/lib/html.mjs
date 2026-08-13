@@ -12,6 +12,10 @@ export function externalLinkAttributes(url) {
   return `href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer"`;
 }
 
+export function phoneLink(phone) {
+  return String(phone ?? '').replace(/[^+\d]/g, '');
+}
+
 export function routeOutputPath(routePath) {
   if (routePath === '/') return 'index.html';
   return `${routePath.replace(/^\//, '').replace(/\/$/, '')}/index.html`;

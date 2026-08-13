@@ -34,6 +34,7 @@
   "demoContentLabel": "Demonstration data",
   "demoNotice": "The line-up, achievements and files are examples and must be replaced before publication.",
   "download": "Download",
+  "open": "Open",
   "copyEmail": "Send an email",
   "call": "Call",
   "openMessenger": "Open Messenger",
@@ -45,6 +46,7 @@
     "video": "Video",
     "live": "Live",
     "news": "News",
+    "gallery": "Gallery",
     "press": "Press",
     "contact": "Contact"
   },
@@ -78,6 +80,11 @@
       "heading": "News",
       "description": "The latest news from Neon Revolution."
     },
+    "gallery": {
+      "title": "Neon Revolution — Gallery",
+      "heading": "Gallery",
+      "description": "Live photography and visual materials from Neon Revolution."
+    },
     "contact": {
       "title": "Neon Revolution — Contact",
       "heading": "Contact",
@@ -110,6 +117,16 @@
     "booking": "Booking",
     "media": "Media",
     "management": "Management"
+  },
+  "musicModal": {
+    "choose": "Choose a platform"
+  },
+  "gallery": {
+    "open": "Open photo",
+    "previous": "Previous photo",
+    "next": "Next photo",
+    "placeholder": "Reserved for a future photo",
+    "soon": "Coming soon"
   },
   "contactDetails": {
     "email": "Email",

@@ -1,0 +1,528 @@
+media:
+  input: assets/uploads
+  output: /assets/uploads
+  rename: safe
+  categories: [image]
+
+settings:
+  hide: true
+  content:
+    merge: true
+  commit:
+    identity: user
+    templates:
+      update: "Treść: aktualizacja {name}"
+
+components:
+  show_locale:
+    type: object
+    fields:
+      - name: city
+        label: Miasto
+        type: string
+        required: true
+      - name: venue
+        label: Miejsce i adres
+        type: string
+        required: true
+      - name: timeLabel
+        label: Informacja o godzinie
+        type: string
+        required: true
+        description: "Np. Start 20:00 albo Bramki 19:00 · Start 20:00."
+
+  news_locale:
+    type: object
+    fields:
+      - name: title
+        label: Tytuł
+        type: string
+        required: true
+        options:
+          maxlength: 100
+      - name: summary
+        label: Zajawka
+        type: text
+        required: true
+        options:
+          maxlength: 300
+      - name: body
+        label: Akapity artykułu
+        type: text
+        required: true
+        list:
+          min: 1
+
+  localized_text:
+    type: object
+    fields:
+      - name: pl
+        label: Polski
+        type: string
+        required: true
+      - name: en
+        label: Angielski
+        type: string
+        required: true
+
+content:
+  - name: shows
+    label: Koncerty
+    type: file
+    path: src/data/shows.json
+    format: json
+    list: true
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: id
+        label: Identyfikator
+        type: string
+        required: true
+        description: "Unikalna nazwa bez spacji, np. katowice-2026-11-20."
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Użyj tylko małych liter, cyfr i myślników."
+      - name: status
+        label: Rodzaj wpisu
+        type: select
+        required: true
+        default: real
+        options:
+          values:
+            - name: real
+              label: Treść właściwa
+            - name: demo
+              label: Przykład
+      - name: date
+        label: Data koncertu
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: doors
+        label: Otwarcie bram
+        type: string
+        default: ""
+        description: "Opcjonalnie, format 19:00."
+        pattern:
+          regex: '^$|^([01]\d|2[0-3]):[0-5]\d$'
+          message: "Wpisz godzinę w formacie HH:MM albo zostaw puste."
+      - name: start
+        label: Start koncertu
+        type: string
+        default: ""
+        description: "Opcjonalnie, format 20:00."
+        pattern:
+          regex: '^$|^([01]\d|2[0-3]):[0-5]\d$'
+          message: "Wpisz godzinę w formacie HH:MM albo zostaw puste."
+      - name: ticketUrl
+        label: Link do biletów
+        type: string
+        default: ""
+        pattern:
+          regex: '^$|^https://.+'
+          message: "Wklej pełny bezpieczny adres https:// albo zostaw puste."
+      - name: pl
+        label: Wersja polska
+        component: show_locale
+        required: true
+      - name: en
+        label: Wersja angielska
+        component: show_locale
+        required: true
+
+  - name: news
+    label: Aktualności
+    type: file
+    path: src/data/news.json
+    format: json
+    list: true
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: id
+        label: Identyfikator
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Użyj tylko małych liter, cyfr i myślników."
+      - name: slug
+        label: Adres artykułu
+        type: string
+        required: true
+        description: "Fragment adresu bez spacji i polskich znaków, np. nowy-singiel. Po publikacji najlepiej go nie zmieniać."
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Użyj tylko małych liter, cyfr i myślników."
+      - name: status
+        label: Rodzaj wpisu
+        type: select
+        required: true
+        default: real
+        options:
+          values:
+            - name: real
+              label: Treść właściwa
+            - name: demo
+              label: Przykład
+      - name: relatedRoute
+        label: Dodatkowy link pod artykułem
+        type: select
+        default: ""
+        options:
+          values:
+            - name: ""
+              label: Brak
+            - name: music
+              label: Przejdź do muzyki
+            - name: live
+              label: Przejdź do koncertów
+      - name: date
+        label: Data publikacji
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: image
+        label: Grafika
+        type: image
+        required: true
+        options:
+          extensions: [jpg, jpeg, png, webp]
+          rename: safe
+      - name: pl
+        label: Wersja polska
+        component: news_locale
+        required: true
+      - name: en
+        label: Wersja angielska
+        component: news_locale
+        required: true
+
+  - name: releases
+    label: Muzyka
+    type: file
+    path: src/data/releases.json
+    format: json
+    list: true
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: id
+        label: Identyfikator
+        type: string
+        required: true
+        pattern: "^[a-z0-9-]+$"
+      - name: title
+        label: Tytuł
+        type: string
+        required: true
+      - name: year
+        label: Rok
+        type: string
+        default: ""
+        pattern:
+          regex: '^$|^[0-9]{4}$'
+          message: "Wpisz czterocyfrowy rok albo zostaw puste."
+      - name: cover
+        label: Okładka
+        type: image
+        required: true
+        options:
+          extensions: [jpg, jpeg, png, webp]
+          rename: safe
+      - name: featured
+        label: Wyróżnij na stronie głównej
+        type: boolean
+        default: false
+        description: "Tylko jedno wydanie powinno być wyróżnione."
+      - name: links
+        label: Linki
+        type: object
+        required: true
+        fields:
+          - name: spotify
+            label: Spotify
+            type: string
+            required: true
+            pattern: '^https://.+'
+          - name: youtube
+            label: YouTube
+            type: string
+            required: true
+            pattern: '^https://.+'
+          - name: smartlink
+            label: Smartlink
+            type: string
+            default: ""
+            pattern: '^$|^https://.+'
+
+  - name: videos
+    label: Wideo
+    type: file
+    path: src/data/videos.json
+    format: json
+    list: true
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: id
+        label: Identyfikator
+        type: string
+        required: true
+        pattern: "^[a-z0-9-]+$"
+      - name: title
+        label: Tytuł
+        type: string
+        required: true
+      - name: date
+        label: Data publikacji
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: thumbnail
+        label: Miniatura
+        type: image
+        required: true
+        options:
+          extensions: [jpg, jpeg, png, webp]
+          rename: safe
+      - name: youtube
+        label: Link YouTube
+        type: string
+        required: true
+        pattern: '^https://.+'
+      - name: featured
+        label: Wyróżnij na stronie głównej
+        type: boolean
+        default: false
+        description: "Tylko jeden film powinien być wyróżniony."
+
+  - name: gallery
+    label: Galeria
+    type: file
+    path: src/data/gallery.json
+    format: json
+    list: true
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: id
+        label: Identyfikator
+        type: string
+        required: true
+        pattern: "^[a-z0-9-]+$"
+      - name: status
+        label: Typ pola
+        type: select
+        required: true
+        default: real
+        options:
+          values:
+            - name: real
+              label: Zdjęcie
+            - name: placeholder
+              label: Pole zapowiadające zdjęcie
+      - name: image
+        label: Zdjęcie
+        type: image
+        options:
+          extensions: [jpg, jpeg, png, webp]
+          rename: safe
+      - name: title
+        label: Tytuł zdjęcia
+        component: localized_text
+      - name: description
+        label: Opis zdjęcia
+        component: localized_text
+
+  - name: press
+    label: Press
+    type: file
+    path: src/data/press.json
+    format: json
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: status
+        type: string
+        hidden: true
+      - name: bio
+        label: Opis zespołu
+        type: object
+        required: true
+        fields:
+          - name: pl
+            label: Polski
+            type: text
+            required: true
+          - name: en
+            label: Angielski
+            type: text
+            required: true
+      - name: members
+        label: Skład
+        type: object
+        required: true
+        list:
+          min: 1
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: name
+            label: Imię i nazwisko
+            type: string
+            required: true
+          - name: role
+            label: Rola
+            component: localized_text
+            required: true
+      - name: achievements
+        label: Osiągnięcia
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{year} — {title.pl}"
+        fields:
+          - name: year
+            label: Rok
+            type: string
+            required: true
+          - name: title
+            label: Tytuł
+            component: localized_text
+            required: true
+          - name: description
+            label: Opis
+            type: object
+            required: true
+            fields:
+              - name: pl
+                label: Polski
+                type: text
+                required: true
+              - name: en
+                label: Angielski
+                type: text
+                required: true
+      - name: media
+        type: object
+        list: true
+        hidden: true
+        fields:
+          - name: id
+            type: string
+      - name: downloads
+        label: Materiały
+        type: object
+        required: true
+        list:
+          min: 3
+          max: 3
+          collapsible:
+            collapsed: true
+            summary: "{id} — {format}"
+        description: "Zachowaj trzy pozycje i ich identyfikatory: photos, pressPack oraz rider."
+        fields:
+          - name: id
+            label: Rodzaj
+            type: select
+            required: true
+            options:
+              values:
+                - name: photos
+                  label: Zdjęcia i grafiki
+                - name: pressPack
+                  label: Press Pack
+                - name: rider
+                  label: Rider techniczny
+          - name: url
+            label: Link lub ścieżka pliku
+            type: string
+            required: true
+          - name: format
+            label: Format
+            type: string
+            required: true
+          - name: status
+            type: string
+            hidden: true
+          - name: external
+            label: Otwieraj w nowej karcie
+            type: boolean
+            default: false
+
+  - name: site
+    label: Kontakt i profile
+    type: file
+    path: src/data/site.json
+    format: json
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: profiles
+        label: Profile społecznościowe
+        type: object
+        required: true
+        fields:
+          - name: instagram
+            label: Instagram
+            type: string
+            required: true
+            pattern: '^https://.+'
+          - name: spotify
+            label: Spotify
+            type: string
+            required: true
+            pattern: '^https://.+'
+          - name: youtube
+            label: YouTube
+            type: string
+            required: true
+            pattern: '^https://.+'
+          - name: facebook
+            label: Facebook
+            type: string
+            required: true
+            pattern: '^https://.+'
+      - name: contact
+        label: Dane kontaktowe
+        type: object
+        required: true
+        fields:
+          - name: status
+            type: string
+            hidden: true
+          - name: email
+            label: E-mail
+            type: string
+            required: true
+          - name: phone
+            label: Telefon
+            type: string
+            required: true
+            description: "Może zawierać spacje, np. +48 518 437 008. Link telefonu powstaje automatycznie."
+          - name: messenger
+            label: Messenger
+            type: string
+            required: true
+            pattern: '^https://.+'

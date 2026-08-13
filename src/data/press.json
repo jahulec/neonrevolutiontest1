@@ -1,5 +1,9 @@
 {
   "status": "real",
+  "bio": {
+    "pl": "Neon Revolution — świeży zespół, łączący atmosferę lat 80. z chwytliwymi gitarami, rytmami do tańca i błyskliwymi syntezatorami. Doprawdy to coś, czego jeszcze nie słyszałeś! Nadal nieprzekonany? Posłuchaj i dołącz do Neon Revolution!",
+    "en": "Neon Revolution is a fresh band combining the atmosphere of the 80s with catchy guitars, danceable rhythms and sparkling synthesizers. Truly something you haven't heard before! Still not convinced? Listen and join Neon Revolution!"
+  },
   "members": [
     { "name": "Adam Kula", "role": { "pl": "gitara, syntezatory", "en": "guitar, synthesizers" } },
     { "name": "Tomasz Stanik", "role": { "pl": "perkusja", "en": "drums" } },
@@ -28,76 +32,9 @@
       "description": { "pl": "Pierwsze miejsce w finale konkursu w Warszawie 5 grudnia 2024 roku.", "en": "First place in the competition final in Warsaw on 5 December 2024." }
     }
   ],
-  "media": [
-    {
-      "id": "live-photo",
-      "type": "photo",
-      "title": { "pl": "Neon Revolution — zdjęcie koncertowe", "en": "Neon Revolution — live photo" },
-      "image": "/assets/neon-revolution-live.webp",
-      "width": 1800,
-      "height": 1200,
-      "download": "/assets/neon-revolution-live.webp",
-      "meta": "WEBP · 1800 × 1200",
-      "credit": { "pl": "Materiał przekazany przez zespół", "en": "Material supplied by the band" }
-    },
-    {
-      "id": "blue-velvet-eyes-artwork",
-      "type": "artwork",
-      "title": { "pl": "Blue Velvet Eyes — okładka", "en": "Blue Velvet Eyes — artwork" },
-      "image": "/assets/blue-velvet-eyes.webp",
-      "width": 1600,
-      "height": 1600,
-      "download": "/assets/blue-velvet-eyes.webp",
-      "meta": "WEBP · 1600 × 1600",
-      "credit": { "pl": "Oficjalna grafika wydawnictwa", "en": "Official release artwork" }
-    },
-    {
-      "id": "blade-artwork",
-      "type": "artwork",
-      "title": { "pl": "Blade — okładka", "en": "Blade — artwork" },
-      "image": "/assets/blade.webp",
-      "width": 1600,
-      "height": 1600,
-      "download": "/assets/blade.webp",
-      "meta": "WEBP · 1600 × 1600",
-      "credit": { "pl": "Oficjalna grafika wydawnictwa", "en": "Official release artwork" }
-    },
-    {
-      "id": "vacuum-artwork",
-      "type": "artwork",
-      "title": { "pl": "Vacuum — okładka", "en": "Vacuum — artwork" },
-      "image": "/assets/vacuum.webp",
-      "width": 1600,
-      "height": 1600,
-      "download": "/assets/vacuum.webp",
-      "meta": "WEBP · 1600 × 1600",
-      "credit": { "pl": "Oficjalna grafika wydawnictwa", "en": "Official release artwork" }
-    },
-    {
-      "id": "let-them-go-artwork",
-      "type": "artwork",
-      "title": { "pl": "Let Them Go — okładka", "en": "Let Them Go — artwork" },
-      "image": "/assets/let-them-go.webp",
-      "width": 1600,
-      "height": 1600,
-      "download": "/assets/let-them-go.webp",
-      "meta": "WEBP · 1600 × 1600",
-      "credit": { "pl": "Oficjalna grafika wydawnictwa", "en": "Official release artwork" }
-    },
-    {
-      "id": "logo",
-      "type": "logo",
-      "title": { "pl": "Logo Neon Revolution", "en": "Neon Revolution logo" },
-      "image": "/assets/logo-neon.webp",
-      "width": 1200,
-      "height": 412,
-      "download": "/assets/logo-neon.webp",
-      "meta": "WEBP · 1200 × 412",
-      "credit": { "pl": "Oficjalny znak zespołu", "en": "Official band mark" }
-    }
-  ],
+  "media": [],
   "downloads": [
-    { "id": "pressKit", "url": "/downloads/neon-revolution-press-kit.pdf", "format": "PDF", "status": "real" },
+    { "id": "photos", "url": "https://drive.google.com/drive/folders/1zqfd0F3Ba9hQNZX0lEQ6fB_O3D7iOD8C", "format": "Google Drive", "status": "real", "external": true },
     { "id": "pressPack", "url": "/downloads/neon-revolution-press-pack.zip", "format": "ZIP", "status": "real" },
     { "id": "rider", "url": "/downloads/neon-revolution-rider-techniczny.pdf", "format": "PDF", "status": "real" }
   ]

@@ -34,6 +34,7 @@
   "demoContentLabel": "Dane demonstracyjne",
   "demoNotice": "Skład, osiągnięcia i pliki są przykładowe i wymagają podmiany przed publikacją.",
   "download": "Pobierz",
+  "open": "Otwórz",
   "copyEmail": "Napisz e-mail",
   "call": "Zadzwoń",
   "openMessenger": "Napisz na Messengerze",
@@ -45,6 +46,7 @@
     "video": "Wideo",
     "live": "Koncerty",
     "news": "Aktualności",
+    "gallery": "Galeria",
     "press": "Press",
     "contact": "Kontakt"
   },
@@ -78,6 +80,11 @@
       "heading": "Aktualności",
       "description": "Najnowsze informacje od zespołu Neon Revolution."
     },
+    "gallery": {
+      "title": "Neon Revolution — Galeria",
+      "heading": "Galeria",
+      "description": "Zdjęcia koncertowe i materiały wizualne zespołu Neon Revolution."
+    },
     "contact": {
       "title": "Neon Revolution — Kontakt",
       "heading": "Kontakt",
@@ -110,6 +117,16 @@
     "booking": "Booking",
     "media": "Media",
     "management": "Management"
+  },
+  "musicModal": {
+    "choose": "Wybierz serwis"
+  },
+  "gallery": {
+    "open": "Otwórz zdjęcie",
+    "previous": "Poprzednie zdjęcie",
+    "next": "Następne zdjęcie",
+    "placeholder": "Miejsce na kolejne zdjęcie",
+    "soon": "Wkrótce"
   },
   "contactDetails": {
     "email": "E-mail",
