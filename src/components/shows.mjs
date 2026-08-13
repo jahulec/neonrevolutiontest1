@@ -31,11 +31,13 @@ export function renderShows({ shows, locale, lang, limit = null, period = 'all',
         : `<span class="show-btn primary is-disabled" aria-disabled="true">${escapeHtml(locale.tickets)}</span>`
       : '';
 
+    const dateTime = show.start ? `${show.date}T${show.start}` : show.date;
+
     return `<article class="show-row" data-content-status="${escapeHtml(show.status)}">
       <div class="show-date-block"><time class="show-date" datetime="${escapeHtml(show.date)}">${escapeHtml(show.displayDate)}</time><span class="show-weekday">${escapeHtml(localizedWeekday(show.date, lang))}</span></div>
       <div class="show-city">${escapeHtml(copy.city)}</div>
       <div class="show-venue">${escapeHtml(copy.venue)}</div>
-      <time class="show-time" datetime="${escapeHtml(`${show.date}T${show.start}`)}">${escapeHtml(copy.timeLabel)}</time>
+      <time class="show-time" datetime="${escapeHtml(dateTime)}">${escapeHtml(copy.timeLabel)}</time>
       <div class="show-actions${showTickets ? '' : ' show-actions--empty'}">${action}</div>
     </article>`;
   }).join('\n');

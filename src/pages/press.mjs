@@ -21,7 +21,8 @@ function renderMedia(item, locale, lang) {
 
 function renderDownload(item, locale) {
   const label = locale.press[item.id];
-  return `<div class="press-resource" data-content-status="${escapeHtml(item.status)}"><div><h3>${escapeHtml(label)}</h3><span>${escapeHtml(item.format)} · ${escapeHtml(locale.demoContentLabel)}</span></div><a class="press-resource__action" data-track="press_download" data-track-label="${escapeHtml(item.id)}" href="${escapeHtml(item.url)}" download>${escapeHtml(locale.download)} <span aria-hidden="true">↓</span></a></div>`;
+  const statusLabel = item.status === 'demo' ? ` · ${locale.demoContentLabel}` : '';
+  return `<div class="press-resource" data-content-status="${escapeHtml(item.status)}"><div><h3>${escapeHtml(label)}</h3><span>${escapeHtml(`${item.format}${statusLabel}`)}</span></div><a class="press-resource__action" data-track="press_download" data-track-label="${escapeHtml(item.id)}" href="${escapeHtml(item.url)}" download>${escapeHtml(locale.download)} <span aria-hidden="true">↓</span></a></div>`;
 }
 
 export function renderPress({ site, locale, lang, press }) {

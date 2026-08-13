@@ -90,7 +90,7 @@ for (const page of pages) {
   }
 }
 
-for (const requiredFile of ['styles.css', 'site.js', '_headers', 'robots.txt', 'og.png', 'assets/fonts/audiowide-regular.woff2', 'assets/fonts/space-mono-regular.woff2', 'downloads/neon-revolution-demo-press-kit.pdf', 'downloads/neon-revolution-demo-rider-techniczny.pdf', 'downloads/neon-revolution-demo-press-pack.zip']) {
+for (const requiredFile of ['styles.css', 'site.js', '_headers', 'robots.txt', 'og.png', 'assets/fonts/audiowide-regular.woff2', 'assets/fonts/space-mono-regular.woff2', 'downloads/neon-revolution-press-kit.pdf', 'downloads/neon-revolution-rider-techniczny.pdf', 'downloads/neon-revolution-press-pack.zip']) {
   if (!await exists(path.join(dist, requiredFile))) errors.push(`dist/${requiredFile}: file missing`);
 }
 

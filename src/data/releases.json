@@ -10,5 +10,41 @@
       "youtube": null,
       "smartlink": null
     }
+  },
+  {
+    "id": "blade",
+    "title": "Blade",
+    "year": "2025",
+    "cover": "/assets/blade.webp",
+    "featured": false,
+    "links": {
+      "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
+      "youtube": null,
+      "smartlink": null
+    }
+  },
+  {
+    "id": "vacuum",
+    "title": "Vacuum",
+    "year": "2025",
+    "cover": "/assets/vacuum.webp",
+    "featured": false,
+    "links": {
+      "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
+      "youtube": null,
+      "smartlink": null
+    }
+  },
+  {
+    "id": "let-them-go",
+    "title": "Let Them Go",
+    "year": "2024",
+    "cover": "/assets/let-them-go.webp",
+    "featured": false,
+    "links": {
+      "spotify": "https://open.spotify.com/artist/28xVRlgQ9FwdYFbEUpt7Xs",
+      "youtube": null,
+      "smartlink": null
+    }
   }
 ]

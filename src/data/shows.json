@@ -57,60 +57,117 @@
     }
   },
   {
-    "id": "demo-lodz-2026-06-20",
-    "status": "demo",
-    "date": "2026-06-20",
-    "displayDate": "20.06.2026",
-    "doors": "18:30",
-    "start": "19:30",
-    "ticketUrl": null,
-    "pl": {
-      "city": "Łódź",
-      "venue": "Klub Fala, ul. Syntezatorowa 4",
-      "timeLabel": "Bramki 18:30 · Start 19:30"
-    },
-    "en": {
-      "city": "Łódź",
-      "venue": "Fala Club, 4 Syntezatorowa St.",
-      "timeLabel": "Gates 18:30 · Start 19:30"
-    }
-  },
-  {
-    "id": "demo-wroclaw-2026-05-09",
-    "status": "demo",
-    "date": "2026-05-09",
-    "displayDate": "09.05.2026",
+    "id": "gapa-rock-warszawa-2024-12-05",
+    "status": "real",
+    "date": "2024-12-05",
+    "displayDate": "05.12.2024",
     "doors": null,
-    "start": "20:00",
+    "start": null,
     "ticketUrl": null,
     "pl": {
-      "city": "Wrocław",
-      "venue": "Sala Sygnał, ul. Nocna 12",
-      "timeLabel": "Start 20:00"
+      "city": "Warszawa",
+      "venue": "Gapa Rock",
+      "timeLabel": "Finał konkursu · 1. miejsce"
     },
     "en": {
-      "city": "Wrocław",
-      "venue": "Sygnał Hall, 12 Nocna St.",
-      "timeLabel": "Start 20:00"
+      "city": "Warsaw",
+      "venue": "Gapa Rock",
+      "timeLabel": "Competition final · 1st place"
     }
   },
   {
-    "id": "demo-gdansk-2026-03-14",
-    "status": "demo",
-    "date": "2026-03-14",
-    "displayDate": "14.03.2026",
-    "doors": "19:00",
-    "start": "20:00",
+    "id": "pkr-uek-krakow-2025-05-07",
+    "status": "real",
+    "date": "2025-05-07",
+    "displayDate": "07.05.2025",
+    "doors": null,
+    "start": null,
     "ticketUrl": null,
     "pl": {
-      "city": "Gdańsk",
-      "venue": "Klub Elektryczny, ul. Neonowa 8",
-      "timeLabel": "Bramki 19:00 · Start 20:00"
+      "city": "Kraków",
+      "venue": "PKR UEK, Klub Kwadrat",
+      "timeLabel": "Finał · 2. miejsce i Nagroda Publiczności"
     },
     "en": {
-      "city": "Gdańsk",
-      "venue": "Elektryczny Club, 8 Neonowa St.",
-      "timeLabel": "Gates 19:00 · Start 20:00"
+      "city": "Kraków",
+      "venue": "PKR UEK, Klub Kwadrat",
+      "timeLabel": "Final · 2nd place and Audience Award"
+    }
+  },
+  {
+    "id": "juwenalia-wroclawskie-2025-05-10",
+    "status": "real",
+    "date": "2025-05-10",
+    "displayDate": "10.05.2025",
+    "doors": null,
+    "start": "17:00",
+    "ticketUrl": null,
+    "pl": {
+      "city": "Wrocław",
+      "venue": "Juwenalia Wrocławskie, Pola Osobowickie",
+      "timeLabel": "Start 17:00"
+    },
+    "en": {
+      "city": "Wrocław",
+      "venue": "Wrocław Student Festival, Pola Osobowickie",
+      "timeLabel": "Start 17:00"
+    }
+  },
+  {
+    "id": "igry-gliwice-2025-05-30",
+    "status": "real",
+    "date": "2025-05-30",
+    "displayDate": "30.05.2025",
+    "doors": null,
+    "start": "18:00",
+    "ticketUrl": null,
+    "pl": {
+      "city": "Gliwice",
+      "venue": "Igry 2025, Łąka Igrowa",
+      "timeLabel": "Start wydarzenia 18:00"
+    },
+    "en": {
+      "city": "Gliwice",
+      "venue": "Igry 2025, Łąka Igrowa",
+      "timeLabel": "Event starts 18:00"
+    }
+  },
+  {
+    "id": "amfiteatr-grunwald-2025-06-28",
+    "status": "real",
+    "date": "2025-06-28",
+    "displayDate": "28.06.2025",
+    "doors": null,
+    "start": "17:00",
+    "ticketUrl": null,
+    "pl": {
+      "city": "Stębark",
+      "venue": "Amfiteatr Grunwald",
+      "timeLabel": "Start 17:00"
+    },
+    "en": {
+      "city": "Stębark",
+      "venue": "Grunwald Amphitheatre",
+      "timeLabel": "Start 17:00"
+    }
+  },
+  {
+    "id": "dni-pyskowic-2025-07-18",
+    "status": "real",
+    "date": "2025-07-18",
+    "displayDate": "18.07.2025",
+    "doors": null,
+    "start": "17:40",
+    "ticketUrl": null,
+    "pl": {
+      "city": "Pyskowice",
+      "venue": "Dni Pyskowic, scena plenerowa",
+      "timeLabel": "Start 17:40"
+    },
+    "en": {
+      "city": "Pyskowice",
+      "venue": "Pyskowice Days, outdoor stage",
+      "timeLabel": "Start 17:40"
     }
   }
 ]

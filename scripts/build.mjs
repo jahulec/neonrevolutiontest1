@@ -54,9 +54,9 @@ await Promise.all([
 
 await mkdir(path.join(dist, 'downloads'), { recursive: true });
 await Promise.all([
-  cp(path.join(root, 'output/pdf/neon-revolution-demo-press-kit.pdf'), path.join(dist, 'downloads/neon-revolution-demo-press-kit.pdf')),
-  cp(path.join(root, 'output/pdf/neon-revolution-demo-rider-techniczny.pdf'), path.join(dist, 'downloads/neon-revolution-demo-rider-techniczny.pdf')),
-  cp(path.join(root, 'output/press/neon-revolution-demo-press-pack.zip'), path.join(dist, 'downloads/neon-revolution-demo-press-pack.zip'))
+  cp(path.join(root, 'output/pdf/neon-revolution-press-kit.pdf'), path.join(dist, 'downloads/neon-revolution-press-kit.pdf')),
+  cp(path.join(root, 'output/pdf/neon-revolution-rider-techniczny.pdf'), path.join(dist, 'downloads/neon-revolution-rider-techniczny.pdf')),
+  cp(path.join(root, 'output/press/neon-revolution-press-pack.zip'), path.join(dist, 'downloads/neon-revolution-press-pack.zip'))
 ]);
 
 try {

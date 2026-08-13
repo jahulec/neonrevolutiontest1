@@ -9,7 +9,7 @@
 - [ ] Skład oraz role potwierdzone przez zespół.
 - [ ] Osiągnięcia mają prawdziwe nazwy, daty i możliwe do wskazania źródła.
 - [ ] Zdjęcia Press mają autora, zgodę na publikację i opis dozwolonego wykorzystania.
-- [ ] Finalny press kit, press pack i rider zastępują pliki demonstracyjne.
+- [x] Finalny press kit, press pack i rider zastępują pliki demonstracyjne.
 - [ ] Adres e-mail, telefon i Messenger są prawdziwe.
 
 ## Prywatność i zgody
