@@ -10,11 +10,13 @@ export function renderHead({ site, routes, locale, lang, routeId, preloadHero = 
   const enPath = alternatePaths?.en ?? route?.en ?? '/en/';
   const plUrl = absoluteUrl(site.siteUrl, plPath) ?? plPath;
   const enUrl = absoluteUrl(site.siteUrl, enPath) ?? enPath;
-  const ogImagePath = page.image ?? site.ogImage;
+  const socialShareImage = site.visuals?.socialShareImage || site.ogImage;
+  const ogImagePath = page.image ?? socialShareImage;
   const ogImage = site.siteUrl && ogImagePath ? absoluteUrl(site.siteUrl, ogImagePath) : null;
   const ogType = pageData?.ogType ?? (routeId === 'news' && alternatePaths ? 'article' : 'website');
   const schemaJson = structuredData ? jsonLd(structuredData) : '';
   const schemaHash = schemaJson ? createHash('sha256').update(schemaJson).digest('base64') : '';
+  const heroBackground = site.visuals?.heroBackground ?? '/assets/hero-band.webp';
   const csp = `default-src 'self'; img-src 'self' data:; style-src 'self'; style-src-elem 'self'; style-src-attr 'unsafe-inline'; font-src 'self' data:; script-src 'self' https://static.cloudflareinsights.com${schemaHash ? ` 'sha256-${schemaHash}'` : ''}; connect-src 'self' https://cloudflareinsights.com; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
 
   return `
@@ -37,7 +39,7 @@ export function renderHead({ site, routes, locale, lang, routeId, preloadHero = 
   <meta property="og:locale" content="${escapeHtml(locale.ogLocale)}">
   <meta property="og:locale:alternate" content="${lang === 'pl' ? 'en_GB' : 'pl_PL'}">
   ${canonical ? `<meta property="og:url" content="${escapeHtml(canonical)}">` : ''}
-  ${ogImage ? `<meta property="og:image" content="${escapeHtml(ogImage)}">${ogImagePath === site.ogImage ? '<meta property="og:image:width" content="1728"><meta property="og:image:height" content="902">' : ''}<meta property="og:image:alt" content="${escapeHtml(page.imageAlt ?? site.brand)}">` : ''}
+  ${ogImage ? `<meta property="og:image" content="${escapeHtml(ogImage)}"><meta property="og:image:alt" content="${escapeHtml(page.imageAlt ?? site.brand)}">` : ''}
   <meta name="twitter:card" content="${ogImage ? 'summary_large_image' : 'summary'}">
   <meta name="twitter:title" content="${escapeHtml(page.title)}">
   <meta name="twitter:description" content="${escapeHtml(page.description)}">
@@ -55,7 +57,7 @@ export function renderHead({ site, routes, locale, lang, routeId, preloadHero = 
   <link rel="alternate" type="application/json" title="${escapeHtml(site.brand)} — entity data" href="/band.json">
   <link rel="preload" href="/assets/fonts/audiowide-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/space-mono-regular.woff2" as="font" type="font/woff2" crossorigin>
-  ${preloadHero ? '<link rel="preload" href="/assets/hero-band-960w.webp" as="image" type="image/webp" imagesrcset="/assets/hero-band-480w.webp 480w, /assets/hero-band-960w.webp 960w, /assets/hero-band-1440w.webp 1440w, /assets/hero-band.webp 2048w" imagesizes="100vw" fetchpriority="high">' : ''}
+  ${preloadHero ? `<link rel="preload" data-hero-preload href="${escapeHtml(heroBackground)}" as="image" fetchpriority="high">` : ''}
   <link rel="stylesheet" href="/styles.css${assetVersion ? `?v=${escapeHtml(assetVersion)}` : ''}">
   ${schemaJson ? `<script type="application/ld+json">${schemaJson}</script>` : ''}`;
 }

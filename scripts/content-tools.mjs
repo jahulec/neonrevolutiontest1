@@ -10,6 +10,8 @@ const writeJson = async (file, data) => writeFile(path.join(root, file), `${JSON
 const slugify = (value) => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const errors = [];
 const changed = [];
+const site = await readJson('src/data/site.json');
+const press = await readJson('src/data/press.json');
 
 const datasets = {
   shows: ['src/data/shows.json', await readJson('src/data/shows.json')],
@@ -18,6 +20,29 @@ const datasets = {
   videos: ['src/data/videos.json', await readJson('src/data/videos.json')],
   gallery: ['src/data/gallery.json', await readJson('src/data/gallery.json')]
 };
+
+for (const [field, required] of [['heroBackground', true], ['pageBackgroundDesktop', true], ['pageBackgroundMobile', false], ['socialShareImage', false]]) {
+  const value = site.visuals?.[field];
+  if (!value && required) {
+    errors.push(`Wygląd: pole ${field} jest wymagane.`);
+    continue;
+  }
+  if (!value) continue;
+  if (!/^\/assets\/.+\.(?:jpe?g|png|webp)$/i.test(value)) {
+    errors.push(`Wygląd: ${field} musi wskazywać obraz JPG, PNG lub WebP w katalogu /assets/.`);
+    continue;
+  }
+  try {
+    const metadata = await sharp(path.join(root, value.slice(1))).metadata();
+    if (!metadata.width || !metadata.height) errors.push(`Wygląd: nie można odczytać wymiarów ${field}.`);
+    if (field === 'heroBackground' && metadata.width < 1200) errors.push('Wygląd: zdjęcie hero powinno mieć co najmniej 1200 px szerokości.');
+    if (field === 'socialShareImage' && (metadata.width < 1200 || metadata.height < 630 || metadata.width / metadata.height < 1.8 || metadata.width / metadata.height > 2)) {
+      errors.push('Wygląd: grafika udostępniania powinna mieć proporcje zbliżone do 1200 × 630 px i nie może być mniejsza.');
+    }
+  } catch {
+    errors.push(`Wygląd: plik ${value} nie istnieje lub nie jest poprawnym obrazem.`);
+  }
+}
 
 for (const show of datasets.shows[1]) {
   if (!show.id && fix) show.id = slugify(`${show.pl?.city}-${show.date}`);
@@ -49,6 +74,20 @@ for (const item of datasets.gallery[1]) {
     const metadata = await sharp(path.join(root, item.image.slice(1))).metadata();
     if (metadata.width && metadata.height) { item.width = metadata.width; item.height = metadata.height; }
   }
+}
+
+if (site.legal?.status === 'real' && (!site.legal.controller || /przykładow/i.test(site.legal.controller) || !site.legal.address)) {
+  errors.push('Prywatność: przed zatwierdzeniem dokumentu uzupełnij prawdziwego administratora i adres.');
+}
+if (site.finalApprovals?.releaseInfo && datasets.releases[1].some((release) => !release.date)) {
+  errors.push('Zatwierdzenia: nie wszystkie wydawnictwa mają dokładną datę premiery.');
+}
+if (site.finalApprovals?.imageRights) {
+  if (!site.visuals?.rightsConfirmed) errors.push('Zatwierdzenia: prawa do tła i hero nie są potwierdzone.');
+  if (datasets.gallery[1].some((item) => item.status === 'real' && !item.rightsConfirmed)) errors.push('Zatwierdzenia: nie wszystkie zdjęcia galerii mają potwierdzone prawa.');
+}
+if (site.finalApprovals?.pressMaterials && press.downloads.some((item) => item.status !== 'real')) {
+  errors.push('Zatwierdzenia: co najmniej jeden materiał Press nadal ma status roboczy.');
 }
 
 for (const [name, [file, data]] of Object.entries(datasets)) {

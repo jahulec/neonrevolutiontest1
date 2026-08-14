@@ -50,8 +50,35 @@ function responsiveImages(html, manifest) {
   });
 }
 
+function responsiveHeroPreload(html, manifest) {
+  return html.replace(/<link rel="preload" data-hero-preload href="([^"]+)" as="image" fetchpriority="high">/g, (_, source) => {
+    const data = manifest[source];
+    if (!data?.variants?.length) return `<link rel="preload" href="${source}" as="image" fetchpriority="high">`;
+    const entries = [...data.variants, { width: data.width, path: source }];
+    const preferred = entries.find((item) => item.width >= 960) ?? entries.at(-1);
+    return `<link rel="preload" href="${preferred.path}" as="image" imagesrcset="${entries.map((item) => `${item.path} ${item.width}w`).join(', ')}" imagesizes="100vw" fetchpriority="high">`;
+  });
+}
+
 function finalizeHtml(html, manifest) {
-  return applyBasePath(responsiveImages(html, manifest));
+  return applyBasePath(responsiveHeroPreload(responsiveImages(html, manifest), manifest));
+}
+
+function visualStyles(site, manifest) {
+  const hero = site.visuals?.heroBackground ?? '/assets/hero-band.webp';
+  const heroData = manifest[hero];
+  const heroVariants = heroData?.variants ?? [];
+  const selectHero = (target) => (heroVariants.find((item) => item.width >= target) ?? heroVariants.at(-1))?.path ?? hero;
+  const relativeUrl = (source) => source.replace(/^\/+/, '');
+  const declarations = [
+    `--hero-bg-mobile:url(${JSON.stringify(relativeUrl(selectHero(960)))});`,
+    `--hero-bg-desktop:url(${JSON.stringify(relativeUrl(selectHero(1440)))});`,
+    `--page-bg-desktop:url(${JSON.stringify(relativeUrl(site.visuals?.pageBackgroundDesktop ?? '/assets/velvet-signal-bg-tall.webp'))});`
+  ];
+  if (site.visuals?.pageBackgroundMobile) {
+    declarations.push(`--page-bg-mobile:url(${JSON.stringify(relativeUrl(site.visuals.pageBackgroundMobile))});`);
+  }
+  return `\n:root{${declarations.join('')}}\n`;
 }
 
 function youtubePlayerUrl(url) {
@@ -73,7 +100,7 @@ const [site, routes, shows, releases, videos, news, gallery, press, pl, en, styl
   readJson('src/i18n/pl.json'), readJson('src/i18n/en.json'),
   readFile(path.join(root, 'src/styles/site.css')), readFile(path.join(root, 'src/client/site.js'))
 ]);
-const assetVersion = createHash('sha256').update(stylesheetSource).update(clientSource).digest('hex').slice(0, 12);
+const assetVersion = createHash('sha256').update(stylesheetSource).update(clientSource).update(JSON.stringify(site.visuals ?? {})).digest('hex').slice(0, 12);
 const locales = { pl, en };
 const renderers = { music: renderMusic, video: renderVideo, live: renderLive, news: renderNews, gallery: renderGallery, press: renderPress, contact: renderContact, privacy: renderPrivacy };
 
@@ -81,10 +108,10 @@ await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 await Promise.all([
   cp(path.join(root, 'assets'), path.join(dist, 'assets'), { recursive: true }),
-  cp(path.join(root, 'src/styles/site.css'), path.join(dist, 'styles.css')),
   cp(path.join(root, 'src/client/site.js'), path.join(dist, 'site.js'))
 ]);
 const imageManifest = await optimizeImages(path.join(root, 'assets'), path.join(dist, 'assets'));
+await writeFile(path.join(dist, 'styles.css'), `${stylesheetSource.toString('utf8')}${visualStyles(site, imageManifest)}`, 'utf8');
 const savings = await imageSavings(path.join(root, 'assets'), path.join(dist, 'assets'));
 console.log(`Optimized source images: ${Math.round(savings.inputBytes / 1024)} KiB -> ${Math.round(savings.outputBytes / 1024)} KiB plus responsive variants.`);
 
@@ -103,16 +130,17 @@ await generateBrandImages(path.join(root, 'assets'), path.join(root, 'public'), 
 await rm(path.join(dist, 'og.png'), { force: true });
 
 const shared = { site, routes, shows, releases, videos, news, gallery, press, locales };
+const socialShareImage = site.visuals?.socialShareImage || site.ogImage;
 const routeImages = {
-  home: site.ogImage,
+  home: socialShareImage,
   music: releases.find((item) => item.featured)?.cover ?? releases[0]?.cover,
   video: videos.find((item) => item.featured)?.thumbnail ?? videos[0]?.thumbnail,
   live: '/assets/neon-revolution-live.webp',
   news: news[0]?.image,
   gallery: gallery.find((item) => item.status === 'real')?.image,
-  press: '/assets/hero-band.webp',
-  contact: site.ogImage,
-  privacy: site.ogImage
+  press: site.visuals?.heroBackground ?? '/assets/hero-band.webp',
+  contact: socialShareImage,
+  privacy: socialShareImage
 };
 for (const route of routes.filter((item) => item.enabled)) {
   for (const lang of ['pl', 'en']) {

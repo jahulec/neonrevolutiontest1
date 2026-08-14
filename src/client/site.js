@@ -170,7 +170,8 @@ function configureBackgroundParallax() {
   if (!slowBgCanvas || !desktopBreakpoint.matches) return;
   const scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
   const desiredTravel = scrollRange * 0.28;
-  const safeTravel = Math.max(120, slowBgCanvas.offsetHeight - window.innerHeight - 220);
+  const canvasTop = Math.abs(parseFloat(getComputedStyle(slowBgCanvas).top) || 0);
+  const safeTravel = Math.max(0, slowBgCanvas.offsetHeight - window.innerHeight - canvasTop);
   document.documentElement.style.setProperty('--bg-scroll-distance', `${-Math.min(desiredTravel, safeTravel).toFixed(2)}px`);
 }
 
@@ -270,6 +271,8 @@ document.querySelectorAll('[data-music-open]').forEach((button) => {
 const galleryModal = document.querySelector('[data-gallery-modal]');
 const galleryOpeners = [...document.querySelectorAll('[data-gallery-open]')];
 let galleryIndex = 0;
+let galleryPointerStart = null;
+let galleryIgnoreClickUntil = 0;
 
 function showGalleryItem(index, opener = null) {
   if (!galleryModal || !galleryOpeners.length) return;
@@ -281,8 +284,38 @@ function showGalleryItem(index, opener = null) {
 }
 
 galleryOpeners.forEach((button, index) => button.addEventListener('click', () => showGalleryItem(index, button)));
-galleryModal?.querySelector('[data-gallery-prev]')?.addEventListener('click', () => showGalleryItem(galleryIndex - 1));
-galleryModal?.querySelector('[data-gallery-next]')?.addEventListener('click', () => showGalleryItem(galleryIndex + 1));
+galleryModal?.addEventListener('click', (event) => {
+  if (!(event.target instanceof Element)) return;
+  if (performance.now() < galleryIgnoreClickUntil) { event.preventDefault(); return; }
+  const previous = event.target.closest('[data-gallery-prev]');
+  const next = event.target.closest('[data-gallery-next]');
+  if (previous || next) {
+    event.preventDefault();
+    event.stopPropagation();
+    showGalleryItem(galleryIndex + (next ? 1 : -1));
+    return;
+  }
+  if (event.target.closest('[data-gallery-image],[data-modal-close]')) return;
+  closeDialog(galleryModal);
+});
+galleryModal?.addEventListener('pointerdown', (event) => {
+  if (!event.isPrimary || !(event.target instanceof Element) || event.target.closest('button')) return;
+  galleryPointerStart = { x: event.clientX, y: event.clientY, id: event.pointerId };
+  galleryModal.setPointerCapture?.(event.pointerId);
+});
+galleryModal?.addEventListener('pointerup', (event) => {
+  if (!galleryPointerStart || event.pointerId !== galleryPointerStart.id) return;
+  const deltaX = event.clientX - galleryPointerStart.x;
+  const deltaY = event.clientY - galleryPointerStart.y;
+  galleryPointerStart = null;
+  if (galleryModal.hasPointerCapture?.(event.pointerId)) galleryModal.releasePointerCapture(event.pointerId);
+  if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
+  event.preventDefault();
+  galleryIgnoreClickUntil = performance.now() + 350;
+  showGalleryItem(galleryIndex + (deltaX < 0 ? 1 : -1));
+});
+galleryModal?.addEventListener('pointercancel', () => { galleryPointerStart = null; });
+galleryModal?.addEventListener('dragstart', (event) => event.preventDefault());
 galleryModal?.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft') { event.preventDefault(); showGalleryItem(galleryIndex - 1); }
   if (event.key === 'ArrowRight') { event.preventDefault(); showGalleryItem(galleryIndex + 1); }

@@ -141,6 +141,7 @@ for (const ids of idsByFile) {
 if (releases.filter((item) => item.featured).length !== 1) errors.push('src/data/releases.json: exactly one release must be featured');
 if (videos.filter((item) => item.featured).length !== 1) errors.push('src/data/videos.json: exactly one video must be featured');
 if (!site.entity?.origin?.city || !site.entity?.genres?.length) errors.push('src/data/site.json: entity origin or genres missing');
+if (!site.visuals?.heroBackground || !site.visuals?.pageBackgroundDesktop) errors.push('src/data/site.json: background images missing');
 if (!press.coverage?.length) errors.push('src/data/press.json: independent media coverage missing');
 
 for (const requiredFile of ['styles.css', 'site.js', '_headers', 'robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt', 'band.json', 'feed.xml', 'en/feed.xml', 'site.webmanifest', 'humans.txt', '.well-known/security.txt', 'og.jpg', 'assets/favicon-48.webp', 'assets/apple-touch-icon-180.png', 'assets/icon-192.webp', 'assets/icon-512.webp', 'assets/hero-band-480w.webp', 'assets/hero-band-960w.webp', 'assets/fonts/audiowide-regular.woff2', 'assets/fonts/space-mono-regular.woff2', 'downloads/neon-revolution-rider-techniczny.pdf', 'downloads/neon-revolution-press-pack.zip']) {
@@ -156,6 +157,8 @@ if (!llms.includes(site.siteUrl) || /demo-warszawa|dane demonstracyjne/i.test(ll
 for (const homepage of ['index.html', 'en/index.html']) {
   const html = await readFile(path.join(dist, homepage), 'utf8');
   if (!/\bsrcset="[^"]+480w/.test(html)) errors.push(`${homepage}: responsive images missing`);
+  if (!html.includes(`src="${basePath}${site.visuals.heroBackground}"`)) errors.push(`${homepage}: CMS hero background missing`);
+  if (!/rel="preload" href="[^"]+" as="image" imagesrcset=/.test(html)) errors.push(`${homepage}: responsive hero preload missing`);
   if (!/rel="alternate" type="application\/atom\+xml"/.test(html)) errors.push(`${homepage}: feed discovery missing`);
   if (/<meta name="keywords"/.test(html)) errors.push(`${homepage}: obsolete meta keywords must not be used`);
 }
@@ -166,7 +169,7 @@ for (const [lang, homepage] of [['pl', 'index.html'], ['en', 'en/index.html']]) 
 }
 
 if (!site.siteUrl) console.warn('Warning: siteUrl is not configured; canonical URLs and sitemap are intentionally omitted.');
-if (!site.ogImage) console.warn('Warning: social sharing image is not configured.');
+if (!site.visuals?.socialShareImage && !site.ogImage) console.warn('Warning: social sharing image is not configured.');
 console.warn('Warning: concert entries are demonstration content and remain intentionally visible.');
 
 if (errors.length) {

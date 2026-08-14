@@ -35,7 +35,7 @@ function bandEntity({ site, press }) {
   const id = absoluteUrl(site.siteUrl, '/#band');
   const url = absoluteUrl(site.siteUrl, '/');
   const logo = imageUrl(site, '/assets/sygnet-neon.webp');
-  const image = imageUrl(site, '/assets/hero-band.webp');
+  const image = imageUrl(site, site.visuals?.heroBackground ?? '/assets/hero-band.webp');
   const profiles = [...Object.values(site.profiles), ...(site.entity?.additionalProfiles ?? [])];
   return {
     '@type': 'MusicGroup',

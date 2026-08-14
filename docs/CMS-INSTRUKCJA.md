@@ -20,6 +20,20 @@ Można też zaprosić redaktorów e-mailem z poziomu Pages CMS. Wtedy nie muszą
 - dodawać i usuwać zdjęcia galerii,
 - edytować opis zespołu, skład, osiągnięcia, niezależne publikacje i linki do materiałów prasowych,
 - zmieniać dane kontaktowe oraz profile społecznościowe.
+- wymieniać zdjęcie hero oraz tło strony osobno dla komputera i telefonu.
+
+## Gdzie znaleźć poszczególne dane
+
+- **Koncerty** — daty, miasta, miejsca, godziny, bilety i status prawdziwy/przykładowy.
+- **Aktualności** — wpisy PL/EN, zdjęcia, daty oraz linki do muzyki lub koncertów.
+- **Muzyka** — okładki, dokładne daty premier i linki Spotify, YouTube oraz Apple Music.
+- **Wideo** — filmy, miniatury, daty i wybór filmu wyróżnionego na stronie głównej.
+- **Galeria** — zdjęcia, niewidoczne opisy alternatywne, autor/fotograf i potwierdzenie prawa do publikacji.
+- **Press** — opis zespołu, skład, osiągnięcia, publikacje zewnętrzne, folder zdjęć/grafik, opcjonalny Press Pack i rider.
+- **Wygląd, kontakt i profile → Grafiki tła** — hero, tło desktop/mobile, grafika 1200 × 630 px do udostępniania, autorzy i prawa do grafik.
+- **Wygląd, kontakt i profile → Dane kontaktowe / Profile społecznościowe** — telefon, e-mail, Messenger oraz oficjalne profile.
+- **Wygląd, kontakt i profile → Informacja o prywatności** — administrator, adres, e-mail i status zatwierdzenia dokumentu.
+- **Wygląd, kontakt i profile → Zatwierdzenia przed publikacją** — końcowa checklista akceptacji bio, składu, osiągnięć, kontaktów, wydawnictw, zdjęć i Press.
 
 Wygląd, menu, kod, tłumaczenia interfejsu i ustawienia techniczne nie są dostępne w panelu. Chroni to stronę przed przypadkowym uszkodzeniem.
 
@@ -34,5 +48,7 @@ W bocznym menu panelu znajduje się akcja „Sprawdź i uporządkuj treści”. 
 ## Zasady dla zdjęć
 
 Nowe obrazy trafiają do `assets/uploads/`; panel akceptuje JPG, PNG i WebP oraz bezpiecznie normalizuje nazwy. Przy każdym buildzie oryginały pozostają nienaruszone, natomiast wersja publikowana jest automatycznie kompresowana i otrzymuje warianty 480, 960 i 1440 px. Przeglądarka pobiera rozmiar dopasowany do ekranu. Nadal warto unikać źródeł większych niż około 8 MB. Pełne materiały prasowe należy przechowywać w Google Drive i podawać w Press jako link do folderu.
+
+Grafiki dostarczone przez grafika zmienia się w sekcji „Wygląd, kontakt i profile” → „Grafiki tła”. Zalecenia widoczne są również bezpośrednio pod każdym polem w CMS: hero 2400 × 1600 px (minimum 1920 × 1080), długie tło desktop 1920 × 4500–5000 px, opcjonalne tło mobile 1080 × 3000–4000 px oraz grafika social 1200 × 630 px. Ważne elementy hero powinny pozostać w środkowych 60% kadru. Zmiana pliku automatycznie zmienia wersję arkusza CSS, więc przeglądarka nie pozostawi starego tła w pamięci podręcznej.
 
 Po większej aktualizacji można lokalnie uruchomić `npm run links:check`, aby sprawdzić odnośniki do serwisów streamingowych, profili, biletów i źródeł zewnętrznych.

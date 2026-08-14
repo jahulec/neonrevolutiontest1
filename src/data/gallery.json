@@ -8,7 +8,9 @@
     "alt": {
       "pl": "Neon Revolution podczas koncertu klubowego",
       "en": "Neon Revolution performing at a club show"
-    }
+    },
+    "photographer": "",
+    "rightsConfirmed": false
   },
   {
     "id": "live-outdoor",
@@ -19,7 +21,9 @@
     "alt": {
       "pl": "Neon Revolution podczas koncertu plenerowego",
       "en": "Neon Revolution performing at an outdoor show"
-    }
+    },
+    "photographer": "",
+    "rightsConfirmed": false
   },
   {
     "id": "band-neon",
@@ -30,7 +34,9 @@
     "alt": {
       "pl": "Neon Revolution — zdjęcie zespołu",
       "en": "Neon Revolution band photo"
-    }
+    },
+    "photographer": "",
+    "rightsConfirmed": false
   },
   {
     "id": "placeholder-1",

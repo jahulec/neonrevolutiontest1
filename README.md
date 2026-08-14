@@ -36,7 +36,7 @@ Treści można również edytować bezpośrednio w plikach:
 - `src/data/gallery.json` — zdjęcia galerii oraz miejsca na przyszłe materiały,
 - `src/data/news.json` — aktualności; obecnie zawiera trzy przykładowe wpisy PL/EN,
 - `src/data/press.json` — bio, skład, osiągnięcia oraz linki do materiałów Press,
-- `src/data/site.json` — profile, kontakty, domena i grafika udostępniania,
+- `src/data/site.json` — tła strony i hero, profile, kontakty, domena i grafika udostępniania,
 - `src/i18n/pl.json` oraz `src/i18n/en.json` — teksty interfejsu i bio.
 
 Nie edytuj `dist/`; ten katalog jest odtwarzany przy każdym buildzie. Komponenty HTML są w `src/components/`, widoki w `src/pages/`, CSS w `src/styles/site.css`, a zachowanie przeglądarkowe w `src/client/site.js`.

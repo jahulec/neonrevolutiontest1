@@ -3,6 +3,15 @@
   "siteUrl": "https://jahulec.github.io/neonrevolutiontest1/",
   "themeColor": "#050611",
   "ogImage": "/og.jpg",
+  "visuals": {
+    "heroBackground": "/assets/hero-band.webp",
+    "pageBackgroundDesktop": "/assets/velvet-signal-bg-tall.webp",
+    "pageBackgroundMobile": "",
+    "socialShareImage": "",
+    "heroCredit": "",
+    "pageBackgroundCredit": "",
+    "rightsConfirmed": false
+  },
   "entity": {
     "alternateNames": ["Neon Revolution Band"],
     "genres": ["rock", "synth-pop", "alternative rock", "rock inspirowany latami 80."],
@@ -33,6 +42,15 @@
     "address": "",
     "privacyEmail": "neon.revolution2022@gmail.com",
     "lastUpdated": "2026-08-13"
+  },
+  "finalApprovals": {
+    "biography": false,
+    "lineup": false,
+    "achievements": false,
+    "contacts": false,
+    "releaseInfo": false,
+    "imageRights": false,
+    "pressMaterials": false
   },
   "analytics": {
     "provider": "cloudflare",

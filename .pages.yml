@@ -378,6 +378,15 @@ content:
         label: Tekst alternatywny zdjęcia
         component: localized_text
         description: "Niewidoczny na stronie. Krótko opisz, co jest na zdjęciu, dla dostępności i wyszukiwarek."
+      - name: photographer
+        label: Autor / fotograf
+        type: string
+        description: "Dane organizacyjne — nie są wyświetlane w galerii. Wpisz autora albo nazwę przekazaną przez zespół."
+      - name: rightsConfirmed
+        label: Potwierdzono prawo do publikacji
+        type: boolean
+        default: false
+        description: "Zaznacz dopiero po potwierdzeniu zgody autora i osób widocznych na zdjęciu, jeśli jest wymagana."
 
   - name: press
     label: Press
@@ -492,12 +501,12 @@ content:
         type: object
         required: true
         list:
-          min: 3
+          min: 2
           max: 3
           collapsible:
             collapsed: true
             summary: "{id} — {format}"
-        description: "Zachowaj trzy pozycje i ich identyfikatory: photos, pressPack oraz rider."
+        description: "Zdjęcia/grafiki i rider są wymagane. Press Pack jest opcjonalny i może zostać usunięty, jeśli zespół go nie potrzebuje."
         fields:
           - name: id
             label: Rodzaj
@@ -520,15 +529,22 @@ content:
             type: string
             required: true
           - name: status
-            type: string
-            hidden: true
+            label: Status materiału
+            type: select
+            required: true
+            options:
+              values:
+                - name: demo
+                  label: Roboczy — wymaga podmiany lub zatwierdzenia
+                - name: real
+                  label: Zatwierdzony
           - name: external
             label: Otwieraj w nowej karcie
             type: boolean
             default: false
 
   - name: site
-    label: Kontakt i profile
+    label: Wygląd, kontakt i profile
     type: file
     path: src/data/site.json
     format: json
@@ -537,6 +553,40 @@ content:
       rename: false
       delete: false
     fields:
+      - name: visuals
+        label: Grafiki tła
+        type: object
+        required: true
+        description: "Zmiana tych pól nie modyfikuje układu strony. Build sam skompresuje pliki i dobierze lżejsze warianty do ekranu."
+        fields:
+          - name: heroBackground
+            label: Zdjęcie hero na stronie głównej
+            type: image
+            required: true
+            description: "Zalecane: 2400 × 1600 px (minimum 1920 × 1080 px), JPG lub WebP. Najważniejsze osoby i elementy trzymaj w środkowych 60% kadru — obraz jest docinany zależnie od ekranu."
+          - name: pageBackgroundDesktop
+            label: Tło podstron i sekcji — komputer
+            type: image
+            required: true
+            description: "Zalecane: 1920 × 4500–5000 px, JPG lub WebP. Grafika powinna płynnie przechodzić w ciemne tło albo nadawać się do powtarzania w pionie."
+          - name: pageBackgroundMobile
+            label: Tło podstron i sekcji — telefon (opcjonalne)
+            type: image
+            description: "Zalecane: 1080 × 3000–4000 px, JPG lub WebP. Gdy pole jest puste, telefon zachowuje obecne lekkie tło proceduralne."
+          - name: socialShareImage
+            label: Grafika udostępniania w Google i social media
+            type: image
+            description: "Zalecane dokładnie 1200 × 630 px. Gdy pole jest puste, używana jest obecna grafika domyślna."
+          - name: heroCredit
+            label: Autor zdjęcia hero
+            type: string
+          - name: pageBackgroundCredit
+            label: Autor grafiki tła
+            type: string
+          - name: rightsConfirmed
+            label: Potwierdzono prawa do publikacji grafik tła i hero
+            type: boolean
+            default: false
       - name: profiles
         label: Profile społecznościowe
         type: object
@@ -655,6 +705,40 @@ content:
             required: true
             options:
               format: yyyy-MM-dd
+      - name: finalApprovals
+        label: Zatwierdzenia przed publikacją
+        type: object
+        required: true
+        description: "Pola administracyjne — nie są wyświetlane na stronie. Zaznaczaj dopiero po potwierdzeniu danych przez zespół."
+        fields:
+          - name: biography
+            label: Opis zespołu zatwierdzony
+            type: boolean
+            default: false
+          - name: lineup
+            label: Aktualny skład zatwierdzony
+            type: boolean
+            default: false
+          - name: achievements
+            label: Osiągnięcia i daty zatwierdzone
+            type: boolean
+            default: false
+          - name: contacts
+            label: Kontakty i profile zatwierdzone
+            type: boolean
+            default: false
+          - name: releaseInfo
+            label: Wydawnictwa, linki i daty premier zatwierdzone
+            type: boolean
+            default: false
+          - name: imageRights
+            label: Autorzy i prawa do wszystkich zdjęć zatwierdzone
+            type: boolean
+            default: false
+          - name: pressMaterials
+            label: Rider i materiały Press zatwierdzone
+            type: boolean
+            default: false
       - name: verification
         label: Weryfikacja wyszukiwarek
         type: object
