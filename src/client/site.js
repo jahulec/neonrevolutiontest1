@@ -270,6 +270,20 @@ modalDialogs.forEach((dialog) => {
   });
 });
 
+function updateResponsiveModalImage(target, source, fallbackSrc, alt, sizes) {
+  if (!target) return;
+  const sourceSet = source?.getAttribute('srcset');
+  if (sourceSet) {
+    target.setAttribute('srcset', sourceSet);
+    target.setAttribute('sizes', sizes);
+  } else {
+    target.removeAttribute('srcset');
+    target.removeAttribute('sizes');
+  }
+  target.src = fallbackSrc;
+  target.alt = alt;
+}
+
 const musicModal = document.querySelector('[data-music-modal]');
 document.querySelectorAll('[data-music-open]').forEach((button) => {
   button.addEventListener('click', () => {
@@ -280,7 +294,13 @@ document.querySelectorAll('[data-music-open]').forEach((button) => {
     const spotify = musicModal.querySelector('[data-music-spotify]');
     const youtube = musicModal.querySelector('[data-music-youtube]');
     const apple = musicModal.querySelector('[data-music-apple]');
-    if (cover) { cover.src = button.dataset.releaseCover ?? ''; cover.alt = title; }
+    updateResponsiveModalImage(
+      cover,
+      button.querySelector('img'),
+      button.dataset.releaseCover ?? '',
+      title,
+      '(max-width: 620px) 44vw, 220px',
+    );
     if (titleNode) titleNode.textContent = title;
     if (spotify) { spotify.href = button.dataset.releaseSpotify ?? ''; spotify.hidden = !button.dataset.releaseSpotify; }
     if (youtube) { youtube.href = button.dataset.releaseYoutube ?? ''; youtube.hidden = !button.dataset.releaseYoutube; }
@@ -301,7 +321,13 @@ function showGalleryItem(index, opener = null) {
   galleryIndex = (index + galleryOpeners.length) % galleryOpeners.length;
   const item = galleryOpeners[galleryIndex];
   const image = galleryModal.querySelector('[data-gallery-image]');
-  if (image) { image.src = item.dataset.galleryImage ?? ''; image.alt = item.dataset.galleryAlt ?? ''; }
+  updateResponsiveModalImage(
+    image,
+    item.querySelector('img'),
+    item.dataset.galleryImage ?? '',
+    item.dataset.galleryAlt ?? '',
+    '100vw',
+  );
   if (!galleryModal.open) openDialog(galleryModal, opener ?? item);
 }
 
