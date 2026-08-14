@@ -175,6 +175,26 @@ function configureBackgroundParallax() {
   document.documentElement.style.setProperty('--bg-scroll-distance', `${-Math.min(desiredTravel, safeTravel).toFixed(2)}px`);
 }
 
+let mobileBackgroundTicking = false;
+function updateMobileBackgroundParallax() {
+  if (!slowBgCanvas) return;
+  if (desktopBreakpoint.matches) {
+    slowBgCanvas.style.removeProperty('transform');
+    mobileBackgroundTicking = false;
+    return;
+  }
+  const scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+  const progress = Math.min(1, Math.max(0, window.scrollY / scrollRange));
+  slowBgCanvas.style.transform = `translate3d(0, ${(-120 * progress).toFixed(3)}px, 0)`;
+  mobileBackgroundTicking = false;
+}
+
+function requestMobileBackgroundUpdate() {
+  if (mobileBackgroundTicking || desktopBreakpoint.matches || reducedMotion.matches) return;
+  mobileBackgroundTicking = true;
+  requestAnimationFrame(updateMobileBackgroundParallax);
+}
+
 if (slowBgCanvas && !CSS.supports('animation-timeline: scroll()') && !reducedMotion.matches) {
   let fallbackTicking = false;
   function directFallbackParallax() {
@@ -209,13 +229,14 @@ if (footer && 'IntersectionObserver' in window) {
   new IntersectionObserver(([entry]) => { footerVisible = entry.isIntersecting; updateSocialDock(); }, { threshold: 0.05 }).observe(footer);
 }
 
-window.addEventListener('scroll', () => { requestHeaderUpdate(); updateSocialDock(); }, { passive: true });
-window.addEventListener('resize', () => { updateHeader(); updateSocialDock(); configureBackgroundParallax(); }, { passive: true });
+window.addEventListener('scroll', () => { requestHeaderUpdate(); updateSocialDock(); requestMobileBackgroundUpdate(); }, { passive: true });
+window.addEventListener('resize', () => { updateHeader(); updateSocialDock(); configureBackgroundParallax(); updateMobileBackgroundParallax(); }, { passive: true });
 window.addEventListener('load', configureBackgroundParallax, { once: true });
 
 updateHeader();
 updateSocialDock();
 configureBackgroundParallax();
+updateMobileBackgroundParallax();
 
 const modalDialogs = [...document.querySelectorAll('dialog')];
 let modalReturnFocus = null;
@@ -272,6 +293,7 @@ const galleryModal = document.querySelector('[data-gallery-modal]');
 const galleryOpeners = [...document.querySelectorAll('[data-gallery-open]')];
 let galleryIndex = 0;
 let galleryPointerStart = null;
+let galleryTouchStart = null;
 let galleryIgnoreClickUntil = 0;
 
 function showGalleryItem(index, opener = null) {
@@ -284,22 +306,33 @@ function showGalleryItem(index, opener = null) {
 }
 
 galleryOpeners.forEach((button, index) => button.addEventListener('click', () => showGalleryItem(index, button)));
-galleryModal?.addEventListener('click', (event) => {
-  if (!(event.target instanceof Element)) return;
-  if (performance.now() < galleryIgnoreClickUntil) { event.preventDefault(); return; }
-  const previous = event.target.closest('[data-gallery-prev]');
-  const next = event.target.closest('[data-gallery-next]');
-  if (previous || next) {
-    event.preventDefault();
-    event.stopPropagation();
-    showGalleryItem(galleryIndex + (next ? 1 : -1));
-    return;
-  }
-  if (event.target.closest('[data-gallery-image],[data-modal-close]')) return;
-  closeDialog(galleryModal);
+galleryModal?.querySelector('[data-gallery-prev]')?.addEventListener('click', (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  showGalleryItem(galleryIndex - 1);
 });
+galleryModal?.querySelector('[data-gallery-next]')?.addEventListener('click', (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  showGalleryItem(galleryIndex + 1);
+});
+galleryModal?.querySelector('[data-gallery-backdrop]')?.addEventListener('click', () => closeDialog(galleryModal));
+galleryModal?.querySelector('[data-gallery-stage]')?.addEventListener('click', (event) => {
+  if (performance.now() < galleryIgnoreClickUntil) { event.preventDefault(); return; }
+  if (event.target === event.currentTarget) closeDialog(galleryModal);
+});
+
+function navigateGallerySwipe(startX, startY, endX, endY) {
+  const deltaX = endX - startX;
+  const deltaY = endY - startY;
+  if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return false;
+  galleryIgnoreClickUntil = performance.now() + 400;
+  showGalleryItem(galleryIndex + (deltaX < 0 ? 1 : -1));
+  return true;
+}
+
 galleryModal?.addEventListener('pointerdown', (event) => {
-  if (!event.isPrimary || !(event.target instanceof Element) || event.target.closest('button')) return;
+  if (event.pointerType === 'touch' || !event.isPrimary || !(event.target instanceof Element) || event.target.closest('button')) return;
   galleryPointerStart = { x: event.clientX, y: event.clientY, id: event.pointerId };
   galleryModal.setPointerCapture?.(event.pointerId);
 });
@@ -309,12 +342,22 @@ galleryModal?.addEventListener('pointerup', (event) => {
   const deltaY = event.clientY - galleryPointerStart.y;
   galleryPointerStart = null;
   if (galleryModal.hasPointerCapture?.(event.pointerId)) galleryModal.releasePointerCapture(event.pointerId);
-  if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
-  event.preventDefault();
-  galleryIgnoreClickUntil = performance.now() + 350;
-  showGalleryItem(galleryIndex + (deltaX < 0 ? 1 : -1));
+  if (navigateGallerySwipe(0, 0, deltaX, deltaY)) event.preventDefault();
 });
 galleryModal?.addEventListener('pointercancel', () => { galleryPointerStart = null; });
+galleryModal?.addEventListener('touchstart', (event) => {
+  if (event.touches.length !== 1 || !(event.target instanceof Element) || event.target.closest('button')) return;
+  const touch = event.touches[0];
+  galleryTouchStart = { x: touch.clientX, y: touch.clientY };
+}, { passive: true });
+galleryModal?.addEventListener('touchend', (event) => {
+  if (!galleryTouchStart || event.changedTouches.length !== 1) { galleryTouchStart = null; return; }
+  const touch = event.changedTouches[0];
+  const handled = navigateGallerySwipe(galleryTouchStart.x, galleryTouchStart.y, touch.clientX, touch.clientY);
+  galleryTouchStart = null;
+  if (handled) event.preventDefault();
+}, { passive: false });
+galleryModal?.addEventListener('touchcancel', () => { galleryTouchStart = null; }, { passive: true });
 galleryModal?.addEventListener('dragstart', (event) => event.preventDefault());
 galleryModal?.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft') { event.preventDefault(); showGalleryItem(galleryIndex - 1); }
