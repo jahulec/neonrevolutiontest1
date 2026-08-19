@@ -390,7 +390,7 @@ galleryModal?.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowRight') { event.preventDefault(); showGalleryItem(galleryIndex + 1); }
 });
 
-const consentStorageKey = 'neon-revolution-privacy-v1';
+const consentStorageKey = 'neon-revolution-privacy-v2';
 let privacyReturnFocus = null;
 
 function readConsent() {
@@ -401,16 +401,33 @@ function writeConsent(value) {
   try { localStorage.setItem(consentStorageKey, value); } catch { /* Storage may be blocked. */ }
 }
 
+function setGoogleConsent(analyticsGranted) {
+  if (!privacyConsent || privacyConsent.dataset.analyticsProvider !== 'googleTagManager') return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag() { window.dataLayer.push(arguments); };
+  window.gtag('consent', analyticsGranted === null ? 'default' : 'update', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: analyticsGranted === true ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    personalization_storage: 'denied',
+    security_storage: 'granted'
+  });
+}
+
 function enableAnalytics() {
   if (!privacyConsent || privacyConsent.dataset.analyticsEnabled !== 'true') return;
-  if (privacyConsent.dataset.analyticsLoaded === 'true') return;
   const provider = privacyConsent.dataset.analyticsProvider;
-  const token = privacyConsent.dataset.analyticsToken;
-  if (provider !== 'cloudflare' || !token) return;
+  const containerId = privacyConsent.dataset.analyticsContainerId;
+  if (provider !== 'googleTagManager' || !/^GTM-[A-Z0-9]+$/.test(containerId)) return;
+  setGoogleConsent(true);
+  if (privacyConsent.dataset.analyticsLoaded === 'true') return;
+  window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
   const script = document.createElement('script');
-  script.defer = true;
-  script.src = 'https://static.cloudflareinsights.com/beacon.min.js';
-  script.dataset.cfBeacon = JSON.stringify({ token });
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(containerId)}`;
+  script.addEventListener('error', () => { privacyConsent.dataset.analyticsLoaded = 'false'; }, { once: true });
   document.head.append(script);
   privacyConsent.dataset.analyticsLoaded = 'true';
 }
@@ -428,6 +445,7 @@ function setPrivacyPanel(open, opener = null) {
 }
 
 if (privacyConsent) {
+  setGoogleConsent(null);
   const storedConsent = readConsent();
   const globalPrivacyControl = navigator.globalPrivacyControl === true;
   if (globalPrivacyControl && storedConsent === 'analytics') writeConsent('necessary');
@@ -444,6 +462,7 @@ if (privacyConsent) {
       const mustReload = choice === 'necessary' && privacyConsent.dataset.analyticsLoaded === 'true';
       writeConsent(choice);
       if (choice === 'analytics') enableAnalytics();
+      else setGoogleConsent(false);
       setPrivacyPanel(false);
       if (mustReload) window.location.reload();
       return;
@@ -454,3 +473,15 @@ if (privacyConsent) {
     if (event.key === 'Escape' && !privacyConsent.hidden) setPrivacyPanel(false);
   });
 }
+
+document.addEventListener('click', (event) => {
+  const tracked = event.target.closest('[data-track]');
+  if (!tracked || readConsent() !== 'analytics' || privacyConsent?.dataset.analyticsLoaded !== 'true') return;
+  const eventName = tracked.dataset.track;
+  if (!/^[a-z][a-z0-9_]{1,39}$/.test(eventName) || typeof window.gtag !== 'function') return;
+  window.gtag('event', eventName, {
+    content_name: tracked.dataset.trackLabel || tracked.textContent.trim().slice(0, 100),
+    link_url: tracked.href || undefined,
+    transport_type: 'beacon'
+  });
+});

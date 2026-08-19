@@ -739,6 +739,48 @@ content:
             label: Rider i materiały Press zatwierdzone
             type: boolean
             default: false
+      - name: analytics
+        label: Analityka Google
+        type: object
+        required: true
+        description: "Publiczne identyfikatory GA4 i GTM. Analityka działa w podstawowym trybie zgody — tag Google nie jest pobierany przed akceptacją użytkownika."
+        fields:
+          - name: provider
+            label: Dostawca
+            type: select
+            required: true
+            options:
+              values:
+                - name: googleTagManager
+                  label: Google Tag Manager + GA4
+          - name: containerId
+            label: Identyfikator kontenera GTM
+            type: string
+            required: true
+            pattern:
+              regex: '^GTM-[A-Z0-9]+$'
+              message: "Wpisz identyfikator w formacie GTM-XXXXXXXX."
+          - name: measurementId
+            label: Identyfikator pomiaru GA4
+            type: string
+            required: true
+            pattern:
+              regex: '^G-[A-Z0-9]+$'
+              message: "Wpisz identyfikator w formacie G-XXXXXXXXXX."
+          - name: consentMode
+            label: Tryb zgody Google
+            type: select
+            required: true
+            options:
+              values:
+                - name: basic
+                  label: Podstawowy — zero transmisji przed zgodą
+          - name: consentRequired
+            label: Zgoda wymagana przed uruchomieniem analityki
+            type: boolean
+            required: true
+            default: true
+            description: "To pole powinno pozostać włączone."
       - name: verification
         label: Weryfikacja wyszukiwarek
         type: object

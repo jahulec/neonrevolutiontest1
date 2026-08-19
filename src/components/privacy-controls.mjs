@@ -1,9 +1,11 @@
 import { escapeHtml } from '../lib/html.mjs';
 
 export function renderPrivacyControls({ site, locale }) {
-  const token = site.analytics?.token ?? '';
-  const enabled = Boolean(token);
-  return `<aside class="privacy-consent" data-privacy-consent data-analytics-enabled="${enabled}" data-analytics-provider="${escapeHtml(site.analytics?.provider ?? '')}" data-analytics-token="${escapeHtml(token)}" aria-labelledby="privacy-consent-title" hidden>
+  const provider = site.analytics?.provider ?? '';
+  const containerId = site.analytics?.containerId ?? '';
+  const measurementId = site.analytics?.measurementId ?? '';
+  const enabled = provider === 'googleTagManager' && /^GTM-[A-Z0-9]+$/.test(containerId);
+  return `<aside class="privacy-consent" data-privacy-consent data-analytics-enabled="${enabled}" data-analytics-provider="${escapeHtml(provider)}" data-analytics-container-id="${escapeHtml(containerId)}" data-analytics-measurement-id="${escapeHtml(measurementId)}" data-consent-mode="${escapeHtml(site.analytics?.consentMode ?? 'basic')}" aria-labelledby="privacy-consent-title" hidden>
     <div class="privacy-consent__panel">
       <button class="privacy-consent__close" type="button" data-privacy-close aria-label="${escapeHtml(locale.close)}">×</button>
       <h2 id="privacy-consent-title">${escapeHtml(locale.consent.title)}</h2>

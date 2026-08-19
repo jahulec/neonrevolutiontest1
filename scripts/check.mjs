@@ -56,6 +56,9 @@ for (const page of pages) {
     ['default alternate', /rel="alternate" hreflang="x-default"/]
   ];
   required.push(['privacy controls', /data-privacy-consent/]);
+  required.push(['GTM container configuration', /data-analytics-container-id="GTM-[A-Z0-9]+"/]);
+  required.push(['GA4 measurement configuration', /data-analytics-measurement-id="G-[A-Z0-9]+"/]);
+  required.push(['basic consent mode', /data-consent-mode="basic"/]);
   required.push(['canonical URL', /<link rel="canonical" href="https:\/\/[^\"]+">/]);
   required.push(['content security policy', /<meta http-equiv="Content-Security-Policy"/]);
   if (page.route.id !== 'notFound') required.push(['structured data', /<script type="application\/ld\+json">/]);
@@ -84,6 +87,7 @@ for (const page of pages) {
   if (page.route.id === 'contact' && (html.match(/class="contact-method"/g) ?? []).length !== 3) errors.push(`${page.file}: contact method count mismatch`);
   if (page.route.id === 'privacy' && !/class="[^"]*\bprivacy-page\b/.test(html)) errors.push(`${page.file}: privacy content missing`);
   if (/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html)) errors.push(`${page.file}: external font request found`);
+  if (/<script[^>]+src="https:\/\/www\.googletagmanager\.com/.test(html)) errors.push(`${page.file}: GTM must not load before consent`);
 
   for (const match of html.matchAll(/\b(?:href|src)="(\/(?!\/)[^"#?]*)/g)) {
     if (basePath && match[1] !== basePath && !match[1].startsWith(`${basePath}/`)) {

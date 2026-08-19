@@ -17,7 +17,11 @@ export function renderHead({ site, routes, locale, lang, routeId, preloadHero = 
   const schemaJson = structuredData ? jsonLd(structuredData) : '';
   const schemaHash = schemaJson ? createHash('sha256').update(schemaJson).digest('base64') : '';
   const heroBackground = site.visuals?.heroBackground ?? '/assets/hero-band.webp';
-  const csp = `default-src 'self'; img-src 'self' data:; style-src 'self'; style-src-elem 'self'; style-src-attr 'unsafe-inline'; font-src 'self' data:; script-src 'self' https://static.cloudflareinsights.com${schemaHash ? ` 'sha256-${schemaHash}'` : ''}; connect-src 'self' https://cloudflareinsights.com; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
+  const googleAnalyticsEnabled = site.analytics?.provider === 'googleTagManager' && /^GTM-[A-Z0-9]+$/.test(site.analytics?.containerId ?? '');
+  const analyticsScriptSources = googleAnalyticsEnabled ? ' https://www.googletagmanager.com' : '';
+  const analyticsImageSources = googleAnalyticsEnabled ? ' https://*.google-analytics.com https://www.googletagmanager.com' : '';
+  const analyticsConnectSources = googleAnalyticsEnabled ? ' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com' : '';
+  const csp = `default-src 'self'; img-src 'self' data:${analyticsImageSources}; style-src 'self'; style-src-elem 'self'; style-src-attr 'unsafe-inline'; font-src 'self' data:; script-src 'self'${analyticsScriptSources}${schemaHash ? ` 'sha256-${schemaHash}'` : ''}; connect-src 'self'${analyticsConnectSources}; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
 
   return `
   <meta charset="utf-8">

@@ -79,6 +79,10 @@ for (const item of datasets.gallery[1]) {
 if (site.legal?.status === 'real' && (!site.legal.controller || /przykładow/i.test(site.legal.controller) || !site.legal.address)) {
   errors.push('Prywatność: przed zatwierdzeniem dokumentu uzupełnij prawdziwego administratora i adres.');
 }
+if (site.analytics?.provider !== 'googleTagManager') errors.push('Analityka: provider musi mieć wartość googleTagManager.');
+if (!/^GTM-[A-Z0-9]+$/.test(site.analytics?.containerId ?? '')) errors.push('Analityka: nieprawidłowy identyfikator kontenera GTM.');
+if (!/^G-[A-Z0-9]+$/.test(site.analytics?.measurementId ?? '')) errors.push('Analityka: nieprawidłowy identyfikator pomiaru GA4.');
+if (site.analytics?.consentMode !== 'basic' || site.analytics?.consentRequired !== true) errors.push('Analityka: podstawowy tryb zgody musi pozostać włączony.');
 if (site.finalApprovals?.releaseInfo && datasets.releases[1].some((release) => !release.date)) {
   errors.push('Zatwierdzenia: nie wszystkie wydawnictwa mają dokładną datę premiery.');
 }

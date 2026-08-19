@@ -41,7 +41,7 @@
     "controller": "Neon Revolution — dane przykładowe",
     "address": "",
     "privacyEmail": "neon.revolution2022@gmail.com",
-    "lastUpdated": "2026-08-13"
+    "lastUpdated": "2026-08-19"
   },
   "finalApprovals": {
     "biography": false,
@@ -53,12 +53,14 @@
     "pressMaterials": false
   },
   "analytics": {
-    "provider": "cloudflare",
-    "token": null,
+    "provider": "googleTagManager",
+    "containerId": "GTM-TR5NJPQ9",
+    "measurementId": "G-JZN1WYC2KC",
+    "consentMode": "basic",
     "consentRequired": true
   },
   "verification": {
-    "google": "",
+    "google": "oXuuU5WB101q0dY6VzEYCoybyXVWtidh7fU3Gs2xW0M",
     "bing": ""
   }
 }

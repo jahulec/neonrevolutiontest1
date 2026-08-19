@@ -2,7 +2,7 @@
 
 ## Stan obecny
 
-Strona jest przygotowana pod Cloudflare Web Analytics, ale analityka pozostaje wyłączona do czasu wpisania prawdziwego tokenu w `src/data/site.json`. Po konfiguracji skrypt może zostać załadowany dopiero po wyborze „Akceptuję analitykę”. Odmowa nie ogranicza działania strony, a wybór można zmienić w footerze.
+Strona korzysta z Google Analytics 4 przez Google Tag Manager. Publiczne identyfikatory znajdują się w `src/data/site.json` i są dostępne w CMS. Kontener działa w podstawowym Consent Mode v2: przed wyborem „Akceptuję analitykę” skrypt GTM nie jest pobierany i żadne dane nie są wysyłane do Google. Odmowa nie ogranicza działania strony, a wybór można zmienić w footerze.
 
 Interaktywne elementy mają przygotowane oznaczenia zdarzeń:
 
@@ -11,7 +11,7 @@ Interaktywne elementy mają przygotowane oznaczenia zdarzeń:
 - `press_download` — pobrania materiałów prasowych,
 - `contact_click` — e-mail, telefon i Messenger.
 
-Cloudflare Web Analytics służy do podstawowego ruchu i Core Web Vitals, ale obecnie nie obsługuje własnych zdarzeń ani parametrów UTM. Oznaczenia w HTML są więc gotowe na późniejsze podłączenie narzędzia obsługującego konwersje, jeśli zespół rzeczywiście będzie tego potrzebował.
+GA4 mierzy podstawowy ruch i zaangażowanie, a pomiar zaawansowany obejmuje m.in. przewinięcia, kliknięcia wychodzące oraz interakcje z osadzonymi materiałami. Dalsze zdarzenia można dodawać w GTM bez zmiany kodu strony, ale każde nowe narzędzie lub cel pomiarowy trzeba uwzględnić w informacji o prywatności i konfiguracji zgód.
 
 ## Raport miesięczny
 
@@ -27,6 +27,6 @@ Podstawowy raport powinien obejmować:
 ## Zasady
 
 - nie uruchamiać narzędzi marketingowych bez aktualizacji informacji o prywatności i mechanizmu zgód,
-- nie dodawać Meta Pixel ani GA4 „na zapas”,
+- nie dodawać Meta Pixel ani kolejnych narzędzi marketingowych „na zapas”,
 - nie przekazywać danych osobowych w nazwach zdarzeń, adresach URL ani parametrach,
 - po każdej zmianie dostawcy wykonać ponowny audyt cookies, localStorage, requestów zewnętrznych i CSP.

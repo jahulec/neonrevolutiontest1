@@ -59,7 +59,7 @@ Plik `wrangler.jsonc` wskazuje ten sam katalog wyjściowy. Nagłówki bezpiecze�
 
 Przy podpinaniu domeny zmień `siteUrl` w `src/data/site.json` z obecnego adresu GitHub Pages na adres docelowy. Generator zaktualizuje canonicale, absolutne `hreflang`, mapy witryny, robots, dane strukturalne i karty social.
 
-Opcjonalna analityka jest bezpiecznie wyłączona, dopóki w `site.analytics.token` nie zostanie podany prawdziwy token Cloudflare Web Analytics. Po jego uzupełnieniu skrypt uruchomi analitykę dopiero po zgodzie użytkownika. Ustawienia prywatności są zawsze dostępne w footerze.
+Opcjonalna analityka korzysta z Google Analytics 4 (`G-JZN1WYC2KC`) przez Google Tag Manager (`GTM-TR5NJPQ9`). Zastosowany jest podstawowy Consent Mode v2: kontener GTM nie jest pobierany i żadne dane nie są wysyłane do Google przed zgodą użytkownika. Ustawienia prywatności są zawsze dostępne w footerze, a publiczne identyfikatory można edytować w CMS w sekcji „Wygląd, kontakt i profile” → „Analityka Google”.
 
 ## Dokumentacja
 
